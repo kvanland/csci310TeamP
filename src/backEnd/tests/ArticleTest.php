@@ -23,4 +23,8 @@ class ArticleTest extends TestCase
     	$this->assertEquals($this->article->conferences[0], "conference1");
     }
 
+    public function testName(){
+        $this->assertEquals($this->article->name, "name");
+    }
+
 }
