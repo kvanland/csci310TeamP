@@ -2,85 +2,49 @@
 /***************************************************************
                       Word Cloud Model
 ***************************************************************/
-var autoCompleteList; //JSON object array
 var wordCloudData; //JSON object array
-var lyrics; //String
-var songList; //JSON object array
+var articleText; //String
+var articleList; //JSON object array
 
-function setAutoCompleteList(autoCompleteListData){ //void
-	//autoCompleteListData: JSON object array
-	autoCompleteList = autoCompleteListData;
-}
 
 function setWordCloudData(data){ //void
 	//wordCloudData: Map<String, int>
 	wordCloudData = data;
 }
 
-function setLyrics(lyricsData){ //void
-	//lyrics: string
-	lyrics = lyricsData;
+function setArticleText(text){ //void
+	//text: string
+	articleText = text;
 }
 
-function setSongList(songListData){ //void
-	//songList: JSON object array
-	songList = songListData;
+function setArticleList(list){ //void
+	//list: JSON object array
+	articleList = list;
 }
 
-function getSongList(){ //JSON object array
-	return songList;
+function getArticleList(){ //JSON object array
+	return articleList;
 }
 
 function getWordCloudData(){ //Map<String, int>
 	return wordCloudData;
 }
 
-function getLyrics(){ //String
-	return Lyrics;
+function getArticleText(){ //String
+	return articleText;
 }
 
-function getAutoCompleteList(){ //JSON object array
-	return autoCompleteList;
-}
 
-function autoQueryList(query, callback) { //JSON object array
-  callback(requestAutoCompleteList(query));
-}
 
 /***************************************************************
                      Data Requester
 ***************************************************************/
 
-function requestAutoCompleteList(search){ //JSON object array
-	var r;
-	var artist = search;
-	var search = "http://localhost/backend/getSuggestions.php?artist=" + artist;
 
-	  $.ajax({
-        url: search,
-        success: function (result) {
- 
-            r = JSON.parse(result);
-        },
-        async: false
-    });
-
-
-  return r;
-	/*
-		 TODO
-		use AJAX to request autocompleteList raw data
-		parse string into json object array
-		return array
-	*/
-
-}
-
-
-
-function requestLyrics(songTitle, artist){ //String
-	//songTitle: string, artist: string
+function requestArticleText(articleTitle, author, journal){ //String
+	//articleTitle: string, author: string, journal: string
 	
+	/*
 	var r;
 	var search = "http://localhost:8081/api/find/" + artist + "/" + songTitle;
 
@@ -95,17 +59,16 @@ function requestLyrics(songTitle, artist){ //String
 	 	async: false
 	 });
 	 return r; 
+	 */
 
 
 }
 
-function requestWordCloudData(){ //Map<String, int>
-	//artistList: JSON object array
+function requestWordCloudData(type, searchTerm){ //Map<String, int>
+	//type: int (0 for keyword, 1 for last name)
+	// searchTerm: String
 
-	var artists = artistList[0];
-	for(var i = 1; i < artistList.length; i++) {
-		artists += "," + artistList[i]
-	}
+	/*
 	var search = "http://localhost/backend/getWordCloud.php?artists=" + artists;
 	$.ajax({
 	 	url: search,
@@ -115,15 +78,14 @@ function requestWordCloudData(){ //Map<String, int>
 	 	async : false
 	 });
 	 return r;
+	 */
 	
 }
 
-function requestSongList(word, artist){ //JSON object array
+function requestArticleList(word){ //JSON object array
+	/*
 	var r;
-	var artists = artistList[0];
-	for(var i = 1; i < artistList.length; i++) {
-		artists += "," + artistList[i]
-	}
+	
 	var search = "http://localhost/backend/getSongs.php?word=" + word + "&artist=" + artist;
 	$.ajax({
 	 	url: search,
@@ -133,42 +95,32 @@ function requestSongList(word, artist){ //JSON object array
 	 	async : false
 	 });
 	 return r;
-
+	*/
 }
 
 /***************************************************************
                       Word Cloud View Model
 ***************************************************************/
 var currentWord; //String
-var currentSong; //JSON object
-var artistList = new Array(); //JSON object array
+var currentArticle; //JSON object
 
-function clearArtistList(){ //void 
-	artistList = new Array();
-}
-
-function addToArtistList(artist){ //void 
-	//artist: string
-	artistList.push(artist);
-}
 
 function setCurrentWord(word){ //void
 	//word: string
 	currentWord = word;
 }
 
-function setCurrentSong(song){ //void
+function setCurrentArticle(article){ //void
 	//song: JSON Object
-	currentSong = song;
+	currentArticle = article;
 }
 
 function clearView(){ //void 
 	//Set screen to initial state
 	setInvisible("WordCloud");
-	setInvisible("Lyrics");
-	setInvisible("SongList");
+	setInvisible("ArticlePage");
+	setInvisible("ArticleList");
 	setInvisible("back");
-	clearArtistList();
 	shiftInputsCenter();
 	showSearch();
 	setPage(0);
@@ -187,60 +139,56 @@ function hideWordCloudPage(){ //void
 	setHeight("wCCanvas", "0");
 }
 
-function showLyricPage(){ //void
+function showArticlePage(){ //void
 	setPage(3);
-	setVisible("Lyrics");
+	setVisible("ArticlePage");
 }
 
-function hideLyricPage(){ //void
-	setInvisible("Lyrics");
-	document.getElementById("Lyrics").innerHTML = "";
+function hideArticlePage(){ //void
+	setInvisible("ArticlePage");
 }
 
-function showSongListPage(){ //void
+function showArticleListPage(){ //void
 	setPage(2);
-	setVisible("SongList");
-	populateSongList(getSongList());
+	setVisible("ArticleList");
+	populateArticleList(getArticleList());
 }
 
-function hideSongListPage(){ //void
-	setInvisible("SongList");
-	clearSongList();
+function hideArticleListPage(){ //void
+	setInvisible("ArticleList");
+	clearArticleList();
 }
 
 /***************************************************************
-                      Lyrics
+                      ArticlePage
 ***************************************************************/
-var lyricsCanvas = document.getElementById("lyricsCanvas");
+var articleCanvas = document.getElementById("articleCanvas");
 
-function populateLyrics(lyrics, artist, word){ //void
+function populateArticlePage(articleText, author, word){ //void
 
-	/*
-		TODO
-		use lyrics from model
-		format page
-	*/
 
-	
+
+	/*	
 	var lyric = String(lyrics);
 	var inner = lyrics.replace(new RegExp(" " +word + " ", "g"), '<span style="color:yellow"> ' + word + ' </span>');
 	inner = inner.replace(new RegExp(" " +word + ",", "g"), '<span style="color:yellow"> ' + word + ',</span>');
 	inner = currentSong + "<br> <br>" + inner;
      var theDiv = document.getElementById("Lyrics");
 	theDiv.innerHTML = inner; 
+	*/
 }
 
-function clearLyrics(){ //void
-	lyrics = '';
+function clearArticlePage(){ //void
+
 }
 
 /***************************************************************
                       Song List
 ***************************************************************/
 
-function populateSongList(songData){ //void
-	clearSongList();
-	
+function populateArticleList(songData){ //void
+	clearArticleList();
+		/*
 		var columns = ['Song', 'Artist', 'Frequency'];
 		var table = d3.select('#SongList').append('table');
 		var thead = table.append('thead');
@@ -274,16 +222,17 @@ function populateSongList(songData){ //void
 	  		.enter()
 	  		.append('td')
 	    	.text(function (d) { return d.value; });
-
+		*/
 
 }
 
-function clearSongList(){ //void
-	d3.select("#SongList").selectAll("*").remove();
+function clearArticleList(){ //void
+	d3.select("#ArticleList").selectAll("*").remove();
 }
 
-function songClickAction(name, artist){ //void
-	// Function requests song lyrics, then displays the lyrics
+function articleClickAction(title, author, journal){ //void
+	// Function requests article page data, then displays the page
+	/*
 	var lyricData = requestLyrics(name, artist);
 	setCurrentSong(name);
 	setLyrics(lyricData);
@@ -292,6 +241,7 @@ function songClickAction(name, artist){ //void
 	hideSongListPage();
 	showLyricPage();
 	setPage(3);
+	*/
 }
 
 /***************************************************************
@@ -367,7 +317,7 @@ var wCCanvas = document.getElementById("wCCanvas");
 function colorToggle() {
 	/*
 		TODO
-		update color on wordcloud
+		make so doesn't re-request data from the backend
 	*/
   populateWordCloud();
   
@@ -411,118 +361,47 @@ function clearWordCloud(){ //void
 function wordClickAction(word){ //void
 	//word: string
 
-	/*
-		TODO
-		use model data
-	*/
 
 	setCurrentWord(word);
-	var songList = requestSongList(currentWord, artistList[0]);
-	for(var i = 1; i < artistList.length; i++) {
-
-		songList = songList.concat(requestSongList(currentWord, artistList[i]))
-
-	}
-	setSongList(songList);
-	songList.sort(function(a, b) {
-    	return parseFloat(b.Frequency) - parseFloat(a.Frequency);
-	});
+	var articleList = requestArticleList(currentWord);
+	setArticleList(articleList);
 	hideWordCloudPage();
 	hideSearch();
-	showSongListPage();
+	showArticleListPage();
 }
 
 /***************************************************************
                       Search
 ***************************************************************/
-var searchButton = document.getElementById("searchButton");
+var searchKeywordButton = document.getElementById("searchKeywordButton");
+var searchAuthorButton = document.getElementById("searchAuthorButton");
 var searchBar = document.getElementById("searchBar");
-var shareButton = document.getElementById("shareButton");
-var mergeButton = document.getElementById("mergeButton");
 var searchContainer = document.getElementById("Search");
 
 
-//jQuery function to set up the auto complete functionality for the search bar
-$("#searchBar").autocomplete({
-    minLength: 3, //Sets the minimum search length before autocomplete begins
-    source: function(request, callback) { //Obtains an up to date autocomplete list
-      var searchParam = request.term;
-      autoQueryList(searchParam, callback)
-    },
-    focus: function (event, ui) {
-    	$("#searchBar").val(ui.item.label);
-    	document.getElementById("searchButton").disabled = false;
-    	return false;
-    }
-  });
 
-//Setting the types of data for the auto complete function
-$("#searchBar").data("ui-autocomplete")._renderItem = function(ul, item){
-    var $li = $('<li>'),
-      $img = $('<img>');
-
-      //Displays the artist image
-      $img.attr({
-        src: item.icon,
-        alt: item.value
-      });
-      $img.css("width", "32px");
-      $img.css("height", "32px");
-
-
-      //Displays the artist name
-      $li.attr('data-value', item.label);
-      $li.append('<a href="#">');
-      $li.find('a').append($img).append(item.label);    
-
-      return $li.appendTo(ul);
-
-  }
- 
-
-function userTypes() {
-	/*
-		TODO 
-		update autolistevery time user types
-	*/
-	searchButton.disabled = true;
-  var searchString = d3.select("#searchBar").value;
-
-}
-
-function showAutoComplete(search){ //void
-//TODO get rid of this function it serves no purpose
-}
-
-function hideAutoComplete(){ //void
-	setInvisible("autoList");
-}
-
-function searchAction(){ //void
+function searchByKeywordAction(){ //void
 
 	/*
 		TODO
 		add selected artist to artistList
 		handle bad input
 	*/
+	/*
 
 	shiftInputsDown();
 	setVisible("back");
 	setPage(1);
-	clearArtistList();
-	addToArtistList(searchBar.value);
 	wordCloudData = requestWordCloudData();
 	populateWordCloud();
 	showWordCloudPage();
+	*/
 
 }
 
-function shareAction(){ //void
-	//facebook API
-}
+function searchByAuthorAction(){ //void
 
-function mergeAction(){ //void
-
+	/*
 	shiftInputsDown();
 	setVisible("back");
 	setPage(1);
