@@ -159,6 +159,15 @@ function hideArticleListPage(){ //void
 	clearArticleList();
 }
 
+function hideStatusBar() {
+	statusBar.style.display = "none";
+}
+function showStatusBar() {
+	statusBar.style.display = "block";
+}
+
+
+
 /***************************************************************
                       ArticlePage
 ***************************************************************/
@@ -308,6 +317,18 @@ function backAction(){
 		showSongListPage();
 	}
 }
+
+
+/***************************************************************
+                      Status Bar
+***************************************************************/
+var statusBar = document.getElementById("status");
+function updateStatus(percent) {
+	var w = "" + percent + "%"
+	document.getElementById("innerBar").style.width = w;
+
+}
+
 
 /***************************************************************
                       WordCloud
