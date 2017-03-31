@@ -68,18 +68,40 @@ function requestWordCloudData(type, searchTerm){ //Map<String, int>
 	//type: int (0 for keyword, 1 for last name)
 	// searchTerm: String
 
-	/*
-	var search = "http://localhost/backend/getWordCloud.php?artists=" + artists;
+	var search = "http://localhost/backend/getWordCloud.php?term=" + searchTerm; // might change
+        var wc_status = "http://localhost/backend/getStatus.php";
+        var search_result;
 	$.ajax({
 	 	url: search,
 	 	success: function (result) {
-	 		r = JSON.parse(result);
+	 		search_result = JSON.parse(result);
 	 	},
 	 	async : false
 	 });
-	 return r;
-	 */
-	
+         if (search_result["result"] === "No Results") {
+             alert("No articles found!");
+         } else {
+             var wc_complete = false;
+             var progress_result;
+             while (!wc_complete) {
+                 $.ajax({
+                     url: wc_status,
+                     success: function (result) {
+                         progress_result = JSON.parse(result);
+                     },
+                     async : false
+                 });
+                 if (progress_result["status"] != 100) {
+                     updateStatus(progress_result["status"]);
+                 } else {
+                     hideStatusBar();
+                     wc_complete = true;
+                 }
+             }
+             setWordCloudData(progress_result["wordcloud"]);
+             populateWordCloud();
+             showWordCloudPage();
+         }
 }
 
 function requestArticleList(word){ //JSON object array
@@ -335,15 +357,6 @@ function updateStatus(percent) {
 ***************************************************************/
 var wCCanvas = document.getElementById("wCCanvas");
 
-function colorToggle() {
-	/*
-		TODO
-		make so doesn't re-request data from the backend
-	*/
-  populateWordCloud();
-  
-        
-}
 function populateWordCloud(){ //void
 	clearWordCloud(); // reset canvas
 	var words = wordCloudData;
@@ -402,42 +415,17 @@ var searchContainer = document.getElementById("Search");
 
 
 function searchByKeywordAction(){ //void
-
-	/*
-		TODO
-		add selected artist to artistList
-		handle bad input
-	*/
-	/*
-
 	shiftInputsDown();
 	setVisible("back");
 	setPage(1);
-	wordCloudData = requestWordCloudData();
-	populateWordCloud();
-	showWordCloudPage();
-	*/
-
+	requestWordCloudData(0, searchBar.value);
 }
 
 function searchByAuthorAction(){ //void
-
-	/*
 	shiftInputsDown();
 	setVisible("back");
 	setPage(1);
-	if($.inArray(searchBar.value, artistList) > -1)
-		return;
-	addToArtistList(searchBar.value);
-	wordCloudData = requestWordCloudData();
-	populateWordCloud();
-	showWordCloudPage();
-	/*
-		TODO
-		add selected artist to artistList
-		update WC to add artist
-		handle bad input
-	*/
+	requestWordCloudData(1, searchBar.value);
 }
 
 function hideSearch(){ //void 
