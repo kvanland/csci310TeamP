@@ -52,7 +52,6 @@ class WordCloud
                 $total++;
             }
         }
-        print_r($this->articleList);
         if(empty($this->articleList))
             return "fail";
         return "success";
@@ -151,6 +150,8 @@ class WordCloud
 
        }
        $this->articlesRead++;
+       if($this->articlesRead == sizeof($this->articleList))
+           return $this->getWordCloudData();
        $json = array("status"=>((double)($this->articlesRead)/sizeof($this->articleList))*100, "wordCloud"=>"");
        return json_encode($json);
     }
@@ -201,7 +202,7 @@ class WordCloud
 
     public function getWordCloudData(){
         arsort($this->wcData);
-        $json = array("status"=>-1,"wordCloud"=>$this->wcData);
+        $json = array("status"=>100,"wordCloud"=>$this->wcData);
         return json_encode($json);
     }
 
