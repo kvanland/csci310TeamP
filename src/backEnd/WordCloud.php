@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: peterzolintakis
- * Date: 3/29/17
- * Time: 8:11 PM
- */
+
 include "Constants.php";
 include "Article.php";
 
@@ -36,7 +31,9 @@ class WordCloud
             $i++;
         }
 
-        print_r($this->articleList);
+        if(empty($this->articleList))
+            return "fail";
+        return "success";
     }
 
     private function getArticleListIEEE($searchWord, $type, $articleCount)
