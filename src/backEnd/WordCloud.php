@@ -139,9 +139,6 @@ class WordCloud
 
     public function parseNextArticle()
     {
-       if($this->articlesRead >= sizeof($this->articleList)) {
-           return $this->getWordCloudData();
-       }
        if($this->articleList[$this->articlesRead]->database == Constants::ACM) {
            $this->parseArticleACM();
        }
@@ -178,12 +175,16 @@ class WordCloud
         $url = $info["url"];
         $url = $url."&preflayout=flat";
         $html = file_get_html($url);
-        try {
+
+        ;
+
+        if(empty($html))
+            return;
+
+        $abstractNotAvailable = empty($html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0));
+        if (!$abstractNotAvailable){
             $abstract = $html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0)->innertext();
             $this->documentToWordCloudData($abstract);
-        }
-        catch(Exception $e){
-            echo "Error Message: ".$e->getMessage();
         }
 
     }
