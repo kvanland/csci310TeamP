@@ -1,44 +1,25 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 
-<title> Cumulyrics </title>
+<title> Project Stratus </title>
 </head>
 
 <body>
 
-  <script>
-      window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '1763484507313644',
-        xfbml      : true,
-        version    : 'v2.8'
-      });
-      FB.AppEvents.logPageView();
-      };
-
-      (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=1763484507313644";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-
-
-  </script>
-
+  
   <link rel = "stylesheet" href = "frontEnd/styles.css">
   <div id = "titlebar">
     <h1 id = "change"> 
       <button id = "back" onclick = backAction()> Back </button> 
-      Cumulyrics
-      <button id = "home" onclick = homeAction()> <i class=material-icons "md-48">home</i> </button> 
+      Project Stratus
+      <button id = "home" onclick = homeAction()> <i class=material-icons "md-48">home</i></button> 
     </h1>
 
   </div>
@@ -47,43 +28,41 @@
     <svg id = "wCCanvas" width = "100%" height = "0">
       
     </svg>
-    <form id = "colorButtons" onchange = colorToggle()>
-      <input type = "radio"  name = "Color" id="blackAndWhite" value = "Black and White"> Black and White </input> 
-      <input type = "radio" name = "Color" id = "color" value = "Colorful" checked> Colorful </input>
-    </form>
 
   </div>
 
 
-  <div id = "SongList" >
+  <div id = "ArticleList" >
 
   </div>
 
 
-  <div id = "Lyrics">
-    <svg id = "lyricsCanvas" width = "100%" height = "0">
+  <div id = "ArticlePage">
+    <svg id = "articleCanvas" width = "100%" height = "0">
     </svg>
   </div>
 
-
+ <div class="w3-light-grey w3-round-xlarge" id = "status" >
+    <div class="w3-container w3-blue w3-round-xlarge" id = "innerBar" style="width:25%">loading</div>
+  </div>
+</div>
   
   <div id = "Search">
-    <input id = "searchBar" type = "text" list="autoList" onchange= userTypes()></input>
+    <input id = "searchBar" type = "text" ></input>
     <br></br>
-    <button id = "searchButton" disabled = true class = "purpleButton" onclick = searchAction()> Search </button>
-    <button id = "shareButton"> Share to Facebook</button>
-    <button id = "mergeButton" onclick = mergeAction() class = "purpleButton"> Add to Cloud </button>
+    <button id = "searchKeywordButton" class = "purpleButton" onclick = searchByKeywordAction()> Search by Keyword </button>
+    <button id = "searchAuthorButton" onclick = searchByAuthorAction() class = "purpleButton"> Search by Author </button>
+    <br></br>
+    <div id = "numArticlesDiv">
+      <label for = "articleInput" id = "articleLabel"> Enter number of articles to be used. </label>
+      <input type = "number" id = "articleInput" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" value = "5"/> 
+    </div>
   </div>
-  <div id="hiddenDiv"  >
- <canvas id="hiddenCanvas"></canvas>
- <a id="hiddenPng" />
- <img id="pngCanvas">
-</div>
+  
 
   <script src= "frontEnd/lib/d3/d3.js" charset="utf-8"></script>
   <script src= "frontEnd/lib/d3/d3.layout.cloud.js"></script>
   <script src= "frontEnd/d3.wordcloud.js"></script>
-  <script src = "base64-binary.js"></script>
   <script src= "frontEnd/example.words.js"></script>
   <script src= "https://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src= "https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
@@ -93,144 +72,6 @@
   <script type="text/javascript" src="http://canvg.github.io/canvg/canvg.js"></script>
 
 
-
-
-  <script>
-var scopes;
-document.getElementById('shareButton').onclick = function() {
- FB.login(function(response) {
-  if (response.authResponse) {
-    var access_token =   FB.getAuthResponse()['accessToken'];
-    scopes = FB.getAuthResponse()['grantedScopes'];
-    console.log(access_token);
-    token = access_token;
-    postToFB(access_token);
-    FB.api('/me', function(response) {
-    console.log('Good to see you, ' + response.name + '.');
-    });
-  } else {
-    console.log('User cancelled login or did not fully authorize.');
-  }
-}, {scope : 'publish_actions,user_photos,public_profile', return_scopes: true });
-}
-
-
-function postToFB(token){
-  /*
- var svgDiv = $("#wCCanvas");
-var svg = svgDiv[0].outerHTML;
-var canvas = document.getElementById('hiddenCanvas');
-canvg(canvas, svg);
-  var theImage = canvas.toDataURL('image/png');
-  $("#hiddenPng").attr('href', theImage);
-  $("#hiddenPng").click()
-  console.log(document.getElementById("hiddenPng").getAttribute("href"));
-  document.getElementById("pngCanvas").src = theImage;
- var dataURL = canvas.toDataURL('image/jpeg', 1.0)
- var encodedPng = dataURL.substring(dataURL.indexOf(',')+1,dataURL.length);
- var decodedPng = Base64Binary.decode(encodedPng);
- */
-    FB.ui({
-    method: 'share',
-    href: 'https://studentmodules.wiki.dublinschools.net/file/view/wordcloud1.jpg/362948420/623x319/wordcloud1.jpg',
-    caption: 'Cumulyrics',
-    }, function(response){});
-  
- /*
- FB.ui({
-    method: 'permissions.request',
-    'perms': 'publish_actions'
- });
-
- PostImageToFacebook( token, 'img.png', 'image/png', decodedPng, 'js upload' );
- */
-}
-/*
- FB.ui({
-   method: 'feed',
-   link: theImage,
-   caption: 'test photo upload',
-   function(response){}
-   });
-*//*
-FB.api(
-   "/me/photos",
-   "POST",
-   {
-       "source": canvas
-   },
-   function (response) {
-     if (response && !response.error) {
-      alert("POSTED");
-     }else{
-       alert(response.error);
-     }
-   }
-);
-*/
-
-
-
-// This bit is important.  It detects/adds XMLHttpRequest.sendAsBinary.  Without this
-// you cannot send image data as part of a multipart/form-data encoded request from
-// Javascript.  This implementation depends on Uint8Array, so if the browser doesn't
-// support either XMLHttpRequest.sendAsBinary or Uint8Array, then you will need to
-// find yet another way to implement this. (This is left as an exercise for the reader,
-// but if you do it, please let me know and I'll integrate it.)
-
-// from: http://stackoverflow.com/a/5303242/945521
-
-if ( XMLHttpRequest.prototype.sendAsBinary === undefined ) {
-    XMLHttpRequest.prototype.sendAsBinary = function(string) {
-        var bytes = Array.prototype.map.call(string, function(c) {
-            return c.charCodeAt(0) & 0xff;
-        });
-        this.send(new Uint8Array(bytes).buffer);
-    };
-}
-
-// This function takes an array of bytes that are the actual contents of the image file.
-// In other words, if you were to look at the contents of imageData as characters, they'd
-// look like the contents of a PNG or GIF or what have you.  For instance, you might use
-// pnglib.js to generate a PNG and then upload it to Facebook, all from the client.
-//
-// Arguments:
-//   authToken - the user's auth token, usually from something like authResponse.accessToken
-//   filename - the filename you'd like the uploaded file to have
-//   mimeType - the mime type of the file, eg: image/png
-//   imageData - an array of bytes containing the image file contents
-//   message - an optional message you'd like associated with the image
-
-function PostImageToFacebook( authToken, filename, mimeType, imageData, message )
-{
-    // this is the multipart/form-data boundary we'll use
-    var boundary = '----ThisIsTheBoundary1234567890';
-    
-    // let's encode our image file, which is contained in the var
-    var formData = '--' + boundary + '\r\n'
-    formData += 'Content-Disposition: form-data; name="source"; filename="' + filename + '"\r\n';
-    formData += 'Content-Type: ' + mimeType + '\r\n\r\n';
-    for ( var i = 0; i < imageData.length; ++i )
-    {
-        formData += String.fromCharCode( imageData[ i ] & 0xff );
-    }
-    formData += '\r\n';
-    formData += '--' + boundary + '\r\n';
-    formData += 'Content-Disposition: form-data; name="message"\r\n\r\n';
-    formData += message + '\r\n'
-    formData += '--' + boundary + '--\r\n';
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open( 'POST', 'https://graph.facebook.com/me/feed?access_token=' + authToken, true );
-    xhr.onload = xhr.onerror = function() {
-        console.log( xhr.responseText );
-    };
-    xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
-    xhr.sendAsBinary( formData );
-}
-
-
-  </script>
 
 <body>
 

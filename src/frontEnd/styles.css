@@ -1,6 +1,6 @@
 
 body{
-	background-color: #808080;
+	background-color: white;
 	text-align: center;
 	font-family: 'Raleway', sans-serif;
 }
@@ -17,17 +17,18 @@ td{
 
     height:50px;
 
-	background: #6a5b9d;
+	background: #1ED760;
+
 }
 
 h1{  /*Cumulyrics title*/
 	width: 80%;
-	padding: 0.25em 0.625em;
+	padding: 0em 0.625em;
 	margin: 0 auto;
 
-	font-size: 36px;
+	font-size: 34px;
 
-	color: black;
+	color: white;
 }
 
 #back{ /*back button*/
@@ -39,30 +40,31 @@ h1{  /*Cumulyrics title*/
 	top: 0;
 	left: 0;
 	
-	color: black;
-	background-color: #6a5b9d;
+	color: white;
+	background-color: #1ED760;
 
-	border: 2px solid black;
+	border: 0px solid white;
 	height: 50px;
+
+	padding-left: 10px;
 
 	visibility: hidden;
 }
 
 #home{ /*home button*/
-	background-color: #6a5b9d;
-	color: black;
+	background-color: #1ED760;
+	color: white;
 
 	position: fixed;
 	right:0;
 	top:0;
 
-	font-family: 'Raleway', sans-serif;
-	font-size: 20px;
 	text-align: center;
 	
 	height: 50px;
-	width: 70px;
-	border: 2px solid black;
+	width: 50px;
+	border: 0px solid white;
+	padding-right: 25px;
 	
 }
 
@@ -86,22 +88,13 @@ h1{  /*Cumulyrics title*/
 	margin: 0 auto;
 }
 
-#colorButtons{
-	font-family: 'Raleway', sans-serif;
-	font-weight: bold;
-	color: black;
-
-	position: fixed;
-	right: 1%;
-	top: 8%;
-}
 
 #searchBar{ /* text box */
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
 	text-align: center;
 
-	border: 5px solid #6a5b9d;
+	border: 5px solid #1ED760;
 	border-radius: 8px;
 
 	width: 30%;
@@ -113,10 +106,39 @@ h1{  /*Cumulyrics title*/
 	transition: padding-top 1s;
 }
 
+#numArticlesDiv{
+	background-color: #1ED760;
+	width: 30%;
+	display:block;
+	margin-left: 35%;
+	margin-right: auto;
+	border: 0px solid #1ED760;
+	border-radius: 8px;
+}
+
+#articleLabel{
+	color: white;
+	font-size: 16px;
+}
+
+#articleInput{
+	border: 3px solid #1ED760;
+	border-radius: 8px;
+	font-size: 16px;
+	background: #1ED760;
+	color:white;
+	text-align: center;
+
+}
+
+#articleInput:focus{
+	outline: none !important;
+	border-color: white;
+}
 
 .purpleButton{ /* class selector for the search button and add to cloud button */
-	background-color:  #6a5b9d;
-	color: black;
+	background-color:  #1ED760;
+	color: white;
 
 	font-size: 24px;
 	font-family: 'Raleway', sans-serif;
@@ -128,15 +150,11 @@ h1{  /*Cumulyrics title*/
 }
 
 
-#shareButton{
-	background-color: #3b5998;
-	color: black;
+ #status {
+        max-width: 30%;
+        display: none;
+        margin-left: 35%;
+        margin-right: auto;
 
-	font-size: 24px;
-	font-family: 'Raleway', sans-serif;
-	text-align: center;
+    }
 
-	border: none;
-	border-radius: 8px;
-	padding: 15px 10px;
-}
