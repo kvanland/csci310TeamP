@@ -8,6 +8,7 @@
  */
 include "Constants.php";
 include "Article.php";
+include_once('simple_html_dom.php');
 
 class WordCloud
 {
@@ -15,7 +16,7 @@ class WordCloud
     private $articlesRead;
     private $articleList;
 
-    public function wordCloud(){
+    public function __construct(){
         $this->wcData = array();
         $this->articleList = array();
     }
@@ -118,10 +119,61 @@ class WordCloud
         return $acmArticleList;
     }
 
+    public function parseNextArticle()
+    {
+        $author = array("Michael Losavio");
+        $this->parseArticleIEEE("Digital heritage from the Smart City and the Internet of Things", $author);
+        // $this->parseArticleACM();
+    }
+
+    private function parseArticleIEEE($title, $author)
+    {
+        $authorStr = $author[0];
+        for ($i=1; $i < sizeof($author); $i++) { 
+            $authorStr = $authorStr."+".$author[i];
+        }
+        $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?ti=".$title."?au=".$authorStr;
+
+        // create curl resource 
+        $ch = curl_init(); 
+        // set url 
+        curl_setopt($ch, CURLOPT_URL, $apiCall); 
+        //return the transfer as a string 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        // $output contains the output string 
+        $out = curl_exec($ch); 
+        // close curl resource to free up system resources 
+        curl_close($ch); 
+
+        $xml=simplexml_load_string($out) or die("Error: Cannot create object");
+        $abstract = $xml->document->abstract;
+        $this->documentToWordCloudData($abstract);
+
+    }
+
+    private function parseArticleACM()
+    {
+        $flatLayoutStr = "&preflayout=flat";
+        $url = str_replace("\\", "", $articleList[$articlesRead]->url);
+        $url = "http://dl.acm.org/citation.cfm?doid=3007120.3007131"."&preflayout=flat";
+        $html = file_get_html($url);
+
+        $abstract = $html->find("A[NAME=abstract]",0)->parent()->next_sibling()->find("p",0)->innertext();
+        $this->documentToWordCloudData($abstract);
+    }
+
+    private function documentToWordCloudData($string){
+        $string = strtolower($string);
+        $words = explode(" ", $string);
+        for ($i=0; $i < sizeof($words); $i++) { 
+            if (array_key_exists($words[$i], $wcData)){
+                $wcData[$words[$i]]+=1;
+            } else {
+                $wcData[$words[$i]] = 1;
+            }
+        }
+        echo print_r($wcData);
+    }
+
+
 }
-
-
-
-
-$wc =new WordCloud();
-$wc->initializeArticleList("andrea zanella", "author", 10);
