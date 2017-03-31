@@ -3,35 +3,56 @@
 
 include "Constants.php";
 include "Article.php";
-include_once('simple_html_dom.php');
+include "simple_html_dom.php";
 
 class WordCloud
 {
-    private $wcData;
+    public $wcData;
     private $articlesRead;
     private $articleList;
 
     public function __construct(){
         $this->wcData = array();
         $this->articleList = array();
+        $this->articlesRead = 0;
+        $this->test = 0;
     }
 
     public function initializeArticleList($searchWord, $type, $articleCount){
         $this->articleList = array();
         $IEEEArticleList = $this->getArticleListIEEE($searchWord, $type, $articleCount);
         $acmArticleList = $this->getArticleListACM($searchWord, $type, $articleCount);
-        $i = 0;
-        while($i < $articleCount/2 && $i < sizeof($IEEEArticleList)) {
-            array_push($this->articleList, $IEEEArticleList[$i]);
-            $i ++;
-        }
 
-        $i = 0;
-        while($i < $articleCount/2 && $i < sizeof($acmArticleList)) {
-            array_push($this->articleList, $acmArticleList[$i]);
-            $i++;
-        }
+        $databaseCount = 0;
+        $total = 0;
+        if(sizeof($acmArticleList) < $articleCount/2){
+            while($total < $articleCount/2 && $databaseCount < sizeof($acmArticleList)) {
+                array_push($this->articleList, $acmArticleList[$databaseCount]);
+                $databaseCount++;
+                $total++;
+            }
+            $databaseCount = 0;
 
+            while($total < $articleCount && $databaseCount < sizeof($IEEEArticleList)) {
+                array_push($this->articleList, $IEEEArticleList[$databaseCount]);
+                $databaseCount ++;
+                $total++;
+            }
+        }else{
+            while($total < $articleCount/2 && $databaseCount < sizeof($IEEEArticleList)) {
+                array_push($this->articleList, $IEEEArticleList[$databaseCount]);
+                $databaseCount ++;
+                $total++;
+            }
+            $databaseCount = 0;
+
+            while($total < $articleCount && $databaseCount < sizeof($acmArticleList)) {
+                array_push($this->articleList, $acmArticleList[$databaseCount]);
+                $databaseCount++;
+                $total++;
+            }
+        }
+        print_r($this->articleList);
         if(empty($this->articleList))
             return "fail";
         return "success";
@@ -62,7 +83,8 @@ class WordCloud
             $conferences = (string) $xml->document[$i]->pubtitle;
             $pdfUrl = (string) $xml->document[$i]->pdf;
             $source = Constants::IEEE;
-            $article = new Article($pdfUrl, $authors, $conferences, $title, $source);
+            $number = (string) $xml->document[$i]->arnumber;
+            $article = new Article($pdfUrl, $authors, $conferences, $title, $source, $number);
             array_push($IEEEArticleList, $article);
             $i++;
         }
@@ -109,7 +131,7 @@ class WordCloud
             $conferences = $acmArray["message"]["items"][$i]["container-title"][0];
             $articleUrl = $acmArray["message"]["items"][$i]["URL"];
             $source = Constants::ACM;
-            $article = new Article($articleUrl, $authors, $conferences, $title, $source);
+            $article = new Article($articleUrl, $authors, $conferences, $title, $source, 0);
             array_push($acmArticleList, $article);
             $i++;
         }
@@ -118,31 +140,25 @@ class WordCloud
 
     public function parseNextArticle()
     {
-        $author = array("Michael Losavio");
-        $this->parseArticleIEEE("Digital heritage from the Smart City and the Internet of Things", $author);
-        // $this->parseArticleACM();
+       if($this->articlesRead >= sizeof($this->articleList)) {
+           return $this->getWordCloudData();
+       }
+       if($this->articleList[$this->articlesRead]->database == Constants::ACM) {
+           $this->parseArticleACM();
+       }
+       else {
+           $this->parseArticleIEEE();
+
+       }
+       $this->articlesRead++;
+       $json = array("status"=>((double)($this->articlesRead)/sizeof($this->articleList))*100, "wordCloud"=>"");
+       return json_encode($json);
     }
 
-    private function parseArticleIEEE($title, $author)
+    private function parseArticleIEEE()
     {
-        $authorStr = $author[0];
-        for ($i=1; $i < sizeof($author); $i++) { 
-            $authorStr = $authorStr."+".$author[i];
-        }
-        $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?ti=".$title."?au=".$authorStr;
-
-        // create curl resource 
-        $ch = curl_init(); 
-        // set url 
-        curl_setopt($ch, CURLOPT_URL, $apiCall); 
-        //return the transfer as a string 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-        // $output contains the output string 
-        $out = curl_exec($ch); 
-        // close curl resource to free up system resources 
-        curl_close($ch); 
-
-        $xml=simplexml_load_string($out) or die("Error: Cannot create object");
+        $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=".$this->articleList[$this->articlesRead]->articleNumber;
+        $xml = simplexml_load_file($apiCall);
         $abstract = $xml->document->abstract;
         $this->documentToWordCloudData($abstract);
 
@@ -150,25 +166,43 @@ class WordCloud
 
     private function parseArticleACM()
     {
-        $flatLayoutStr = "&preflayout=flat";
-        $url = str_replace("\\", "", $articleList[$articlesRead]->url);
-        $url = "http://dl.acm.org/citation.cfm?doid=3007120.3007131"."&preflayout=flat";
-        $html = file_get_html($url);
 
-        $abstract = $html->find("A[NAME=abstract]",0)->parent()->next_sibling()->find("p",0)->innertext();
-        $this->documentToWordCloudData($abstract);
+
+        $url = str_replace("\\", "", $this->articleList[$this->articlesRead]->url);
+        $cr = curl_init($url);
+        curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($cr, CURLOPT_FOLLOWLOCATION, 1);
+        curl_exec($cr);
+        $info = curl_getinfo($cr);
+        $url = $info["url"];
+        $url = $url."&preflayout=flat";
+        $html = file_get_html($url);
+        try {
+            $abstract = $html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0)->innertext();
+            $this->documentToWordCloudData($abstract);
+        }
+        catch(Exception $e){
+            echo "Error Message: ".$e->getMessage();
+        }
+
     }
 
     private function documentToWordCloudData($string){
         $string = strtolower($string);
         $words = explode(" ", $string);
         for ($i=0; $i < sizeof($words); $i++) { 
-            if (array_key_exists($words[$i], $wcData)){
-                $wcData[$words[$i]]+=1;
+            if (array_key_exists($words[$i], $this->wcData)){
+                $this->wcData[$words[$i]]+=1;
             } else {
-                $wcData[$words[$i]] = 1;
+                $this->wcData[$words[$i]] = 1;
             }
         }
+    }
+
+    public function getWordCloudData(){
+        arsort($this->wcData);
+        $json = array("status"=>-1,"wordCloud"=>$this->wcData);
+        return json_encode($json);
     }
 
 

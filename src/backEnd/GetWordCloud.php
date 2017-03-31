@@ -2,12 +2,10 @@
 
 include "WordCloud.php";
 
-//$searchedWord = $_GET["searchTerm"];
-//$searchType = $_GET["searchType"];
-//$numArticles = $_GET["numArticles"];
-$searchedWord = "asdfasdf";
-$searchType = "author";
-$numArticles = 20;
+$searchedWord = $_GET["searchTerm"];
+$searchType = $_GET["searchType"];
+$numArticles = $_GET["numArticles"];
+
 
 WordCloudDriver::getWordCloud($searchedWord, $searchType, $numArticles);
 
@@ -23,7 +21,7 @@ class WordCloudDriver
 
         $sendObj = array("result"=>$result);
 
-        return json_encode($sendObj);
+        echo json_encode($sendObj);
 
     }
 

@@ -1,5 +1,9 @@
 <?php
 
+include "WordCloud.php";
+
+
+StatusDriver::getStatus();
 
 
 class StatusDriver
@@ -7,7 +11,8 @@ class StatusDriver
     public static function getStatus(){
         session_start();
         $wordCloud = $_SESSION["wordCloud"];
-        return $wordCloud->parseNextArticle();
+        $i = $wordCloud->parseNextArticle();
+        echo $i;
     }
 
 }
