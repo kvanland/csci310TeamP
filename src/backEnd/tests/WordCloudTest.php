@@ -15,6 +15,11 @@ class WordCloudTest extends TestCase
         $this->assertEquals($result, "success");
     }
 
+    public function testInitializeArticleListGetsCorrectAmount(){
+        $result = $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
+        $this->assertEquals(sizeof($this->wordCloud->articleList), 40);
+    }
+
     public function testInitializeArticleListWithArticlesNotFound(){
         $result = $this->wordCloud->initializeArticleList("adsfadsf","author",40);
         $this->assertEquals($result, "fail");
@@ -29,7 +34,7 @@ class WordCloudTest extends TestCase
         $conferenceBool = $this->wordCloud->articleList[0]->conferences[0] == "Proceedings of the Second International Workshop on Mobile Opportunistic Networking - MobiOpp '10";
         $databaseBool = $this->wordCloud->articleList[0]->source == Constants::ACM;
 
-        $this->assetEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($this->wordCloud->articleList) == 40), true);
+        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($this->wordCloud->articleList) == 40), true);
 
     }
 
@@ -42,7 +47,7 @@ class WordCloudTest extends TestCase
         $conferenceBool = $this->wordCloud->articleList[0]->conferences[0] == "IEEE Wireless Communications";
         $databaseBool = $this->wordCloud->articleList[0]->source == Constants::IEEE;
 
-        $this->assetEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($this->wordCloud->articleList) == 40), true);
+        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($this->wordCloud->articleList) == 40), true);
     }
 
 
@@ -55,7 +60,7 @@ class WordCloudTest extends TestCase
         $conferenceBool = $this->wordCloud->articleList[0]->conferences[0] == "Proceedings of the 31st Annual ACM Symposium on Applied Computing - SAC '16";
         $databaseBool = $this->wordCloud->articleList[0]->source == Constants::ACM;
 
-        $this->assetEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool  && (sizeof($this->wordCloud->articleList) == 3), true);
+        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool  && (sizeof($this->wordCloud->articleList) == 3), true);
     }
 
     public function testGetArticleListIEEEKeyWord(){
@@ -68,7 +73,7 @@ class WordCloudTest extends TestCase
 ]]>";
         $databaseBool = $this->wordCloud->articleList[0]->source == Constants::IEEE;
 
-        $this->assetEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($this->wordCloud->articleList) == 40), true);
+        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($this->wordCloud->articleList) == 40), true);
     }
 
     public function testParseNextArticleWhenThereAreArticlesLeft(){
@@ -97,7 +102,7 @@ class WordCloudTest extends TestCase
         $studyBool = $this->wordCloud->wcData["study"]->occurrences == 3;
         $linearBool = $this->wordCloud->wcData["linear"]->occurrences == 6;
 
-        $this->assetEquals($studyBool && $linearBool, true);
+        $this->assertEquals($studyBool && $linearBool, true);
     }
 
     public function testParseIEEE(){
@@ -107,7 +112,7 @@ class WordCloudTest extends TestCase
         $timeSlotBool = $this->wordCloud->wcData["timeslot"]->occurrences == 1;
         $tinyOsBool = $this->wordCloud->wcData["TinyOS"]->occurences == 7;
 
-        $this->assetEquals($timeSlotBool && $tinyOsBool, true);
+        $this->assertEquals($timeSlotBool && $tinyOsBool, true);
     }
 
     public function testGetWordCloudData(){
