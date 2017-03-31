@@ -7,13 +7,17 @@ class WordCloudTest extends TestCase
     protected $wordCloud;
 
     protected function setUp(){
-        $this->$wordCloud = new WordCloud();
+        $this->wordCloud = new WordCloud();
     }
 
-    public function testInitializeArticleList(){
-        $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
+    public function testInitializeArticleListWithArticlesFound(){
+        $result = $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
+        $this->assertEquals($result, "success");
+    }
 
-        $this->assertEquals(sizeof($this->wordCloud->articleList), 40);
+    public function testInitializeArticleListWithArticlesNotFound(){
+        $result = $this->wordCloud->initializeArticleList("adsfadsf","author",40);
+        $this->assertEquals($result, "fail");
     }
 
     public function testGetArticleListACMAuthor(){
@@ -80,7 +84,7 @@ class WordCloudTest extends TestCase
         $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
         $this->wordCloud->wcData = array();
         $this->wordCloud->articlesRead = 40;
-        json_decode($this->wordCloud->parseNextArticle(););
+        json_decode($this->wordCloud->parseNextArticle());
 
         $this->assertEquals(JSON_ERROR_NONE, json_last_error());
     }
