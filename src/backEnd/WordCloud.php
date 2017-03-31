@@ -169,7 +169,6 @@ class WordCloud
                 $wcData[$words[$i]] = 1;
             }
         }
-        echo print_r($wcData);
     }
 
 
