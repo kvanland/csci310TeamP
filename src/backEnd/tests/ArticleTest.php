@@ -8,7 +8,7 @@ class ArticleTest extends TestCase
 
     protected function setUp()
     {
-        $this->article = new Article("url",new array("author1","author2"), new array("conference1","conference2"),"name", Constants::IEEE);
+        $this->article = new Article("url",array("author1","author2"), array("conference1","conference2"),"name", Constants::IEEE);
     }
 
     public function testURL(){
