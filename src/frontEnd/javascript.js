@@ -64,13 +64,24 @@ function requestArticleText(articleTitle, author, journal){ //String
 
 }
 
-function requestWordCloudData(type, searchTerm){ //Map<String, int>
+function requestWordCloudData(type, searchTerm, numberOfArticles){ //Map<String, int>
 	//type: int (0 for keyword, 1 for last name)
 	// searchTerm: String
+	if(numberOfArticles == 0){
+		alert("Please enter a valid number of articles.");
+		return;
+	}
 
-	var search = "http://localhost/backend/getWordCloud.php?term=" + searchTerm; // might change
-        var wc_status = "http://localhost/backend/getStatus.php";
-        var search_result;
+
+	var searchType;
+	if(type == 0)
+		searchType = "keyword";
+	else
+		searchType = "author";
+
+	var search = "http://localhost/backend/getWordCloud.php?searchTerm=" + searchTerm + "&searchType=" + searchType + "&numArticles=" + numberOfArticles; // might change
+    var wc_status = "http://localhost/backend/getStatus.php";
+    var search_result;
 	$.ajax({
 	 	url: search,
 	 	success: function (result) {
@@ -78,7 +89,7 @@ function requestWordCloudData(type, searchTerm){ //Map<String, int>
 	 	},
 	 	async : false
 	 });
-         if (search_result["result"] === "No Results") {
+         if (search_result["result"] === "fail") {
              alert("No articles found!");
          } else {
              var wc_complete = false;
@@ -99,6 +110,9 @@ function requestWordCloudData(type, searchTerm){ //Map<String, int>
                  }
              }
              setWordCloudData(progress_result["wordcloud"]);
+             shiftInputsDown();
+			 setVisible("back");
+			 setPage(1);
              populateWordCloud();
              showWordCloudPage();
          }
@@ -411,21 +425,16 @@ var searchKeywordButton = document.getElementById("searchKeywordButton");
 var searchAuthorButton = document.getElementById("searchAuthorButton");
 var searchBar = document.getElementById("searchBar");
 var searchContainer = document.getElementById("Search");
+var articleInput = document.getElementById("articleInput");
 
 
 
 function searchByKeywordAction(){ //void
-	shiftInputsDown();
-	setVisible("back");
-	setPage(1);
-	requestWordCloudData(0, searchBar.value);
+	requestWordCloudData(0, searchBar.value, articleInput.value);
 }
 
 function searchByAuthorAction(){ //void
-	shiftInputsDown();
-	setVisible("back");
-	setPage(1);
-	requestWordCloudData(1, searchBar.value);
+	requestWordCloudData(1, searchBar.value, articleInput.value);
 }
 
 function hideSearch(){ //void 
