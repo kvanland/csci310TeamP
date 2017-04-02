@@ -203,7 +203,11 @@ class WordCloud
 
     public function getWordCloudData(){
         arsort($this->wcData);
-        $json = array("status"=>100,"wordCloud"=>$this->wcData);
+        $sendObj = array();
+        foreach ($this->wcData as $key=>$val){
+            array_push($sendObj, array("text"=>$key, "size"=>(string)$val));
+        }
+        $json = array("status"=>100,"wordCloud"=>$sendObj);
         return json_encode($json);
     }
 
