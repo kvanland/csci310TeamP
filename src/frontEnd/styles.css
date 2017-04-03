@@ -150,11 +150,16 @@ h1{  /*Cumulyrics title*/
 }
 
 
- #status {
-        max-width: 30%;
-        display: none;
-        margin-left: 35%;
-        margin-right: auto;
+#status {
+    max-width: 30%;
+    display: none;
+    margin-left: 35%;
+    margin-right: auto;
+}
 
-    }
+.w3-customGreen{
+	color: #fff !important;
+	background-color: #1ED760;
+}
+
 

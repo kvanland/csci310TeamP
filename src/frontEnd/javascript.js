@@ -79,8 +79,8 @@ function requestWordCloudData(type, searchTerm, numberOfArticles){ //Map<String,
 	else
 		searchType = "author";
 
-	var search = "http://localhost/backend/getWordCloud.php?searchTerm=" + searchTerm + "&searchType=" + searchType + "&numArticles=" + numberOfArticles; // might change
-    var wc_status = "http://localhost/backend/getStatus.php";
+	var search = "http://localhost/csci310TeamP/src/backend/getWordCloud.php?searchTerm=" + searchTerm + "&searchType=" + searchType + "&numArticles=" + numberOfArticles; // might change
+    var wc_status = "http://localhost/csci310TeamP/src/backend/getStatus.php";
     var search_result;
 	$.ajax({
 	 	url: search,
@@ -88,35 +88,40 @@ function requestWordCloudData(type, searchTerm, numberOfArticles){ //Map<String,
 	 		search_result = JSON.parse(result);
 	 	},
 	 	async : false
-	 });
-         if (search_result["result"] === "fail") {
-             alert("No articles found!");
-         } else {
-             var wc_complete = false;
-             var progress_result;
-             while (!wc_complete) {
-                 $.ajax({
-                     url: wc_status,
-                     success: function (result) {
-                         progress_result = JSON.parse(result);
-                     },
-                     async : false
-                 });
-                 if (progress_result["status"] != 100) {
-                     updateStatus(progress_result["status"]);
-                 } else {
-                     hideStatusBar();
-                     wc_complete = true;
-                 }
-             }
-             setWordCloudData(progress_result["wordcloud"]);
-             shiftInputsDown();
-			 setVisible("back");
-			 setPage(1);
-             populateWordCloud();
-             showWordCloudPage();
-         }
+	});
+    if (search_result["result"] === "fail") {
+        alert("No articles found!");
+    } else {
+    	showStatusBar();
+    	var wc_complete = false;
+        var progress_result;
+        while (!wc_complete) {
+            $.ajax({
+                url: wc_status,
+                success: function (result) {
+                	progress_result = JSON.parse(result);
+                	if (progress_result["status"] != 100) {
+                		updateStatus(progress_result["status"]);
+            		} else {
+            			updateStatus(progress_result["status"]);
+                		hideStatusBar();
+                		wc_complete = true;
+            		}
+                },
+                async : false
+            }); 
+        }
+        console.log(progress_result["wordCloud"]);
+        console.log(progress_result["wordCloud"].length);
+        setWordCloudData(progress_result["wordCloud"]);
+        shiftInputsDown();
+		setVisible("back");
+		setPage(1);
+        populateWordCloud();
+        showWordCloudPage();
+    }
 }
+
 
 function requestArticleList(word){ //JSON object array
 	/*
@@ -315,16 +320,16 @@ function homeAction(){
 	else if(PAGE[1]){ 
 		//If the user is on the cloud page go all the way home
 		clearView();
-		searchButton.disabled = true;
 		searchBar.value = "";
+		wordCloudData = null;
 		setPage(0);
 	} else { 
 		// take user back to cloud page
 		setPage(1);
 		shiftInputsDown();
 		showSearch();
-		hideSongListPage();
-		hideLyricPage();
+		hideArticlePage();
+		hideArticleListPage();
 		showWordCloudPage();
 	}
 
@@ -335,7 +340,6 @@ function backAction(){
 		//If the user is on the cloud page, reset page
 		setPage(0);
 		clearView();
-		searchButton.disabled = true;
 		shiftInputsCenter();
 		searchBar.value = "";
 		
@@ -344,13 +348,13 @@ function backAction(){
 		setPage(1);
 		shiftInputsDown();
 		showSearch();
-		hideSongListPage();
+		hideArticleListPage();
 		showWordCloudPage();
 	}else if(PAGE[3]){ 
 		//If the user is on the lyrics page, go to songListPage
 		setPage(2);
-		hideLyricPage();
-		showSongListPage();
+		hideArticlePage();
+		showArticleListPage();
 	}
 }
 
@@ -374,18 +378,8 @@ var wCCanvas = document.getElementById("wCCanvas");
 function populateWordCloud(){ //void
 	clearWordCloud(); // reset canvas
 	var words = wordCloudData;
-	
-              var width = wCCanvas.clientWidth;
-               if(document.getElementById('blackAndWhite').checked) { 
-    d3.wordcloud()
-        .size([width, 500])
-        .font('Raleway')
-        .selector("#wCCanvas")
-        .fill(d3.scale.ordinal().range(["black", "white"]))
-        .words(words)
-        .start();
-  }
-  else {
+    var width = wCCanvas.clientWidth;
+
     d3.wordcloud()
         .size([width, 500])
         .font('Raleway')
@@ -393,8 +387,6 @@ function populateWordCloud(){ //void
         .fill(d3.scale.ordinal().range(["#ff7f7f", "#ffb481", "#fffa8b", "#9cff86", "#89d8ff", "#a8e6cf", "#ECCDFA"]))
         .words(words)
         .start();
-  }
-
   d3.select("#wCCanvas").selectAll("text").on("click", function(d, i) { wordClickAction(d3.select(this).text()); });
 
             
@@ -430,10 +422,12 @@ var articleInput = document.getElementById("articleInput");
 
 
 function searchByKeywordAction(){ //void
+	hideWordCloudPage();
 	requestWordCloudData(0, searchBar.value, articleInput.value);
 }
 
 function searchByAuthorAction(){ //void
+	hideWordCloudPage();
 	requestWordCloudData(1, searchBar.value, articleInput.value);
 }
 

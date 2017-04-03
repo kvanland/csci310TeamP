@@ -83,7 +83,7 @@
       vis.selectAll("text").remove();
       var text = vis.selectAll("text")
         .data(data, function(d) {
-          return d.text.toLowerCase();
+          return d.text;
         });
       text.transition()
         .duration(transitionDuration)
@@ -109,7 +109,7 @@
           return d.font || layout.font() || svg.style("font-family");
         })
         .style("fill", function(d) {
-          return fill(d.text.toLowerCase());
+          return fill(d.text);
         })
         .text(function(d) {
           return d.text;
