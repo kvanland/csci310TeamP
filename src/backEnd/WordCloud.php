@@ -189,7 +189,12 @@ class WordCloud
         $url = $info["url"];
         $url = $url."&preflayout=flat";
         $html = file_get_html($url);
+<<<<<<< HEAD
 
+=======
+        error_log($html);
+        ;
+>>>>>>> 922bb50151e772a2fa22da9c1018ee7c9601cef2
 
         if(empty($html))
             return;

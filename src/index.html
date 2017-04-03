@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<title> Project Stratus </title>
+</head>
+
+<body>
+
+  
+  <link rel = "stylesheet" href = "frontEnd/styles.css">
+  <div id = "titlebar">
+    <h1 id = "change"> 
+      <button id = "back" onclick = backAction()> Back </button> 
+      Project Stratus
+      <button id = "home" onclick = homeAction()> <i class=material-icons "md-48">home</i></button> 
+    </h1>
+
+  </div>
+  <br><br><br><br>
+  <div id = "WordCloud">
+    <svg id = "wCCanvas" width = "100%" height = "0">
+      
+    </svg>
+
+  </div>
+
+
+  <div id = "ArticleList" >
+
+  </div>
+
+
+  <div id = "ArticlePage">
+    <svg id = "articleCanvas" width = "100%" height = "0">
+    </svg>
+  </div>
+
+ <div class="w3-light-grey w3-round-xlarge" id = "status" >
+    <div class="w3-container w3-customGreen w3-round-xlarge" id = "innerBar" style="width:0%">loading</div>
+  </div>
+</div>
+  
+  <div id = "Search">
+    <input id = "searchBar" type = "text" ></input>
+    <br></br>
+    <button id = "searchKeywordButton" class = "purpleButton" onclick = searchByKeywordAction()> Search by Keyword </button>
+    <button id = "searchAuthorButton" onclick = searchByAuthorAction() class = "purpleButton"> Search by Author </button>
+    <br></br>
+    <div id = "numArticlesDiv">
+      <label for = "articleInput" id = "articleLabel"> Enter number of articles to be used. </label>
+      <input type = "number" id = "articleInput" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" value = "5"/> 
+    </div>
+  </div>
+  
+
+  <script src= "frontEnd/lib/d3/d3.js" charset="utf-8"></script>
+  <script src= "frontEnd/lib/d3/d3.layout.cloud.js"></script>
+  <script src= "frontEnd/d3.wordcloud.js"></script>
+  <script src= "frontEnd/example.words.js"></script>
+  <script src= "https://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src= "https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+  <script src= "frontEnd/javascript.js"> </script> 
+  <script type="text/javascript" src="http://canvg.github.io/canvg/rgbcolor.js"></script>
+  <script type="text/javascript" src="http://canvg.github.io/canvg/StackBlur.js"></script>
+  <script type="text/javascript" src="http://canvg.github.io/canvg/canvg.js"></script>
+
+
+
+<body>
+
+</html>
