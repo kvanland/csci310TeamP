@@ -86,41 +86,44 @@ function requestWordCloudData(type, searchTerm, numberOfArticles){ //Map<String,
 	 	url: search,
 	 	success: function (result) {
 	 		search_result = JSON.parse(result);
+	 		 if (search_result["result"] === "fail") {
+        		alert("No articles found!");
+        	}else{
+        		showStatusBar();
+        		pollStatus();
+        	}
 	 	},
-	 	async : false
+	 	async : true
 	});
-    if (search_result["result"] === "fail") {
-        alert("No articles found!");
-    } else {
-    	showStatusBar();
-    	var wc_complete = false;
-        var progress_result;
-        while (!wc_complete) {
-            $.ajax({
-                url: wc_status,
-                success: function (result) {
-                	progress_result = JSON.parse(result);
-                	if (progress_result["status"] != 100) {
-                		updateStatus(progress_result["status"]);
-            		} else {
-            			updateStatus(progress_result["status"]);
-                		hideStatusBar();
-                		wc_complete = true;
-            		}
-                },
-                async : false
-            }); 
-        }
-        console.log(progress_result["wordCloud"]);
-        console.log(progress_result["wordCloud"].length);
-        setWordCloudData(progress_result["wordCloud"]);
-        shiftInputsDown();
-		setVisible("back");
-		setPage(1);
-        populateWordCloud();
-        showWordCloudPage();
-    }
 }
+
+function pollStatus(){
+	showStatusBar();
+	var progress_result;
+	var wc_status = "http://localhost/csci310TeamP/src/backend/getStatus.php";
+	$.ajax({
+        url: wc_status,
+        success: function (result) {
+            progress_result = JSON.parse(result);
+            console.log(progress_result.status);
+            if (progress_result["status"] != 100) {
+               	updateStatus(progress_result["status"]);
+                pollStatus();
+            } else {
+            	updateStatus(progress_result["status"]);
+                hideStatusBar();
+                setWordCloudData(progress_result["wordCloud"]);
+        		shiftInputsDown();
+				setVisible("back");
+				setPage(1);
+        		populateWordCloud();
+        		showWordCloudPage();
+            	}
+                },
+                async : true
+            });
+}
+
 
 
 function requestArticleList(word){ //JSON object array
