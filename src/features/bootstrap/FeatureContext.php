@@ -35,7 +35,7 @@ class FeatureContext extends MinkContext
     public function theCurrentPageIs($arg1)
     {
         $session = $this->getSession();
-        $session->visit($arg1);
+        $session->visit("http://localhost/csci310TeamP/src/index.html");
     }
 
     /**
@@ -67,14 +67,33 @@ class FeatureContext extends MinkContext
     }
 
     /**
-     * @Then I should see a Word Cloud based on :arg1
+     * @Then I should see a Word Cloud based on algorithm
      */
-    public function iShouldSeeAWordCloudBasedOn($arg1)
+    public function iShouldSeeAWordCloudBasedOnAlgorithm()
     {
         $session = $this->getSession();
         $page = $session->getPage();
-        // TODO need way to check
-        throw new PendingException();
+        $word = $page->find('named', array('content', "scada"));
+        if(!$word){
+            throw new Exception("Word " + "scada" + " could not be found");
+        }
+        $word = $page->find('named', array('content', "cyber-physical"));
+        if(!$word){
+            throw new Exception("Word " + "cyber-physical" + " could not be found");
+        }
+        $word = $page->find('named', array('content', "criterion"));
+        if(!$word){
+            throw new Exception("Word " + "criterion" + " could not be found");
+        }
+        $word = $page->find('named', array('content', "discrete-time"));
+        if(!$word){
+            throw new Exception("Word " + "discrete-time" + " could not be found");
+        }
+        $word = $page->find('named', array('content', "kalman"));
+        if(!$word){
+            throw new Exception("Word " + "kalman" + " could not be found");
+        }
+
     }
 
     /**
@@ -111,4 +130,43 @@ class FeatureContext extends MinkContext
             throw new Exception("Progress bar doesn't gradually increase");
         }
     }
+
+    /**
+     * @Then I should see a Word Cloud
+     */
+    public function iShouldSeeAWordCloud()
+    {
+        $session = $this->getSession();
+        $page = $session->getPage();
+        $wordCloudCanvas = $page->findById("wCCanvas");
+        if(!$wordCloudCanvas){
+            throw new Exception("wCCanvas could not be found");
+        }else{
+            if(!$wordCloudCanvas->isVisible())
+                throw new Exception("wcCanvas is not visible");
+        }
+    }
+
+    /**
+     * @When I limit articles to :arg1
+     */
+    public function iLimitArticlesTo($arg1)
+    {
+        $session = $this->getSession();
+        $page = $session->getPage();
+        $articleField = $page->findById("articleInput");
+        if(!$articleField){
+            throw new Exception("articleInput could not be found");
+        }else{
+            $articleField->setvalue($arg1);
+        }
+    }
 }
+
+
+
+
+
+
+
+

@@ -111,13 +111,17 @@ function pollStatus(){
                 pollStatus();
             } else {
             	updateStatus(progress_result["status"]);
-                hideStatusBar();
-                setWordCloudData(progress_result["wordCloud"]);
-        		shiftInputsDown();
-				setVisible("back");
-				setPage(1);
-        		populateWordCloud();
-        		showWordCloudPage();
+            	setTimeout(function(){
+	            	hideStatusBar();
+	                setWordCloudData(progress_result["wordCloud"]);
+	        		shiftInputsDown();
+					setVisible("back");
+					setPage(1);
+	        		populateWordCloud();
+	        		showWordCloudPage();
+            	}, 500);
+
+               
             	}
                 },
                 async : true
