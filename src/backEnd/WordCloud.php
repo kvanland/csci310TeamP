@@ -167,7 +167,7 @@ class WordCloud
        return json_encode($json);
     }
 
-    private function parseArticleIEEE()
+    public function parseArticleIEEE()
     {
         $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=".$this->articleList[$this->articlesRead]->articleNumber;
         $xml = simplexml_load_file($apiCall);

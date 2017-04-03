@@ -4,123 +4,124 @@ use PHPUnit\Framework\TestCase;
 
 class WordCloudTest extends TestCase
 {
-    protected $wordCloud;
-
-    protected function setUp(){
-        $this->wordCloud = new WordCloud();
-    }
 
     public function testInitializeArticleListWithArticlesFound(){
-        $result = $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
+        $wordCloud = new WordCloud();
+        $result = $wordCloud->initializeArticleList("Andrea Zanella","author",40);
         $this->assertEquals($result, "success");
     }
 
     public function testInitializeArticleListGetsCorrectAmount(){
-        $result = $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
-        $this->assertEquals(sizeof($this->wordCloud->articleList), 40);
+        $wordCloud = new WordCloud();
+        $result = $wordCloud->initializeArticleList("Andrea Zanella","author",40);
+        $this->assertEquals(sizeof($wordCloud->articleList), 40);
     }
 
     public function testInitializeArticleListWithArticlesNotFound(){
-        $result = $this->wordCloud->initializeArticleList("adsfadsf","author",40);
+        $wordCloud = new WordCloud();
+        $result = $wordCloud->initializeArticleList("adsfadsf","author",40);
         $this->assertEquals($result, "fail");
     }
 
     public function testGetArticleListACMAuthor(){
-        $this->wordCloud->getArticleListACM("Andrea Zanella","author",40);
+        $wordCloud = new WordCloud();
+        $result = $wordCloud->getArticleListACM("Andrea Zanella","author",40);
 
-        $nameBoolean = $this->wordCloud->articleList[0]->name == "Analysis of opportunistic localization algorithms based on the linear matrix inequality method";
-        $authorBool = $this->wordCloud->articleList[0]->authors[0] == "Francesco Zorzi";
-        $urlBool = $this->wordCloud->articleList[0]->url == "http:\/\/dx.doi.org\/10.1145\/1755743.1755777";
-        $conferenceBool = $this->wordCloud->articleList[0]->conferences[0] == "Proceedings of the Second International Workshop on Mobile Opportunistic Networking - MobiOpp '10";
-        $databaseBool = $this->wordCloud->articleList[0]->source == Constants::ACM;
+        $nameBoolean = $result[0]->name == "Analysis of opportunistic localization algorithms based on the linear matrix inequality method";
+        $authorBool = $result[0]->authors[0] == "Francesco Zorzi";
+        $urlBool = $result[0]->url == "http://dx.doi.org/10.1145/1755743.1755777";
+        $conferenceBool = $result[0]->conferences[0] == "Proceedings of the Second International Workshop on Mobile Opportunistic Networking - MobiOpp '10";
+        $databaseBool = $result[0]->database == Constants::ACM;
 
-        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($this->wordCloud->articleList) == 40), true);
+        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($result) == 40), true);
 
     }
 
     public function testGetArticleListIEEEAuthor(){
-        $this->wordCloud->getArticleListIEEE("Andrea Zanella","author",40);
+        $wordCloud = new WordCloud();
+        $result = $wordCloud->getArticleListIEEE("Andrea Zanella","author",40);
 
-        $nameBoolean = $this->wordCloud->articleList[0]->name == "On the impact of physical layer awareness on scheduling and resource allocation in broadband multicellular IEEE 802.16 systems [Radio Resource Management and Protocol Engineering for IEEE 802.16]";
-        $authorBool = $this->wordCloud->articleList[0]->authors[0] == "Leonardo Badia";
-        $urlBool = $this->wordCloud->articleList[0]->url == "http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4444656";
-        $conferenceBool = $this->wordCloud->articleList[0]->conferences[0] == "IEEE Wireless Communications";
-        $databaseBool = $this->wordCloud->articleList[0]->source == Constants::IEEE;
+        $nameBoolean = $result[0]->name == "On the impact of physical layer awareness on scheduling and resource allocation in broadband multicellular IEEE 802.16 systems [Radio Resource Management and Protocol Engineering for IEEE 802.16]";
+        $authorBool = $result[0]->authors[0] == "Leonardo Badia";
+        $urlBool = $result[0]->url == "http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4107932";
+        $conferenceBool = $result[0]->conferences == "IEEE Wireless Communications";
+        $databaseBool = $result[0]->database == Constants::IEEE;
 
-        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($this->wordCloud->articleList) == 40), true);
+        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($result) == 40), true);
     }
 
 
     public function testGetArticleListACMKeyWord(){
-        $this->wordCloud->getArticleListACM("stratus","keyWord",40);
+        $wordCloud = new WordCloud();
+        $result = $wordCloud->getArticleListACM("stratus","keyWord",40);
 
-        $nameBoolean = $this->wordCloud->articleList[0]->name == "STRATUS";
-        $authorBool = $this->wordCloud->articleList[0]->authors[0] == "Suzanne Kieffe";
-        $urlBool = $this->wordCloud->articleList[0]->url == "http:\/\/dx.doi.org\/10.1145\/2851613.2851912";
-        $conferenceBool = $this->wordCloud->articleList[0]->conferences[0] == "Proceedings of the 31st Annual ACM Symposium on Applied Computing - SAC '16";
-        $databaseBool = $this->wordCloud->articleList[0]->source == Constants::ACM;
+        $nameBoolean = $result[0]->name == "STRATUS";
+        $authorBool = $result[0]->authors[0] == "Suzanne Kieffer";
+        $urlBool = $result[0]->url == "http://dx.doi.org/10.1145/2851613.2851912";
+        $conferenceBool = $result[0]->conferences[0] == "Proceedings of the 31st Annual ACM Symposium on Applied Computing - SAC '16";
+        $databaseBool = $result[0]->database == Constants::ACM;
 
-        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool  && (sizeof($this->wordCloud->articleList) == 3), true);
+        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool  && (sizeof($result) == 3), true);
     }
 
     public function testGetArticleListIEEEKeyWord(){
-        $this->wordCloud->getArticleListIEEE("stratus","keyWord",40);
+        $wordCloud = new WordCloud();
+        $result = $wordCloud->getArticleListIEEE("stratus","keyWord",40);
 
-        $nameBoolean = $this->wordCloud->articleList[0]->name == "Cloud discrimination using K Nearest Neighbors classifier: Application to dataset generated by S&#x00E9;tif RADAR (Algeria) and MSG-SEVIRI satellite images";
-        $authorBool = $this->wordCloud->articleList[0]->authors[0] == "Fatiha Mokdad";
-        $urlBool = $this->wordCloud->articleList[0]->url == "http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7489272";
-        $conferenceBool = $this->wordCloud->articleList[0]->conferences[0] == "2015 15th International Conference on Intelligent Systems Design and Applications (ISDA)
-]]>";
-        $databaseBool = $this->wordCloud->articleList[0]->source == Constants::IEEE;
+        $nameBoolean = $result[0]->name == "Cloud discrimination using K Nearest Neighbors classifier: Application to dataset generated by S&#x00E9;tif RADAR (Algeria) and MSG-SEVIRI satellite images";
+        $authorBool = $result[0]->authors[0] == "Fatiha Mokdad";
+        $urlBool = $result[0]->url == "http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7489272";
+        $conferenceBool = $result[0]->conferences == "2015 15th International Conference on Intelligent Systems Design and Applications (ISDA)";
+        $databaseBool = $result[0]->database == Constants::IEEE;
 
-        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($this->wordCloud->articleList) == 40), true);
+        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($result) == 40), true);
     }
 
     public function testParseNextArticleWhenThereAreArticlesLeft(){
-        $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
-        $this->wordCloud->wcData = array();
-        $this->wordCloud->articlesRead = 0;
-        $json = $this->wordCloud->parseNextArticle();
+        $wordCloud = new WordCloud();
+        $wordCloud->initializeArticleList("Andrea Zanella","author",40);
+        $json = $wordCloud->parseNextArticle();
 
-        $this->assertNull($json);
+        $this->assertEquals(json_last_error(), JSON_ERROR_NONE);
     }
 
-    public function testParseNextArticleWhenNoArticlesAreLeft(){
-        $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
-        $this->wordCloud->wcData = array();
-        $this->wordCloud->articlesRead = 40;
-        json_decode($this->wordCloud->parseNextArticle());
+    public function testParseNextArticleOnLastArticleRead(){
+        $wordCloud = new WordCloud();
+        $wordCloud->initializeArticleList("Andrea Zanella","author",40);
+        $wordCloud->articlesRead = 39;
+        $json = ($wordCloud->parseNextArticle());
 
         $this->assertEquals(JSON_ERROR_NONE, json_last_error());
     }
 
 
     public function testParseACM(){
-        $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
-        $this->wordCloud->wcData = array();
-        $this->wordCloud->parseArticleACM($this->wordCloud->articleList[0]->url);
-        $studyBool = $this->wordCloud->wcData["study"]->occurrences == 3;
-        $linearBool = $this->wordCloud->wcData["linear"]->occurrences == 6;
+        $wordCloud = new WordCloud();
+        $wordCloud->initializeArticleList("Andrea Zanella","author",40);
+        $wordCloud->articlesRead = 20;
+        $wordCloud->parseArticleACM();
+        $differentBool = $wordCloud->wcData["different"] == 2;
+        $inequalitiesBool = $wordCloud->wcData["inequalities"] == 1;
 
-        $this->assertEquals($studyBool && $linearBool, true);
+        $this->assertEquals($differentBool && $inequalitiesBool, true);
     }
 
     public function testParseIEEE(){
-        $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
-        $this->wordCloud->wcData = array();
-        $this->wordCloud->parseArticleIEEE($this->wordCloud->articleList[20]->url);
-        $timeSlotBool = $this->wordCloud->wcData["timeslot"]->occurrences == 1;
-        $tinyOsBool = $this->wordCloud->wcData["TinyOS"]->occurences == 7;
+        $wordCloud = new WordCloud();
+        $wordCloud->initializeArticleList("Andrea Zanella","author",40);
+        $wordCloud->parseArticleIEEE();
+        $theyBool = $wordCloud->wcData["they"] == 2;
+        $andBool = $wordCloud->wcData["and"] == 6;
 
-        $this->assertEquals($timeSlotBool && $tinyOsBool, true);
+        $this->assertEquals($theyBool && $andBool, true);
     }
 
     public function testGetWordCloudData(){
-        $this->wordCloud->initializeArticleList("Andrea Zanella","author",40);
-        $this->wordCloud->wcData = array();
-        $this->wordCloud->parseArticleIEEE($this->wordCloud->articleList[20]->url);
+        $wordCloud = new WordCloud();
+        $wordCloud->initializeArticleList("Andrea Zanella","author",40);
+        $wordCloud->parseArticleIEEE();
 
-        json_decode($this->wordCloud->getWordCloudData());
+        json_decode($wordCloud->getWordCloudData());
 
         $this->assertEquals(JSON_ERROR_NONE, json_last_error());
     }

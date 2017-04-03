@@ -8,7 +8,7 @@ class ArticleTest extends TestCase
 
     protected function setUp()
     {
-        $this->article = new Article("url",array("author1","author2"), array("conference1","conference2"),"name", Constants::IEEE);
+        $this->article = new Article("url",array("author1","author2"), array("conference1","conference2"),"name", 1, 0);
     }
 
     public function testURL(){
@@ -28,6 +28,6 @@ class ArticleTest extends TestCase
     }
 
     public function testDatabase(){
-        $this->assertEquals($this->article->source, Constants::IEEE);
+        $this->assertEquals($this->article->database, 1);
     }
 }

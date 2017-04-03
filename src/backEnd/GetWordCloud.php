@@ -7,7 +7,7 @@ $searchType = $_GET["searchType"];
 $numArticles = $_GET["numArticles"];
 
 
-WordCloudDriver::getWordCloud($searchedWord, $searchType, $numArticles);
+echo WordCloudDriver::getWordCloud($searchedWord, $searchType, $numArticles);
 
 class WordCloudDriver
 {
@@ -21,7 +21,7 @@ class WordCloudDriver
 
         $sendObj = array("result"=>$result);
 
-        echo json_encode($sendObj);
+        return json_encode($sendObj);
 
     }
 

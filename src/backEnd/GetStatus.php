@@ -3,7 +3,7 @@
 include "WordCloud.php";
 
 
-StatusDriver::getStatus();
+echo StatusDriver::getStatus();
 
 
 class StatusDriver
@@ -12,7 +12,7 @@ class StatusDriver
         session_start();
         $wordCloud = $_SESSION["wordCloud"];
         $i = $wordCloud->parseNextArticle();
-        echo $i;
+        return $i;
     }
 
 }
