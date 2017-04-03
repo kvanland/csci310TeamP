@@ -8,8 +8,8 @@ include "simple_html_dom.php";
 class WordCloud
 {
     public $wcData;
-    private $articlesRead;
-    private $articleList;
+    public $articlesRead;
+    public $articleList;
 
     public function __construct(){
         $this->wcData = array();
@@ -57,7 +57,7 @@ class WordCloud
         return "success";
     }
 
-    private function getArticleListIEEE($searchWord, $type, $articleCount)
+    public function getArticleListIEEE($searchWord, $type, $articleCount)
     {
         $IEEEArticleList = array();
         $url = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?";
@@ -91,7 +91,7 @@ class WordCloud
     }
 
 
-    private function getArticleListACM($searchWord, $type, $articleCount)
+    public function getArticleListACM($searchWord, $type, $articleCount)
     {
         $acmArticleList = array();
         $url = "http://api.crossref.org/works?filter=member:320&";
@@ -116,24 +116,38 @@ class WordCloud
 
         $acmArray = json_decode($json, true);
 
-
-
         $i = 0;
         while($i < $articleCount && $i < sizeof($acmArray["message"]["items"])){
-            $title = $acmArray["message"]["items"][$i]["title"][0];
             $authors = array();
-            foreach($acmArray["message"]["items"][$i]["author"] as $author){
-                $name = $author["given"];
-                $name = "$name ".$author["family"];
-                array_push($authors, $name);
+            $articleUrl = "";
+            $title = "";
+            $conferences = array();
+
+            if(array_key_exists("title", $acmArray["message"]["items"][$i]))
+                if(!empty($acmArray["message"]["items"][$i]["title"]))
+                    $title = $acmArray["message"]["items"][$i]["title"][0];
+
+
+
+            if(array_key_exists("author", $acmArray["message"]["items"][$i])){
+                foreach($acmArray["message"]["items"][$i]["author"] as $author){
+                    $name = $author["given"];
+                    $name = "$name ".$author["family"];
+                    array_push($authors, $name);
+                }
             }
-            $conferences = $acmArray["message"]["items"][$i]["container-title"][0];
-            $articleUrl = $acmArray["message"]["items"][$i]["URL"];
+            if(array_key_exists("container-title", $acmArray["message"]["items"][$i]))
+                if(!empty( $acmArray["message"]["items"][$i]["container-title"]))
+                    $conferences = $acmArray["message"]["items"][$i]["container-title"];
+
+            if(array_key_exists("URL", $acmArray["message"]["items"][$i]))
+                $articleUrl = $acmArray["message"]["items"][$i]["URL"];
             $source = Constants::ACM;
             $article = new Article($articleUrl, $authors, $conferences, $title, $source, 0);
             array_push($acmArticleList, $article);
             $i++;
         }
+
         return $acmArticleList;
     }
 
@@ -162,7 +176,7 @@ class WordCloud
 
     }
 
-    private function parseArticleACM()
+    public function parseArticleACM()
     {
 
 
@@ -176,7 +190,6 @@ class WordCloud
         $url = $url."&preflayout=flat";
         $html = file_get_html($url);
 
-        ;
 
         if(empty($html))
             return;
@@ -189,7 +202,7 @@ class WordCloud
 
     }
 
-    private function documentToWordCloudData($string){
+    public function documentToWordCloudData($string){
         $string = strtolower($string);
         $words = explode(" ", $string);
         for ($i=0; $i < sizeof($words); $i++) { 
@@ -203,9 +216,11 @@ class WordCloud
 
     public function getWordCloudData(){
         arsort($this->wcData);
+        $keys = array_keys($this->wcData);
+
         $sendObj = array();
-        foreach ($this->wcData as $key=>$val){
-            array_push($sendObj, array("text"=>$key, "size"=>(string)$val));
+        for($i = 0; $i <250; $i++){
+            array_push($sendObj, array("text"=>$keys[$i], "size"=>(string)$this->wcData[$keys[$i]]));
         }
         $json = array("status"=>100,"wordCloud"=>$sendObj);
         return json_encode($json);
