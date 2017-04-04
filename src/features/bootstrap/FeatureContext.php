@@ -64,6 +64,7 @@ class FeatureContext extends MinkContext
             throw new Exception($arg1 . " not found");
         else 
             $button->click();
+        sleep(1);
     }
 
     /**
@@ -71,6 +72,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAWordCloudBasedOnAlgorithm()
     {
+        sleep(15); // wait for wordcloud generation to finish 
         $session = $this->getSession();
         $page = $session->getPage();
         $word = $page->find('named', array('content', "scada"));
@@ -101,6 +103,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAMessageSayingThereWereNoResults()
     {
+        sleep(2);
         $session = $this->getSession();
         $page = $session->getPage();
         $message = $session->getDriver()->getWebDriverSession()->getAlert_text();
@@ -118,15 +121,14 @@ class FeatureContext extends MinkContext
     {
         $session = $this->getSession();
         $page = $session->getPage();
-        $progress_bar = $page->findById("status");
-        $attribute = $progress_bar->getAttribute("style");
-        $original_width = $attribute->getCssValue("width");
-        if ($original_width == "100%") {
+        $progress_bar = $page->findById("innerBar");
+        $style = $progress_bar->getAttribute("style");
+        if ($style == "width: 100%;") {
             return;
         }
-        sleep(5000);
-        $new_width = $attribute->getCssValue("width");
-        if ($original_width == $new_width) {
+        sleep(5);
+        $new_style = $progress_bar->getAttribute("style");;
+        if ($new_style == $style) {
             throw new Exception("Progress bar doesn't gradually increase");
         }
     }
@@ -136,6 +138,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAWordCloud()
     {
+        sleep(20); // wait for wordcloud generation to finish 
         $session = $this->getSession();
         $page = $session->getPage();
         $wordCloudCanvas = $page->findById("wCCanvas");

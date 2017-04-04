@@ -9,14 +9,8 @@ Feature: Status Bar
     And I press the "searchAuthorButton" button
     Then I should see a progress bar that gradually increases
 
-    Scenario: Search for author "Cote"
+    Scenario: Search for keyword "computer"
     Given The current page is "http://127.0.0.1"
-    When I enter the term "Cote" into the search bar
-    And I press the "searchAuthorButton" button
-    Then I should see a progress bar that gradually increases
-
-    Scenario: Search for author abcdefg
-    Given The current page is "http://127.0.0.1"
-    When I enter the term "abcdefg" into the search bar
-    And I press the "searchAuthorButton" button
+    When I enter the term "computer" into the search bar
+    And I press the "searchKeywordButton" button
     Then I should see a progress bar that gradually increases

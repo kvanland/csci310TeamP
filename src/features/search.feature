@@ -21,9 +21,9 @@ Feature: Search
     And I press the "searchKeywordButton" button
     Then I should see a Word Cloud
 
-    Scenario: Search for term tuvwxyz
+    Scenario: Search for term fjhaksjdfhladjksf
     Given The current page is "http://127.0.0.1"
-    When I enter the term "tuvwxyz" into the search bar
+    When I enter the term "fjhaksjdfhladjksf" into the search bar
     And I press the "searchKeywordButton" button
     Then I should see a message saying there were no results
 
