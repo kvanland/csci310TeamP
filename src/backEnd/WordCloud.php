@@ -219,6 +219,8 @@ class WordCloud
 
         $sendObj = array();
         for($i = 0; $i <250; $i++){
+            if ($i >= count($keys))
+                break;
             array_push($sendObj, array("text"=>$keys[$i], "size"=>(string)$this->wcData[$keys[$i]]));
         }
         $json = array("status"=>100,"wordCloud"=>$sendObj);
