@@ -15,7 +15,7 @@ For Developers:
 
 	After each pair programming session
 	1. Double check that all previous guidelines have been followed
-	2. Run all testing acceptance/unit and add the output of those tests to a file within the testing directory with the naming convention testingOutput#.txt where # would be replaced by an increasing number for each file
+	2. Run all testing acceptance/unit and add the output of those tests to a file within the pair programming directory with the naming convention date_initials.html within a folder containing the picture for that session
 	3. Commit the changes made during this session
 
 For Scrums:
