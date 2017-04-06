@@ -1,0 +1,3 @@
+4/5/17 Pair Programming team: ..., ...
+What was refactored:
+Why it was refactored: 
