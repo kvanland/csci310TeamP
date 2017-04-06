@@ -4,12 +4,14 @@
 include "Constants.php";
 include "Article.php";
 include "simple_html_dom.php";
+include "Word.php";
 
 class WordCloud
 {
     public $wcData;
     public $articlesRead;
     public $articleList;
+
 
     public function __construct(){
         $this->wcData = array();
@@ -172,7 +174,7 @@ class WordCloud
         $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=".$this->articleList[$this->articlesRead]->articleNumber;
         $xml = simplexml_load_file($apiCall);
         $abstract = $xml->document->abstract;
-        $this->documentToWordCloudData($abstract);
+        $this->documentToWordCloudData($abstract, $this->articleList[$this->articlesRead]->name);
 
     }
 
@@ -196,32 +198,36 @@ class WordCloud
         $abstractNotAvailable = empty($html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0));
         if (!$abstractNotAvailable){
             $abstract = $html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0)->innertext();
-            $this->documentToWordCloudData($abstract);
+            $this->documentToWordCloudData($abstract, $this->articleList[$this->articlesRead]->name);
         }
 
     }
 
-    public function documentToWordCloudData($string){
+    public function documentToWordCloudData($string, $articleName){
         $string = strtolower($string);
         $words = explode(" ", $string);
         for ($i=0; $i < sizeof($words); $i++) { 
             if (array_key_exists($words[$i], $this->wcData)){
-                $this->wcData[$words[$i]]+=1;
+                $this->wcData[$words[$i]]->wordSeen();
+
             } else {
-                $this->wcData[$words[$i]] = 1;
+                $this->wcData[$words[$i]] = new Word($words[$i]);
+
             }
+            $this->wcData[$words[$i]]->addArticle($articleName);
         }
     }
 
     public function getWordCloudData(){
-        arsort($this->wcData);
+        // usort($this->wcData, function($a, $b) {
+        //     return $a->occurrences < $b->occurrences;
+        // });
         $keys = array_keys($this->wcData);
-
         $sendObj = array();
         for($i = 0; $i <250; $i++){
             if ($i >= count($keys))
                 break;
-            array_push($sendObj, array("text"=>$keys[$i], "size"=>(string)$this->wcData[$keys[$i]]));
+            array_push($sendObj, array("text"=>$keys[$i], "size"=>(string)$this->wcData[$keys[$i]]->occurrences));
         }
         $json = array("status"=>100,"wordCloud"=>$sendObj);
         return json_encode($json);

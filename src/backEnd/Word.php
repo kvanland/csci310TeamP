@@ -6,14 +6,26 @@ class Word
 {
 
     public $word;
-    public $articles;
+    public $articleList;
     public $occurrences;
 
-    public function word($word, $article){
+    function __construct($word){
         $this->word = $word;
-        $this->articles = array($article);
+        $this->articleList = array();
         $this->occurrences = 1;
     }
+
+    public function wordSeen() {
+    	$this->occurrences += 1;
+
+    }
+
+    public function addArticle($article) {
+    	if(!in_array($article, $this->articleList)) {
+    		array_push($this->articleList, $article);
+    	}
+    }
+
 
 
 }
