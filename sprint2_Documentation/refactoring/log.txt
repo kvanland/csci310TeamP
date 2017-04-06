@@ -3,3 +3,9 @@ What was refactored:
 Refactored WordCloud.php to use Word class instead of simply storing strings of words
 Why it was refactored: 
 Now we have a list of articles associated with a word from the moment we parse an article. This saves us from repeating this work later
+
+4/6/17 Pair Programming team: Noah, Kyle
+What was refactored:
+Added constants to constant file, Constant.php
+Why?
+It is good practice to store constants in the constant file. This way, we can have all our constants in a central location for easy modification
