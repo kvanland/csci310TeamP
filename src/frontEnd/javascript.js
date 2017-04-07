@@ -131,19 +131,21 @@ function pollStatus(){
 
 
 function requestArticleList(word){ //JSON object array
-	/*
+	
 	var r;
 	
-	var search = "http://localhost/backend/getSongs.php?word=" + word + "&artist=" + artist;
+	console.log("requesting");
+	var search = "http://localhost/csci310TeamP/src/backend/getArticleList.php?word=" + word;
 	$.ajax({
 	 	url: search,
 	 	success: function (result) {
 	 		r = JSON.parse(result);
+			 console.log(r);
 	 	},
-	 	async : false
+	 	async : true
 	 });
 	 return r;
-	*/
+	
 }
 
 /***************************************************************
@@ -395,7 +397,7 @@ function populateWordCloud(){ //void
         .words(words)
         .start();
   d3.select("#wCCanvas").selectAll("text").on("click", function(d, i) { wordClickAction(d3.select(this).text()); });
-
+console.log("selected word");
             
  
  }
@@ -408,7 +410,7 @@ function clearWordCloud(){ //void
 function wordClickAction(word){ //void
 	//word: string
 
-
+	console.log("clicked");
 	setCurrentWord(word);
 	var articleList = requestArticleList(currentWord);
 	setArticleList(articleList);

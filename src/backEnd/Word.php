@@ -15,15 +15,19 @@ class Word
         $this->occurrences = 1;
     }
 
-    public function wordSeen() {
+    public function wordSeen($articleName) {
     	$this->occurrences += 1;
+        $this->addArticle($articleName);
 
     }
 
     public function addArticle($article) {
     	if(!in_array($article, $this->articleList)) {
-    		array_push($this->articleList, $article);
+    		$this->articleList[$article] = 1;
     	}
+    	else{
+    	    $this->articleList[$article]++;
+        }
     }
 
 

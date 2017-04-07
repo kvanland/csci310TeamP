@@ -15,3 +15,11 @@ What was refactored:
 Changed loop to check if counter is less than 250 and the array its parsing instead of checking if the counter is equal to the array size in the loop.
 Why?
 Better readability and slightly more efficient
+
+4/7/17 Pair programming team: Zolintakis, Vanland
+What was refactored:
+1. The articleList array in WordCloud.php was changed from a regular array to associative array
+2. We also changed the documentToWordCloud method in WordCloud.php to get rid of repeated line of code
+Why?
+1. Necessary for maximizing efficiency in getListOfArticles method
+2. Increase readability

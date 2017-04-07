@@ -31,27 +31,27 @@ class WordCloud
         $total = 0;
         if(sizeof($acmArticleList) < $articleCount/2){
             while($total < $articleCount/2 && $databaseCount < sizeof($acmArticleList)) {
-                array_push($this->articleList, $acmArticleList[$databaseCount]);
+                $this->articleList[$acmArticleList[$databaseCount]->name] = $acmArticleList[$databaseCount];
                 $databaseCount++;
                 $total++;
             }
             $databaseCount = 0;
 
             while($total < $articleCount && $databaseCount < sizeof($IEEEArticleList)) {
-                array_push($this->articleList, $IEEEArticleList[$databaseCount]);
+                $this->articleList[$IEEEArticleList[$databaseCount]->name] = $IEEEArticleList[$databaseCount];
                 $databaseCount ++;
                 $total++;
             }
         }else{
             while($total < $articleCount/2 && $databaseCount < sizeof($IEEEArticleList)) {
-                array_push($this->articleList, $IEEEArticleList[$databaseCount]);
+                $this->articleList[$IEEEArticleList[$databaseCount]->name] = $IEEEArticleList[$databaseCount];
                 $databaseCount ++;
                 $total++;
             }
             $databaseCount = 0;
 
             while($total < $articleCount && $databaseCount < sizeof($acmArticleList)) {
-                array_push($this->articleList, $acmArticleList[$databaseCount]);
+                $this->articleList[$acmArticleList[$databaseCount]->name] = $acmArticleList[$databaseCount];
                 $databaseCount++;
                 $total++;
             }
@@ -161,11 +161,14 @@ class WordCloud
 
     public function parseNextArticle()
     {
-       if($this->articleList[$this->articlesRead]->database == Constants::ACM) {
-           $this->parseArticleACM();
+        $articlePair = array_slice($this->articleList,$this->articlesRead,1);
+        $values = array_values($articlePair);
+        $article = $values[0];
+       if( $article->database == Constants::ACM) {
+           $this->parseArticleACM($article);
        }
        else {
-           $this->parseArticleIEEE();
+           $this->parseArticleIEEE($article);
 
        }
        $this->articlesRead++;
@@ -175,20 +178,20 @@ class WordCloud
        return json_encode($json);
     }
 
-    public function parseArticleIEEE()
+    public function parseArticleIEEE($article)
     {
-        $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=".$this->articleList[$this->articlesRead]->articleNumber;
+        $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=".$article->articleNumber;
         $xml = simplexml_load_file($apiCall);
         $abstract = $xml->document->abstract;
-        $this->documentToWordCloudData($abstract, $this->articleList[$this->articlesRead]->name);
+        $this->documentToWordCloudData($abstract, $article->name);
 
     }
 
-    public function parseArticleACM()
+    public function parseArticleACM($article)
     {
 
 
-        $url = str_replace("\\", "", $this->articleList[$this->articlesRead]->url);
+        $url = str_replace("\\", "", $article->url);
         $cr = curl_init($url);
         curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($cr, CURLOPT_FOLLOWLOCATION, 1);
@@ -204,7 +207,7 @@ class WordCloud
         $abstractNotAvailable = empty($html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0));
         if (!$abstractNotAvailable){
             $abstract = $html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0)->innertext();
-            $this->documentToWordCloudData($abstract, $this->articleList[$this->articlesRead]->name);
+            $this->documentToWordCloudData($abstract, $article->name);
         }
 
     }
@@ -214,14 +217,11 @@ class WordCloud
         $words = explode(" ", $string);
         for ($i=0; $i < sizeof($words); $i++) { 
             if(!in_array($words[$i], $this->stopwords)) {
-                if (array_key_exists($words[$i], $this->wcData)){
-                    $this->wcData[$words[$i]]->wordSeen();
-
-                } else {
+                if (!array_key_exists($words[$i], $this->wcData))
                     $this->wcData[$words[$i]] = new Word($words[$i]);
 
-                }
-                $this->wcData[$words[$i]]->addArticle($articleName);
+                $this->wcData[$words[$i]]->wordSeen($articleName);
+
             }
         }
     }
@@ -233,11 +233,28 @@ class WordCloud
         $keys = array_keys($this->wcData);
 
         $sendObj = array();
-        for($i = 0; $i < max(250, count($keys)); $i++){
+        for($i = 0; $i < min(250, count($keys)); $i++){
             array_push($sendObj, array("text"=>$keys[$i], "size"=>(string)$this->wcData[$keys[$i]]->occurrences));
         }
         $json = array("status"=>100,"wordCloud"=>$sendObj);
         return json_encode($json);
+    }
+
+    public function getListOfArticles($word){
+        $wordObject = $this->wcData[$word];
+        $articlesArray = array();
+
+        foreach ($wordObject->articleList as $articleTitle=>$numOccurrences){
+            $article = $this->articleList[$articleTitle];
+
+            $singleArticleArray = array("title"=>$articleTitle, "authors"=>$article->authors, "frequency"=>$numOccurrences,
+                "conference"=>$article->conferences, "download"=>"down", "bibtex"=>"bib");
+            array_push($articlesArray, $singleArticleArray);
+        }
+        $sendObj = array("articles"=>$articlesArray);
+
+        return json_encode($sendObj);
+
     }
 
 
