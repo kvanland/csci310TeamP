@@ -135,8 +135,12 @@ class WordCloud
 
             if(array_key_exists("author", $acmArray["message"]["items"][$i])){
                 foreach($acmArray["message"]["items"][$i]["author"] as $author){
-                    $name = $author["given"];
-                    $name = "$name ".$author["family"];
+                    if(array_key_exists("name", $author)){
+                        $name = $author["name"];
+                    }else{
+                        $name = $author["given"];
+                        $name = "$name ".$author["family"];
+                    }
                     array_push($authors, $name);
                 }
             }

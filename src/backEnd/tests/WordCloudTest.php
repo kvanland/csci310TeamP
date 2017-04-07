@@ -64,6 +64,20 @@ class WordCloudTest extends TestCase
         $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool  && (sizeof($result) == 3), true);
     }
 
+    public function testGetArticleListACMNameInAuthorBug(){
+        $wordCloud = new WordCloud();
+        $result = $wordCloud->getArticleListACM("program","keyWord",20);
+        //print_r($result);
+
+        $nameBoolean = $result[4]->name == "Dawn";
+        $authorBool = $result[4]->authors[0] == "NVIDIA Demo Team";
+        $urlBool = $result[4]->url == "http://dx.doi.org/10.1145/1006032.1006034";
+        $conferenceBool = $result[4]->conferences[0] == "ACM SIGGRAPH 2003 video review on Electronic theater program on Electronic theater program -";
+        $databaseBool = $result[4]->database == Constants::ACM;
+
+        $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool  && (sizeof($result) == 20), true);
+    }
+
     public function testGetArticleListIEEEKeyWord(){
         $wordCloud = new WordCloud();
         $result = $wordCloud->getArticleListIEEE("stratus","keyWord",40);

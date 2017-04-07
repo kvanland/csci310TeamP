@@ -2,3 +2,7 @@
 
 	Test description/location
 
+2.  On 4/6 pair programming session: In “WordCloud.php” When parsing the json returned by the crossref api that searches the ACM library based on a keyword or author, sometimes the author key had “name”keys inside it instead of the “given” key and it would crash the php file.
+
+	We created “testGetArticleListACMNameInAuthorBug()” in “WordCloudTest.php” that does a search that returns “name” as one of its keys
+
