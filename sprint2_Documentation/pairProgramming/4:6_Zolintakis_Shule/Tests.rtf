@@ -1,0 +1,361 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red47\green180\blue29;\red180\green36\blue25;\red46\green174\blue187;
+\red159\green160\blue28;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf0 \CocoaLigature0 PHP Tests\
+\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+.....\
+\
+Time: 88 ms, Memory: 12.00MB\
+\
+OK (5 tests, 5 assertions)\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+.\
+\
+Time: 2.5 seconds, Memory: 12.75MB\
+\
+OK (1 test, 1 assertion)\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+......F..FF.\
+\
+Time: 34.55 seconds, Memory: 26.25MB\
+\
+There were 3 failures:\
+\
+1) WordCloudTest::testGetArticleListIEEEKeyWord\
+Failed asserting that true matches expected false.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/PaperWordCloud/src/backEnd/tests/WordCloudTest.php:77\
+\
+2) WordCloudTest::testParseACM\
+Failed asserting that true matches expected false.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/PaperWordCloud/src/backEnd/tests/WordCloudTest.php:106\
+\
+3) WordCloudTest::testParseIEEE\
+Failed asserting that true matches expected false.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/PaperWordCloud/src/backEnd/tests/WordCloudTest.php:116\
+\
+FAILURES!\
+Tests: 12, Assertions: 12, Failures: 3.\
+92% Code Coverage\
+\
+Behat Tests\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\b \cf0 Feature:
+\f0\b0  Viewing an article's abstract\
+    In order to show the abstract of an article\
+    as a website user\
+    I must be able to click on a article in the article list\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click on word "lunar"                       # features/articleAbstract.feature:6\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "lunar" in the wordcloud\cf0 \
+    \cf5 Then I should see an article list\cf0 \
+\
+
+\f1\b Feature:
+\f0\b0  Viewing article list\
+    In order to show the list of articles from the wordclud that contain a word\
+    as a website user\
+    I must be able to click on a word in the word cloud\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click on word "lunar"                       # features/articleList.feature:6\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "lunar" in the wordcloud\cf0 \
+    \cf5 Then I should see an article list\cf0 \
+\
+  
+\f1\b Scenario:
+\f0\b0  Click on word "comparator"                   # features/articleList.feature:13\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0          # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b computer
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "comparator" in the wordcloud\cf0 \
+    \cf5 Then I should see an article list\cf0 \
+\
+
+\f1\b Feature:
+\f0\b0  Search\
+    In order to generate a word cloud for a given keyword or author\
+    as a website user\
+    I must be able to search for a word cloud based on a given keyword or author\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author Adleman                   # features/search.feature:6\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf4 Then I should see a Word Cloud\cf0                       # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author abcdefg                        # features/search.feature:12\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0              # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b abcdefg
+\f0\b0 " into the search bar\cf0       # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf4 Then I should see a message saying there were no results\cf0  # FeatureContext::iShouldSeeAMessageSayingThereWereNoResults()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for term computers                     # features/search.feature:18\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b computers
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf4 Then I should see a Word Cloud\cf0                         # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for term fjhaksjdfhladjksf                     # features/search.feature:24\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                   # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b fjhaksjdfhladjksf
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                   # FeatureContext::iPressTheButton()\
+    \cf4 Then I should see a message saying there were no results\cf0       # FeatureContext::iShouldSeeAMessageSayingThereWereNoResults()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for term algorithm with one paper      # features/search.feature:30\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b algorithm
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I limit articles to "
+\f1\b 1
+\f0\b0 "\cf0                            # FeatureContext::iLimitArticlesTo()\
+    \cf4 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf4 Then I should see a Word Cloud based on algorithm\cf0      # FeatureContext::iShouldSeeAWordCloudBasedOnAlgorithm()\
+\
+
+\f1\b Feature:
+\f0\b0  Search History\
+    In order to regenerate previously searched wordclouds\
+    as a website user\
+    I must be able to access my search history\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author adleman                   # features/searchHistory.feature:6\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf4 And I press the "
+\f1\b searchHistoryButton
+\f0\b0 " button\cf0         # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a dropdown with "Adleman"\cf0 \
+\
+  
+\f1\b Scenario:
+\f0\b0  Generate wordcloud from Adleman in search history # features/searchHistory.feature:13\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0               # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0                # FeatureContext::iPressTheButton()\
+    \cf4 And I press the "
+\f1\b searchHistoryButton
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "Adleman" in the dropdown\cf0 \
+    \cf4 Then I should see a Word Cloud\cf0                             # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for keyword jjjj                  # features/searchHistory.feature:21\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0      # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b jjjj
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0       # FeatureContext::iPressTheButton()\
+    \cf4 And I press the "
+\f1\b searchHistoryButton
+\f0\b0 " button\cf0      # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a dropdown with "jjjj"\cf0 \
+\
+  
+\f1\b Scenario:
+\f0\b0  Click on jjjj in search history          # features/searchHistory.feature:28\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0      # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b jjjj
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0       # FeatureContext::iPressTheButton()\
+    \cf4 And I press the "
+\f1\b searchHistoryButton
+\f0\b0 " button\cf0      # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "jjjj" in the dropdown\cf0 \
+    \cf5 Then I should not see a wordcloud\cf0 \
+\
+
+\f1\b Feature:
+\f0\b0  Status Bar\
+    In order to understand that the functionality of the website is working\
+    As a website user\
+    I should be able to visually see the progress of the website generating the word cloud\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author "Adleman"                       # features/statusBar.feature:6\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0               # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0                # FeatureContext::iPressTheButton()\
+    \cf4 Then I should see a progress bar that gradually increases\cf0  # FeatureContext::iShouldSeeAProgressBarThatGraduallyIncreases()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for keyword "computer"                     # features/statusBar.feature:12\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0               # FeatureContext::theCurrentPageIs()\
+    \cf3 When I enter the term "
+\f1\b computer
+\f0\b0 " into the search bar\cf0       # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+\cf3       Search bar could not be found (Exception)\cf0 \
+    \cf4 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf4 Then I should see a progress bar that gradually increases\cf0  # FeatureContext::iShouldSeeAProgressBarThatGraduallyIncreases()\
+\
+--- \cf3 Failed scenarios:\cf0 \
+\
+    \cf3 features/articleAbstract.feature:6\cf0 \
+    \cf3 features/articleList.feature:6\cf0 \
+    \cf3 features/articleList.feature:13\cf0 \
+    \cf3 features/search.feature:6\cf0 \
+    \cf3 features/search.feature:12\cf0 \
+    \cf3 features/search.feature:18\cf0 \
+    \cf3 features/search.feature:24\cf0 \
+    \cf3 features/search.feature:30\cf0 \
+    \cf3 features/searchHistory.feature:6\cf0 \
+    \cf3 features/searchHistory.feature:13\cf0 \
+    \cf3 features/searchHistory.feature:21\cf0 \
+    \cf3 features/searchHistory.feature:28\cf0 \
+    \cf3 features/statusBar.feature:6\cf0 \
+    \cf3 features/statusBar.feature:12\cf0 \
+\
+14 scenarios (\cf3 14 failed\cf0 )\
+66 steps (\cf2 14 passed\cf0 , \cf3 14 failed\cf0 , \cf5 11 undefined\cf0 , \cf4 27 skipped\cf0 )\
+0m10.88s (14.72Mb)\
+\
+ >> 
+\f1\b default
+\f0\b0 \cf5  suite has undefined steps. Please choose the context to generate snippets:\cf0 \
+\
+  [\cf2 0\cf0 ] None\
+  [\cf2 1\cf0 ] FeatureContext\
+ > None\
+\
+--- \cf5 Use 
+\f1\b \cf0 --snippets-for
+\f0\b0 \cf5  CLI option to generate snippets for following 
+\f1\b \cf0 default
+\f0\b0 \cf5  suite steps:\cf0 \
+\
+    \cf5 And I press on "lunar" in the wordcloud\cf0 \
+    \cf5 Then I should see an article list\cf0 \
+    \cf5 And I press on "comparator" in the wordcloud\cf0 \
+    \cf5 Then I should see a dropdown with "Adleman"\cf0 \
+    \cf5 And I press on "Adleman" in the dropdown\cf0 \
+    \cf5 Then I should see a dropdown with "jjjj"\cf0 \
+    \cf5 And I press on "jjjj" in the dropdown\cf0 \
+    \cf5 Then I should not see a wordcloud}
