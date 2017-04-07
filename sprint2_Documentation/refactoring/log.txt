@@ -9,3 +9,9 @@ What was refactored:
 Added constants to constant file, Constant.php
 Why?
 It is good practice to store constants in the constant file. This way, we can have all our constants in a central location for easy modification
+
+4/6/17 Pair Programming: Zolintakis, Schule
+What was refactored:
+Changed loop to check if counter is less than 250 and the array its parsing instead of checking if the counter is equal to the array size in the loop.
+Why?
+Better readability and slightly more efficient
