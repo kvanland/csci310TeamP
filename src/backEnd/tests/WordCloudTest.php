@@ -140,6 +140,18 @@ class WordCloudTest extends TestCase
         $this->assertEquals(JSON_ERROR_NONE, json_last_error());
     }
 
+    public function TestGetListOfArticles(){
+        $wordCloud = new WordCloud();
+        $wordCloud->initializeArticleList("Andrea Zanella","author",10);
+
+        for($i = 0; $i < 10; $i++){
+            $wordCloud->parseNextArticle();
+        }
+
+        json_decode($wordCloud->getListOfArticles("computer"));
+        $this->assertEquals(JSON_ERROR_NONE, json_last_error());
+    }
+
 
 
 
