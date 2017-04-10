@@ -9,8 +9,7 @@ class WordTest extends TestCase
     protected $word;
 
     protected function setUp(){
-        $article = new Article("url1", array("author", "author1"), array("conference", "conference1"), "title1");
-        $this->word = new Word("computer", $article);
+        $this->word = new Word("computer");
     }
 
     public function testWord(){
@@ -18,14 +17,38 @@ class WordTest extends TestCase
 
     }
 
-    public function testArticles(){
-        $article = new Article("url1", array("author", "author1"), array("conference", "conference1"), "title1");
-        $array = array($article);
-        $this->assert_equals($this->word->articles, $array);
+    public function testAddFirstArticle(){
+        $this->word->wordSeen("article");
+
+        $existsBool = array_key_exists("article", $this->word->articleList);
+        $intBool = false;
+        if($existsBool)
+            $intBool = $this->word->articleList["article"] == 1;
+
+        $this->assert_equals($existsBool && $intBool, true);
+    }
+
+    public function testAddNotFirstArticle(){
+        $this->word->wordSeen("article");
+
+        $existsBool = array_key_exists("article", $this->word->articleList);
+        $intBool = false;
+        if($existsBool)
+            $intBool = $this->word->articleList["article"] == 2;
+
+        $this->assert_equals($existsBool && $intBool, true);
     }
 
     public function testOccurrences(){
         $this->assert_equals($this->word->occurrences, 1);
+    }
+
+    public function testWordSeen(){
+        $word = new WordCloud("word");
+
+        $word->wordSeen("article");
+
+        $this->assertEquals($word->occurrences, 1);
     }
 
 

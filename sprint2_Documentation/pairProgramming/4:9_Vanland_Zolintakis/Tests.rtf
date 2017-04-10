@@ -1,0 +1,273 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red47\green180\blue29;\red159\green160\blue28;\red180\green36\blue25;
+\red46\green174\blue187;\red178\green178\blue178;\red133\green0\blue2;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf0 \CocoaLigature0 PHPUnit Tests\
+\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+......\
+\
+Time: 84 ms, Memory: 12.00MB\
+\
+OK (6 tests, 6 assertions)\
+\{"result":"fail"\}PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+.\
+\
+Time: 3.23 seconds, Memory: 12.75MB\
+\
+OK (1 test, 1 assertion)\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+Cannot open file "GetArticleList".\
+\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+.F.......EEEE\
+\
+Time: 27.28 seconds, Memory: 13.25MB\
+\
+There were 4 errors:\
+\
+1) WordCloudTest::testParseNextArticleOnLastArticleRead\
+file_get_contents(&preflayout=flat): failed to open stream: No such file or directory\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/simple_html_dom.php:76\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/WordCloud.php:204\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/WordCloud.php:170\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:106\
+\
+2) WordCloudTest::testParseACM\
+Missing argument 1 for WordCloud::parseArticleACM(), called in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php on line 116 and defined\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/WordCloud.php:192\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:116\
+\
+3) WordCloudTest::testParseIEEE\
+Missing argument 1 for WordCloud::parseArticleIEEE(), called in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php on line 126 and defined\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/WordCloud.php:183\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:126\
+\
+4) WordCloudTest::testGetWordCloudData\
+Missing argument 1 for WordCloud::parseArticleIEEE(), called in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php on line 136 and defined\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/WordCloud.php:183\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:136\
+\
+--\
+\
+There was 1 failure:\
+\
+1) WordCloudTest::testInitializeArticleListGetsCorrectAmount\
+Failed asserting that 40 matches expected 36.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:17\
+\
+FAILURES!\
+Tests: 13, Assertions: 9, Errors: 4, Failures: 1.\
+92% Code Coverage\
+\
+Behat Tests\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\b \cf0 Feature:
+\f0\b0  Viewing article list\
+    In order to show the list of articles from the wordclud that contain a word\
+    as a website user\
+    I must be able to click on a word in the word cloud\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click on word "lunar"                       # features/articleList.feature:6\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf3 And I press on "lunar" in the wordcloud\cf0 \
+    \cf3 Then I should see an article list\cf0 \
+\
+  
+\f1\b Scenario:
+\f0\b0  Click on word "comparator"                   # features/articleList.feature:13\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0          # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f1\b computer
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf3 And I press on "comparator" in the wordcloud\cf0 \
+    \cf3 Then I should see an article list\cf0 \
+\
+
+\f1\b Feature:
+\f0\b0  Search\
+    In order to generate a word cloud for a given keyword or author\
+    as a website user\
+    I must be able to search for a word cloud based on a given keyword or author\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author Adleman                   # features/search.feature:6\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a Word Cloud\cf0                       # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author abcdefg                        # features/search.feature:12\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0              # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f1\b abcdefg
+\f0\b0 " into the search bar\cf0       # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a message saying there were no results\cf0  # FeatureContext::iShouldSeeAMessageSayingThereWereNoResults()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for term computers                     # features/search.feature:18\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f1\b computers
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a Word Cloud\cf0                         # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for term fjhaksjdfhladjksf                     # features/search.feature:24\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                   # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f1\b fjhaksjdfhladjksf
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                   # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a message saying there were no results\cf0       # FeatureContext::iShouldSeeAMessageSayingThereWereNoResults()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for term algorithm with one paper      # features/search.feature:30\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f1\b algorithm
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I limit articles to "
+\f1\b 1
+\f0\b0 "\cf0                            # FeatureContext::iLimitArticlesTo()\
+    \cf2 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a Word Cloud based on algorithm\cf0      # FeatureContext::iShouldSeeAWordCloudBasedOnAlgorithm()\
+\
+
+\f1\b Feature:
+\f0\b0  Search History\
+    In order to regenerate previously searched wordclouds\
+    as a website user\
+    I must be able to access my search history\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author adleman                   # features/searchHistory.feature:6\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf4 And I press the "
+\f1\b searchHistoryButton
+\f0\b0 " button\cf0         # FeatureContext::iPressTheButton()\
+\cf4       searchHistoryButton not found (Exception)\cf0 \
+    \cf3 Then I should see a dropdown with "Adleman"\cf0 \
+\
+  
+\f1\b Scenario:
+\f0\b0  Generate wordcloud from Adleman in search history # features/searchHistory.feature:13\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0               # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0                # FeatureContext::iPressTheButton()\
+    \cf4 And I press the "
+\f1\b searchHistoryButton
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+\cf4       searchHistoryButton not found (Exception)\cf0 \
+    \cf3 And I press on "Adleman" in the dropdown\cf0 \
+    \cf5 Then I should see a Word Cloud\cf0                             # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for keyword jjjj                  # features/searchHistory.feature:21\
+    \cf2 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0      # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f1\b jjjj
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0       # FeatureContext::iPressTheButton()\
+    \cf4 And I press the "
+\f1\b searchHistoryButton
+\f0\b0 " button\cf0      # FeatureContext::iPressTheButton()\
+\cf4       searchHistoryButton not found (Exception)\cf0 \
+    \cf3 Then I should see a dropdown with "jjjj"\cf0 \
+\
+\
+\cf6 \cb7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              \cf0 \
+\cf6   [WebDriver\\Exception\\UnexpectedAlertOpen]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  \cf0 \
+\cf6   unexpected alert open: \{Alert text : No articles found!\}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   \cf0 \
+\cf6     (Session info: chrome=57.0.2987.133)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     \cf0 \
+\cf6     (Driver info: chromedriver=2.29.461585 (0be2cd95f834e9ee7c46bcc7cf405b483f5ae83b),platform=Mac OS X 10.11.6 x86_64) (WARNING: The server did not provide any stacktrace information)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     \cf0 \
+\cf6   Command duration or timeout: 4 milliseconds: null                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          \cf0 \
+\cf6   Build info: version: '3.3.0', revision: 'b526bd5', time: '2017-03-07 11:21:31 -0800'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       \cf0 \
+\cf6   System info: host: 'Peters-MacBook-Pro-3.local', ip: 'fe80:0:0:0:6e40:8ff:febd:2860%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.11.6', java.version: '1.8.0_65'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          \cf0 \
+\cf6   Driver info: org.openqa.selenium.chrome.ChromeDriver                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       \cf0 \
+\cf6   Capabilities [\{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome=\{chromedriverVersion=2.29.461585 (0be2cd95f834e9ee7c46bcc7cf405b483f5ae83b), userDataDir=/var/folders/l2/2551bt095vg9rytm02b3h_wr0000gn/T/.org.chromium.Chromium.gbXFYB\}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=57.0.2987.133, platform=MAC, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=\}]  \cf0 \
+\cf6   Session ID: a00212f8a836597769e49a1f21a4ea9c                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               \cf0 \
+\cf6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              \cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 behat [-s|--suite SUITE] [-f|--format FORMAT] [-o|--out OUT] [--format-settings FORMAT-SETTINGS] [--init] [--lang LANG] [--name NAME] [--tags TAGS] [--role ROLE] [--story-syntax] [-d|--definitions DEFINITIONS] [--snippets-for [SNIPPETS-FOR]] [--snippets-type SNIPPETS-TYPE] [--append-snippets] [--no-snippets] [--strict] [--order ORDER] [--rerun] [--stop-on-failure] [--dry-run] [--] [<paths>]}

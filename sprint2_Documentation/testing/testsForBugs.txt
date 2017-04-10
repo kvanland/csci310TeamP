@@ -6,3 +6,7 @@
 
 	We created “testGetArticleListACMNameInAuthorBug()” in “WordCloudTest.php” that does a search that returns “name” as one of its keys
 
+3. On 4/9 Zolintakis and Vinland Session: Word Class was not incrementing individual article occurrences correctly. It would would reset to one instead of incrementing.
+
+	We created “testAddNotFirstArticle” in “WordTest.php” to make sure an article’s occurrences increments properly
+

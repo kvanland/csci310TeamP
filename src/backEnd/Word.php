@@ -12,7 +12,7 @@ class Word
     function __construct($word){
         $this->word = $word;
         $this->articleList = array();
-        $this->occurrences = 1;
+        $this->occurrences = 0;
     }
 
     public function wordSeen($articleName) {
@@ -22,11 +22,11 @@ class Word
     }
 
     public function addArticle($article) {
-    	if(!in_array($article, $this->articleList)) {
-    		$this->articleList[$article] = 1;
+        if(array_key_exists($article, $this->articleList)) {
+            $this->articleList[$article]++;
     	}
     	else{
-    	    $this->articleList[$article]++;
+            $this->articleList[$article] = 1;
         }
     }
 

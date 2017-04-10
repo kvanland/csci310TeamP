@@ -56,6 +56,7 @@ class WordCloud
                 $total++;
             }
         }
+
         if(empty($this->articleList))
             return "fail";
         return "success";
@@ -151,7 +152,8 @@ class WordCloud
             if(array_key_exists("URL", $acmArray["message"]["items"][$i]))
                 $articleUrl = $acmArray["message"]["items"][$i]["URL"];
             $source = Constants::ACM;
-            $article = new Article($articleUrl, $authors, $conferences, $title, $source, 0);
+            $articleNumber = substr($articleUrl, -7);
+            $article = new Article($articleUrl, $authors, $conferences, $title, $source, $articleNumber);
             array_push($acmArticleList, $article);
             $i++;
         }
@@ -227,14 +229,14 @@ class WordCloud
     }
 
     public function getWordCloudData(){
-        // usort($this->wcData, function($a, $b) {
-        //     return $a->occurrences < $b->occurrences;
-        // });
-        $keys = array_keys($this->wcData);
+        $sortedWordCloud = $this->wcData;
+        usort($sortedWordCloud, function($a, $b) {
+             return $a->occurrences < $b->occurrences;
+         });
 
         $sendObj = array();
-        for($i = 0; $i < min(250, count($keys)); $i++){
-            array_push($sendObj, array("text"=>$keys[$i], "size"=>(string)$this->wcData[$keys[$i]]->occurrences));
+        for($i = 0; $i < min(250, count($sortedWordCloud)); $i++){
+            array_push($sendObj, array("text"=>$sortedWordCloud[$i]->word, "size"=>(string)$sortedWordCloud[$i]->occurrences));
         }
         $json = array("status"=>100,"wordCloud"=>$sendObj);
         return json_encode($json);
@@ -248,7 +250,8 @@ class WordCloud
             $article = $this->articleList[$articleTitle];
 
             $singleArticleArray = array("title"=>$articleTitle, "authors"=>$article->authors, "frequency"=>$numOccurrences,
-                "conference"=>$article->conferences, "download"=>"down", "bibtex"=>"bib");
+                "conference"=>$article->conferences, "download"=>"down", "bibtex"=>"bib", "id"=>$article->articleNumber,
+                "database"=>$article->database);
             array_push($articlesArray, $singleArticleArray);
         }
         $sendObj = array("articles"=>$articlesArray);

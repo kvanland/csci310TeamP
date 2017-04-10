@@ -30,4 +30,8 @@ class ArticleTest extends TestCase
     public function testDatabase(){
         $this->assertEquals($this->article->database, 1);
     }
+
+    public function testArticleNumber(){
+        $this->assertEquals($this->article->articleNumber, 0);
+    }
 }

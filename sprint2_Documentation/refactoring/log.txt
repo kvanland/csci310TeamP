@@ -29,3 +29,9 @@ What was refactored:
 Refactored front-end to utilize global variables at all times
 Why?
 It is good practice to use global variables, especially if we have already declared them. It enhances readability and makes it easier to make changes to the code.
+
+4/9/17 Pair Programming: Zolintakis and Vinland
+What was refactored?
+Added article id and database id into the json for each article in the article list being sent to frontend 
+Why?
+It makes future features easier to implement
