@@ -21,6 +21,27 @@ td{
 
 }
 
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+table {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+
+th {
+    background-color: #1ED760;
+    color: white;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2}
+
 h1{  /*Cumulyrics title*/
 	width: 80%;
 	padding: 0em 0.625em;
@@ -72,6 +93,18 @@ h1{  /*Cumulyrics title*/
 	visibility: hidden;
 	transition: height 1s;
 	height: auto;
+}
+
+#ArticleList.tooltip {
+	position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
 }
 
 #songListCanvas{

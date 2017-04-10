@@ -89,6 +89,7 @@ function requestWordCloudData(type, searchTerm, numberOfArticles){ //Map<String,
 	 		 if (search_result["result"] === "fail") {
         		alert("No articles found!");
         	}else{
+        		updateStatus(0);
         		showStatusBar();
         		pollStatus();
         	}
@@ -142,8 +143,9 @@ function requestArticleList(word){ //JSON object array
 	 		r = JSON.parse(result);
 			 console.log(r);
 	 	},
-	 	async : true
+	 	async : false
 	 });
+	
 	 return r;
 	
 }
@@ -238,38 +240,84 @@ function populateArticlePage(articleText, author, word){ //void
 }
 
 function clearArticlePage(){ //void
-
+	d3.select('#ArticlePage').selectAll("*").remove();
 }
 
 /***************************************************************
-                      Song List
+                      Article List
 ***************************************************************/
+var li;
+// tooltip
+var tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
 
-function populateArticleList(songData){ //void
-	clearArticleList();
-		/*
-		var columns = ['Song', 'Artist', 'Frequency'];
-		var table = d3.select('#SongList').append('table');
+function populateArticleList(articleData){ //void
+
+		clearArticleList();
+
+		var tableData = "[ ";
+		for(var i = 0; i < articleData['articles'].length; i++) {
+			var curr = articleData['articles'][i];
+			if(i == 0) 
+				tableData += "{ ";
+			else 
+				tableData += ", {"
+			tableData += "\"" + "title" + "\" : ";
+			tableData += "\"" + curr.title + "\", ";
+			tableData += "\"" + "authors" + "\" : ";
+			var authorString = "";
+			for(var j = 0; j < curr.authors.length; j++) {
+				authorString += curr.authors[j];
+				if(j != curr.authors.length-1) {
+					authorString += ", ";
+				}
+			}
+			console.log(authorString);
+			tableData += "\"" + authorString + "\", ";
+			tableData += "\"" + "frequency" + "\" : ";
+			tableData += curr.frequency + ", ";
+			tableData += "\"" + "conference" + "\" : ";
+			tableData += "\"" + curr.conference + "\", ";
+			tableData += "\"" + "download" + "\" : ";
+			tableData += "\"" + curr.download + "\", ";
+			tableData += "\"" + "bibtex" + "\" : ";
+			tableData += "\"" + curr.bibtex + "\" ";
+			tableData += "}"
+		}
+		tableData += " ]";
+		console.log(tableData);
+		tableData = JSON.parse(tableData);
+		//var test = "[ { \"title\" : \"On the Feasibility of Breast Cancer Imaging Systems at Millimeter-Waves Frequencies\", \"authors\" : \"Simona Di Meo,  Pedro Fidel Espín-López,  Andrea Martellosio,  Marco Pasian,  Giulia Matrone,  Maurizio Bozzi,  Giovanni Magenes,  Andrea Mazzanti,  Luca Perregrini,  Francesco Svelto,  Paul Eugene Summers,  Giuseppe Renne,  Lorenzo Preda,  Massimo Bellomi\", \"frequency\" : 1, \"conference\" : \"IEEE Transactions on Microwave Theory and Techniques\", \"download\" : \"down\", \"bibtex\" : \"bib\" },  { \"title\" : \"GaN Single-Polarity Power Supply Bootstrapped Comparator for High-Temperature Electronics\", \"authors\" : \"Xiaosen Liu,  Kevin J. Chen\", \"frequency\" : 1, \"conference\" : \"IEEE Electron Device Letters\", \"download\" : \"down\", \"bibtex\" : \"bib\" }, { \"title\" : \"GaN Single-Polarity Power Supply Bootstrapped Comparator for High-Temperature Electronics\", \"authors\" : \"Xiaosen Liu,  Kevin J. Chen\", \"frequency\" : 5, \"conference\" : \"IEEE Electron Device Letters\", \"download\" : \"down\", \"bibtex\" : \"bib\" } ]";
+		//tableData = JSON.parse(test);
+		var columns = ['title', 'authors', 'frequency', 'conference', 'download', 'bibtex'];
+		var table = d3.select('#ArticleList').append('table');
 		var thead = table.append('thead');
 		var	tbody = table.append('tbody');
-		table.append('caption').text(currentWord);
+		table.append('caption').text(currentWord).style("font-size", "18px").style("font-weight", "bold");
 		console.log("populate");
 		// append the header row
 		thead.append('tr')
 	  		.selectAll('th')
 	  		.data(columns).enter()
 	  		.append('th')
-	    	.text(function (column) { return column; });
+	    	.text(function (column) { return column; })
+	    	.on("click", function (d, i) {
+	    		if(i%6 < 4) {
+	    			sortTable(i);
+	    		}
+	    	});
 
 		// create a row for each object in the data
 		var rows = tbody.selectAll('tr')
-	 	 	.data(songData)
+	 	 	.data(tableData)
 	  		.enter()
 	  		.append('tr');
 
 
 	  	rows.on("click", function (d, i) {
-	  		songClickAction(songList[i]["Song"], songList[i]["Artist"]);
+
+	  		//songClickAction(songList[i]["Song"], songList[i]["Artist"]);
 	  	})
 		// create a cell in each row for each column
 		var cells = rows.selectAll('td')
@@ -280,13 +328,136 @@ function populateArticleList(songData){ //void
 	 		 })
 	  		.enter()
 	  		.append('td')
-	    	.text(function (d) { return d.value; });
-		*/
+	    	.html(function (d, i) { 
+	    		// if author cell add list of authors
+	    		if(i%6==1) {
+	    			var authors = d.value.split(", ");
+	    			var t = "<ul>";
+	    			for(var j = 0; j < authors.length; j++) {
+	    				t = t + "<li>" + authors[j] + "</li>";
+	    			}
+	    			t += "</ul>";
+	    			return t;
+
+	    		} else {
+	    			return d.value; 
+	    		}
+	    	});
+
+	    cells.on("click", function (d, i) {
+	    	if(i%6 == 0) {
+	    		titleCellAction(d.value);
+	    	}
+	    	// if(i%6 == 1) {
+	    	// 	authorCellAction(d.value);
+	    	// }
+	    	if(i%6 == 3) {
+	    		conferenceCellAction(d.value);
+	    	}
+	    	if(i%6 == 4) {
+	    		downloadCellAction(d.value);
+	    	}
+	    	if(i%6 == 5) {
+	    		bibCellAction(d.value);
+	    	}
+	    });
+
+	    var authorLi = cells.selectAll("li");
+	    authorLi.on("click", function(d, i) {
+	    	var author = d3.select(this)[0][0].innerHTML.trim();
+	    	authorCellAction(author);
+	    });
+
+	    table.attr("id", 'myTable');
+	    	
 
 }
 
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++; 
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+function titleCellAction(d) {
+	alert(d);
+}
+
+function authorCellAction(d) {
+	homeAction();
+	homeAction();
+	searchBar.value = d;
+	updateStatus(0);
+    showStatusBar();
+	searchByAuthorAction();
+	
+}
+
+function conferenceCellAction(d) {
+	alert(d);
+}
+
+function downloadCellAction(d) {
+	alert(d);
+}
+
+function bibCellAction(d) {
+	alert(d);
+}
+
+
 function clearArticleList(){ //void
-	d3.select("#ArticleList").selectAll("*").remove();
+	d3.select('#ArticleList').selectAll("*").remove();
+
 }
 
 function articleClickAction(title, author, journal){ //void
@@ -353,7 +524,7 @@ function backAction(){
 		searchBar.value = "";
 		
 	}else if(PAGE[2]){ 
-		//If the user is on the songList page, go to wordCloudPage
+		//If the user is on the articleList page, go to wordCloudPage
 		setPage(1);
 		shiftInputsDown();
 		showSearch();
@@ -409,7 +580,7 @@ function clearWordCloud(){ //void
 
 function wordClickAction(word){ //void
 	//word: string
-
+	setPage(2);
 	console.log("clicked");
 	setCurrentWord(word);
 	var articleList = requestArticleList(currentWord);
