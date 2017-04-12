@@ -1,0 +1,251 @@
+PHPUnit 6.0.8 by Sebastian Bergmann and contributors.
+
+......                                                              6 / 6 (100%)
+
+Time: 103 ms, Memory: 8.00MB
+
+OK (6 tests, 6 assertions)
+
+Notice: Undefined index: searchTerm in /Users/Alec/local/projects/csci310TeamP/src/backEnd/GetWordCloud.php on line 5
+
+Notice: Undefined index: searchType in /Users/Alec/local/projects/csci310TeamP/src/backEnd/GetWordCloud.php on line 6
+
+Notice: Undefined index: numArticles in /Users/Alec/local/projects/csci310TeamP/src/backEnd/GetWordCloud.php on line 7
+
+Warning: session_start(): Cannot send session cookie - headers already sent by (output started at /Users/Alec/local/projects/csci310TeamP/src/backEnd/GetWordCloud.php:5) in /Users/Alec/local/projects/csci310TeamP/src/backEnd/GetWordCloud.php on line 16
+
+Warning: session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/Alec/local/projects/csci310TeamP/src/backEnd/GetWordCloud.php:5) in /Users/Alec/local/projects/csci310TeamP/src/backEnd/GetWordCloud.php on line 16
+{"result":"fail"}PHPUnit 6.0.8 by Sebastian Bergmann and contributors.
+
+E                                                                   1 / 1 (100%)
+
+Time: 827 ms, Memory: 8.00MB
+
+There was 1 error:
+
+1) GetWordCloudTest::testGetWordCloud
+session_start(): Cannot send session cookie - headers already sent by (output started at /Users/Alec/local/projects/csci310TeamP/src/backEnd/GetWordCloud.php:5)
+
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/GetWordCloud.php:16
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/tests/GetWordCloudTest.php:10
+
+ERRORS!
+Tests: 1, Assertions: 0, Errors: 1.
+PHPUnit 6.0.8 by Sebastian Bergmann and contributors.
+
+Cannot open file "GetArticleList".
+
+PHPUnit 6.0.8 by Sebastian Bergmann and contributors.
+
+.F....F..EEEE                                                     13 / 13 (100%)
+
+Time: 18.97 seconds, Memory: 8.00MB
+
+There were 4 errors:
+
+1) WordCloudTest::testParseNextArticleOnLastArticleRead
+Undefined offset: 0
+
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/WordCloud.php:168
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/tests/WordCloudTest.php:106
+
+2) WordCloudTest::testParseACM
+ArgumentCountError: Too few arguments to function WordCloud::parseArticleACM(), 0 passed in /Users/Alec/local/projects/csci310TeamP/src/backEnd/tests/WordCloudTest.php on line 116 and exactly 1 expected
+
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/WordCloud.php:192
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/tests/WordCloudTest.php:116
+
+3) WordCloudTest::testParseIEEE
+ArgumentCountError: Too few arguments to function WordCloud::parseArticleIEEE(), 0 passed in /Users/Alec/local/projects/csci310TeamP/src/backEnd/tests/WordCloudTest.php on line 126 and exactly 1 expected
+
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/WordCloud.php:183
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/tests/WordCloudTest.php:126
+
+4) WordCloudTest::testGetWordCloudData
+ArgumentCountError: Too few arguments to function WordCloud::parseArticleIEEE(), 0 passed in /Users/Alec/local/projects/csci310TeamP/src/backEnd/tests/WordCloudTest.php on line 136 and exactly 1 expected
+
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/WordCloud.php:183
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/tests/WordCloudTest.php:136
+
+--
+
+There were 2 failures:
+
+1) WordCloudTest::testInitializeArticleListGetsCorrectAmount
+Failed asserting that 40 matches expected 36.
+
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/tests/WordCloudTest.php:17
+
+2) WordCloudTest::testGetArticleListACMNameInAuthorBug
+Failed asserting that true matches expected false.
+
+/Users/Alec/local/projects/csci310TeamP/src/backEnd/tests/WordCloudTest.php:78
+
+ERRORS!
+Tests: 13, Assertions: 9, Errors: 4, Failures: 2.
+92% Code Coverage
+Feature: Search History
+    In order to understand what kinds of article contain a selected word
+    as a website user
+    I must be able to view the abstract of articles with that word highlighted
+
+  Scenario: Click article from "information" wordcloud                       # features/abstract.feature:6
+    Given The current page is "http://127.0.0.1"                             # FeatureContext::theCurrentPageIs()
+    When I enter the term "decidable" into the search bar                    # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchKeywordButton" button                             # FeatureContext::iPressTheButton()
+    And I press on "information" in the wordcloud                            # FeatureContext::iPressOnInTheWordcloud()
+      TODO: write pending definition
+    And I press on "Collaborative Planning With Privacy" in the article list # FeatureContext::iPressOnInTheArticleList()
+    Then I should see the abstract of "Collaborative Planning With Privacy"  # FeatureContext::iShouldSeeTheAbstractOf()
+
+  Scenario: Click article from "Cote" wordcloud                                                                                    # features/abstract.feature:14
+    Given The current page is "http://127.0.0.1"                                                                                   # FeatureContext::theCurrentPageIs()
+    When I enter the term "Cote" into the search bar                                                                               # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchAuthorButton" button                                                                                    # FeatureContext::iPressTheButton()
+    And I press on "based" in the wordcloud                                                                                        # FeatureContext::iPressOnInTheWordcloud()
+      TODO: write pending definition
+    And I press on "An approximation algorithm for labelled Markov processes: towards realistic approximation" in the article list # FeatureContext::iPressOnInTheArticleList()
+    Then I should see the abstract of "An approximation algorithm for labelled Markov processes: towards realistic approximation"  # FeatureContext::iShouldSeeTheAbstractOf()
+
+Feature: Viewing article list
+    In order to show the list of articles from the wordclud that contain a word
+    as a website user
+    I must be able to click on a word in the word cloud
+
+  Scenario: Click on word "lunar"                       # features/articleList.feature:6
+    Given The current page is "http://127.0.0.1"        # FeatureContext::theCurrentPageIs()
+    When I enter the term "Adleman" into the search bar # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchAuthorButton" button         # FeatureContext::iPressTheButton()
+    And I press on "lunar" in the wordcloud             # FeatureContext::iPressOnInTheWordcloud()
+      TODO: write pending definition
+    Then I should see an article list                   # FeatureContext::iShouldSeeAnArticleList()
+
+  Scenario: Click on word "comparator"                   # features/articleList.feature:13
+    Given The current page is "http://127.0.0.1"         # FeatureContext::theCurrentPageIs()
+    When I enter the term "computer" into the search bar # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchKeywordButton" button         # FeatureContext::iPressTheButton()
+    And I press on "comparator" in the wordcloud         # FeatureContext::iPressOnInTheWordcloud()
+      TODO: write pending definition
+    Then I should see an article list                    # FeatureContext::iShouldSeeAnArticleList()
+
+Feature: Viewing article list
+    In order to easily make new word clouds from an article list
+    as a website user
+    I must be able to click an author name to make a word cloud absed on that author
+
+  Scenario: Click "Max Kanovich"                          # features/clickAuthorWordCloud.feature:6
+    Given The current page is "http://127.0.0.1"          # FeatureContext::theCurrentPageIs()
+    When I enter the term "decidable" into the search bar # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchKeywordButton" button          # FeatureContext::iPressTheButton()
+    And I press on "systems" in the wordcloud             # FeatureContext::iPressOnInTheWordcloud()
+      TODO: write pending definition
+    And I press on "Max Kanovich" in the article list     # FeatureContext::iPressOnInTheArticleList()
+    Then I should see a Word Cloud                        # FeatureContext::iShouldSeeAWordCloud()
+
+  Scenario: Click "Sonal Mahajan"                       # features/clickAuthorWordCloud.feature:14
+    Given The current page is "http://127.0.0.1"        # FeatureContext::theCurrentPageIs()
+    When I enter the term "Halfond" into the search bar # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchAuthorButton" button         # FeatureContext::iPressTheButton()
+    And I press on "energy" in the wordcloud            # FeatureContext::iPressOnInTheWordcloud()
+      TODO: write pending definition
+    And I press on "Sonal Mahajan" in the article list  # FeatureContext::iPressOnInTheArticleList()
+    Then I should see a Word Cloud                      # FeatureContext::iShouldSeeAWordCloud()
+
+Feature: Viewing article list
+    In order to create a list of articles from a specific conference
+    as a website user
+    I must be able to click on a conference in an article list
+
+  Scenario: Click on conference "20th Annual Symposium on Foundations of Computer Science (sfcs 1979)"            # features/conferenceArticleList.feature:6
+    Given The current page is "http://127.0.0.1"                                                                  # FeatureContext::theCurrentPageIs()
+    When I enter the term "Adleman" into the search bar                                                           # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchAuthorButton" button                                                                   # FeatureContext::iPressTheButton()
+    And I press on "complexity" in the wordcloud                                                                  # FeatureContext::iPressOnInTheWordcloud()
+      TODO: write pending definition
+    And I press on "20th Annual Symposium on Foundations of Computer Science (sfcs 1979)" in the article list     # FeatureContext::iPressOnInTheArticleList()
+    Then I should see an article list from "20th Annual Symposium on Foundations of Computer Science (sfcs 1979)" # FeatureContext::iShouldSeeAnArticleListFrom()
+
+  Scenario: Click on conference "IEEE Electron Device Letters"            # features/conferenceArticleList.feature:14
+    Given The current page is "http://127.0.0.1"                          # FeatureContext::theCurrentPageIs()
+    When I enter the term "computer" into the search bar                  # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchKeywordButton" button                          # FeatureContext::iPressTheButton()
+    And I press on "power" in the wordcloud                               # FeatureContext::iPressOnInTheWordcloud()
+      TODO: write pending definition
+    And I press on "IEEE Electron Device Letters" in the article list     # FeatureContext::iPressOnInTheArticleList()
+    Then I should see an article list from "IEEE Electron Device Letters" # FeatureContext::iShouldSeeAnArticleListFrom()
+
+Feature: Search
+    In order to generate a word cloud for a given keyword or author
+    as a website user
+    I must be able to search for a word cloud based on a given keyword or author
+
+  Scenario: Search for author Adleman                   # features/search.feature:6
+    Given The current page is "http://127.0.0.1"        # FeatureContext::theCurrentPageIs()
+    When I enter the term "Adleman" into the search bar # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchAuthorButton" button         # FeatureContext::iPressTheButton()
+    Then I should see a Word Cloud                      # FeatureContext::iShouldSeeAWordCloud()
+
+  Scenario: Search for author abcdefg                        # features/search.feature:12
+    Given The current page is "http://127.0.0.1"             # FeatureContext::theCurrentPageIs()
+    When I enter the term "abcdefg" into the search bar      # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchAuthorButton" button              # FeatureContext::iPressTheButton()
+    Then I should see a message saying there were no results # FeatureContext::iShouldSeeAMessageSayingThereWereNoResults()
+
+  Scenario: Search for term computers                     # features/search.feature:18
+    Given The current page is "http://127.0.0.1"          # FeatureContext::theCurrentPageIs()
+    When I enter the term "computers" into the search bar # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchKeywordButton" button          # FeatureContext::iPressTheButton()
+    Then I should see a Word Cloud                        # FeatureContext::iShouldSeeAWordCloud()
+
+  Scenario: Search for term fjhaksjdfhladjksf                     # features/search.feature:24
+    Given The current page is "http://127.0.0.1"                  # FeatureContext::theCurrentPageIs()
+    When I enter the term "fjhaksjdfhladjksf" into the search bar # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchKeywordButton" button                  # FeatureContext::iPressTheButton()
+    Then I should see a message saying there were no results      # FeatureContext::iShouldSeeAMessageSayingThereWereNoResults()
+
+  Scenario: Search for term algorithm with one paper      # features/search.feature:30
+    Given The current page is "http://127.0.0.1"          # FeatureContext::theCurrentPageIs()
+    When I enter the term "algorithm" into the search bar # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I limit articles to "1"                           # FeatureContext::iLimitArticlesTo()
+    And I press the "searchKeywordButton" button          # FeatureContext::iPressTheButton()
+    Then I should see a Word Cloud based on algorithm     # FeatureContext::iShouldSeeAWordCloudBasedOnAlgorithm()
+
+  Scenario: Search for author by clicking author name in word list # features/search.feature:37
+    Given The current page is "http://127.0.0.1"                   # FeatureContext::theCurrentPageIs()
+    When I enter the term "Adleman" into the search bar            # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchAuthorButton" button                    # FeatureContext::iPressTheButton()
+    And I select the word "raised"                                 # FeatureContext::iSelectTheWord()
+      TODO: write pending definition
+    And I select the author "Leonard M. Adleman"                   # FeatureContext::iSelectTheAuthor()
+    Then I should see a Word Cloud based on Adelman                # FeatureContext::iShouldSeeAWordCloudBasedOnAdelman()
+
+Feature: Search History
+    In order to regenerate previously searched wordclouds
+    as a website user
+    I must be able to access my search history
+
+  Scenario: Search for author adleman                   # features/searchHistory.feature:6
+    Given The current page is "http://127.0.0.1"        # FeatureContext::theCurrentPageIs()
+    When I enter the term "Adleman" into the search bar # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchAuthorButton" button         # FeatureContext::iPressTheButton()
+    And I press the "searchHistoryButton" button        # FeatureContext::iPressTheButton()
+      searchHistoryButton not found (Exception)
+    Then I should see a dropdown with "Adleman"         # FeatureContext::iShouldSeeADropdownWith()
+
+  Scenario: Generate wordcloud from Adleman in search history # features/searchHistory.feature:13
+    Given The current page is "http://127.0.0.1"              # FeatureContext::theCurrentPageIs()
+    When I enter the term "Adleman" into the search bar       # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchAuthorButton" button               # FeatureContext::iPressTheButton()
+    And I press the "searchHistoryButton" button              # FeatureContext::iPressTheButton()
+      searchHistoryButton not found (Exception)
+    And I press on "Adleman" in the dropdown                  # FeatureContext::iPressOnInTheDropdown()
+    Then I should see a Word Cloud                            # FeatureContext::iShouldSeeAWordCloud()
+
+  Scenario: Search for keyword jjjj                  # features/searchHistory.feature:21
+    Given The current page is "http://127.0.0.1"     # FeatureContext::theCurrentPageIs()
+    When I enter the term "jjjj" into the search bar # FeatureContext::iEnterTheTermIntoTheSearchBar()
+    And I press the "searchAuthorButton" button      # FeatureContext::iPressTheButton()
+    And I press the "searchHistoryButton" button     # FeatureContext::iPressTheButton()
+      searchHistoryButton not found (Exception)
+    Then I should see a dropdown with "jjjj"         # FeatureContext::iShouldSeeADropdownWith()
+
