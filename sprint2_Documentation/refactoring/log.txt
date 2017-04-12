@@ -30,8 +30,14 @@ Refactored front-end to utilize global variables at all times
 Why?
 It is good practice to use global variables, especially if we have already declared them. It enhances readability and makes it easier to make changes to the code.
 
-4/9/17 Pair Programming: Zolintakis and Vinland
+4/9/17 Pair Programming: Zolintakis and Vanland
 What was refactored?
 Added article id and database id into the json for each article in the article list being sent to frontend 
 Why?
 It makes future features easier to implement
+
+4/11/17 Pair Programming: Zolintakis and Vanland
+What was refactored?
+Changed the api call from GetArticleList to GetWordArticleList and the method in WordCloud.php from getListOfArticles to GetWordListOfArticles
+Why?
+These names make more sense because the system gets an article list based off a word or a conference

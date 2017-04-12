@@ -11,14 +11,14 @@ include "WordCloud.php";
 $word = $_GET["word"];
 
 
-echo ArticleListDriver::getArticleList($word);
+echo WordArticleListDriver::getWordArticleList($word);
 
-class ArticleListDriver{
+class WordArticleListDriver{
 
-    public static function getArticleList($word){
+    public static function getWordArticleList($word){
         session_start();
         $wordCloud = $_SESSION["wordCloud"];
-        $i = $wordCloud->getListOfArticles($word);
+        $i = $wordCloud->getWordListOfArticles($word);
         return $i;
     }
 

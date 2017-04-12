@@ -10,8 +10,8 @@ include "Constants.php";
 
 //$id = $_GET["title"];
 //$database = $_GET["author"];
-$id = "4568001";
-$database = "1";
+$id = "1455209";
+$database = "0";
 
 echo GetAbstractDriver::getAbstract($id, $database);
 
@@ -31,8 +31,17 @@ class GetAbstractDriver{
             return $abstract;
         }
         else{
-//            file_get_contents()
+            $url = "http://dl.acm.org.libproxy1.usc.edu/tab_abstract.cfm?id=$id&type=Article&usebody=tabbody&_cf_containerId=abstract&_cf_nodebug=true&_cf_nocache=true&_cf_clientid=36E85E46A5834633E63A802CD6C7FE27&_cf_rc=0";
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7) AppleWebKit/534.48.3 (KHTML, like Gecko) Version/5.1 Safari/534.48.3');
+
+            $content = curl_exec($ch);
+
+            echo $content;
+
+            curl_close($ch);
         }
+
 
 
 

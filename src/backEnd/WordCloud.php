@@ -5,6 +5,7 @@ include "Constants.php";
 include "Article.php";
 include "simple_html_dom.php";
 include "Word.php";
+include "../vendor/autoload.php";
 
 class WordCloud
 {
@@ -84,11 +85,11 @@ class WordCloud
         while($i<$articleCount && $i < sizeof($xml->document)){
             $title = (string) $xml->document[$i]->title;
             $authors = explode("; ",(string) $xml->document[$i]->authors);
-            $conferences = (string) $xml->document[$i]->pubtitle;
+            $conference = (string) $xml->document[$i]->pubtitle;
             $pdfUrl = (string) $xml->document[$i]->pdf;
             $source = Constants::IEEE;
             $number = (string) $xml->document[$i]->arnumber;
-            $article = new Article($pdfUrl, $authors, $conferences, $title, $source, $number);
+            $article = new Article($pdfUrl, $authors, $conference, $title, $source, $number);
             array_push($IEEEArticleList, $article);
             $i++;
         }
@@ -126,7 +127,6 @@ class WordCloud
             $authors = array();
             $articleUrl = "";
             $title = "";
-            $conferences = array();
 
             if(array_key_exists("title", $acmArray["message"]["items"][$i]))
                 if(!empty($acmArray["message"]["items"][$i]["title"]))
@@ -139,21 +139,25 @@ class WordCloud
                     if(array_key_exists("name", $author)){
                         $name = $author["name"];
                     }else{
-                        $name = $author["given"];
-                        $name = "$name ".$author["family"];
+                        $name = "";
+                        if(array_key_exists("given", $author))
+                            $name = $author["given"];
+                        if(array_key_exists("family", $author))
+                            $name = "$name ".$author["family"];
                     }
                     array_push($authors, $name);
                 }
             }
-            if(array_key_exists("container-title", $acmArray["message"]["items"][$i]))
-                if(!empty( $acmArray["message"]["items"][$i]["container-title"]))
-                    $conferences = $acmArray["message"]["items"][$i]["container-title"];
+            $conference = "";
+            if(array_key_exists("event", $acmArray["message"]["items"][$i]))
+                if(array_key_exists("name", $acmArray["message"]["items"][$i]["event"]))
+                    $conference = $acmArray["message"]["items"][$i]["event"]["name"];
 
             if(array_key_exists("URL", $acmArray["message"]["items"][$i]))
                 $articleUrl = $acmArray["message"]["items"][$i]["URL"];
             $source = Constants::ACM;
             $articleNumber = substr($articleUrl, -7);
-            $article = new Article($articleUrl, $authors, $conferences, $title, $source, $articleNumber);
+            $article = new Article($articleUrl, $authors, $conference, $title, $source, $articleNumber);
             array_push($acmArticleList, $article);
             $i++;
         }
@@ -186,7 +190,6 @@ class WordCloud
         $xml = simplexml_load_file($apiCall);
         $abstract = $xml->document->abstract;
         $this->documentToWordCloudData($abstract, $article->name);
-
     }
 
     public function parseArticleACM($article)
@@ -242,7 +245,7 @@ class WordCloud
         return json_encode($json);
     }
 
-    public function getListOfArticles($word){
+    public function getWordListOfArticles($word){
         $wordObject = $this->wcData[$word];
         $articlesArray = array();
 

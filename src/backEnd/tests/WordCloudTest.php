@@ -37,6 +37,15 @@ class WordCloudTest extends TestCase
 
     }
 
+    public function testGetArticleListACMAuthorNoGiven(){
+        $wordCloud = new WordCloud();
+        $result = $wordCloud->getArticleListACM("Mu Wang","author",5);
+
+
+        $this->assertEquals(true, true);
+
+    }
+
     public function testGetArticleListIEEEAuthor(){
         $wordCloud = new WordCloud();
         $result = $wordCloud->getArticleListIEEE("Andrea Zanella","author",40);
@@ -140,7 +149,7 @@ class WordCloudTest extends TestCase
         $this->assertEquals(JSON_ERROR_NONE, json_last_error());
     }
 
-    public function TestGetListOfArticles(){
+    public function testGetWordListOfArticles(){
         $wordCloud = new WordCloud();
         $wordCloud->initializeArticleList("Andrea Zanella","author",10);
 
@@ -151,6 +160,7 @@ class WordCloudTest extends TestCase
         json_decode($wordCloud->getListOfArticles("computer"));
         $this->assertEquals(JSON_ERROR_NONE, json_last_error());
     }
+
 
 
 

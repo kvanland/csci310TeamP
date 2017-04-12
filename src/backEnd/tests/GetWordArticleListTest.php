@@ -25,7 +25,7 @@ class GetArticleListTest extends TestCase
         $_SESSION["wordCloud"] = $wordCloud;
 
 
-        //json_decode(ArticleListDriver::getArticleLists("computer"));
+        //json_decode(WordArticleListDriver::getWordArticleLists("computer"));
 
         $this->assertEquals(1, 1);
     }
