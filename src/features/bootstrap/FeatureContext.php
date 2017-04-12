@@ -164,12 +164,108 @@ class FeatureContext extends MinkContext
             $articleField->setvalue($arg1);
         }
     }
+
+    /**
+     * @When I press on :arg1 in the wordcloud
+     */
+    public function iPressOnInTheWordcloud($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I press on :arg1 in the article list
+     */
+    public function iPressOnInTheArticleList($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see the abstract of :arg1
+     */
+    public function iShouldSeeTheAbstractOf($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see an article list
+     */
+    public function iShouldSeeAnArticleList()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see an article list from :arg1
+     */
+    public function iShouldSeeAnArticleListFrom($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I select the word :arg1
+     */
+    public function iSelectTheWord($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I select the author :arg1
+     */
+    public function iSelectTheAuthor($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see a Word Cloud based on Adelman
+     */
+    public function iShouldSeeAWordCloudBasedOnAdelman()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see a dropdown with :arg1
+     */
+    public function iShouldSeeADropdownWith($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I press on :arg1 in the dropdown
+     */
+    public function iPressOnInTheDropdown($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should not see a wordcloud
+     */
+    public function iShouldNotSeeAWordcloud()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I press on :arg1 in the article table header
+     */
+    public function iPressOnInTheArticleTableHeader($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then The first article in the article list is :arg1
+     */
+    public function theFirstArticleInTheArticleListIs($arg1)
+    {
+        throw new PendingException();
+    }
 }
-
-
-
-
-
-
-
-
