@@ -36,10 +36,13 @@
 
   </div>
 
+    <div id = "ConferenceList" >
+
+  </div>
+
 
   <div id = "ArticlePage">
-    <svg id = "articleCanvas" width = "100%" height = "0">
-    </svg>
+
   </div>
 
  <div class="w3-light-grey w3-round" id = "status" >
@@ -49,6 +52,12 @@
   
   <div id = "Search" >
     <input id = "searchBar" type = "text" ></input>
+    <div class="dropdown">
+      <button class="dropbtn" onmouseover=showSearchHistory() >Search History</button>
+      <div class="dropdown-content" id = 'dropdown-content'>
+
+      </div>
+    </div>
     <br></br>
     <button id = "searchKeywordButton" class = "purpleButton" onclick = searchByKeywordAction()> Search by Keyword </button>
     <button id = "searchAuthorButton" onclick = searchByAuthorAction() class = "purpleButton"> Search by Author </button>

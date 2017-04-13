@@ -5,6 +5,7 @@
 var wordCloudData; //JSON object array
 var articleText; //String
 var articleList; //JSON object array
+var conferenceList; // array of strings
 
 
 function setWordCloudData(data){ //void
@@ -22,6 +23,11 @@ function setArticleList(list){ //void
 	articleList = list;
 }
 
+function setConferenceList(list) {
+	conferenceList = list;
+}
+
+
 function getArticleList(){ //JSON object array
 	return articleList;
 }
@@ -32,6 +38,11 @@ function getWordCloudData(){ //Map<String, int>
 
 function getArticleText(){ //String
 	return articleText;
+}
+
+
+function getConferencelist(){ //Array of Strings
+	return conferenceList;
 }
 
 
@@ -136,7 +147,7 @@ function requestArticleList(word){ //JSON object array
 	var r;
 	
 	console.log("requesting");
-	var search = "http://localhost/csci310TeamP/src/backend/getArticleList.php?word=" + word;
+	var search = "http://localhost/csci310TeamP/src/backend/GetWordArticleList.php?word=" + word;
 	$.ajax({
 	 	url: search,
 	 	success: function (result) {
@@ -150,12 +161,55 @@ function requestArticleList(word){ //JSON object array
 	
 }
 
+function requestConferenceList(article) {
+	/*
+	var r;
+	console.log("requesting");
+	var search = "http://localhost/csci310TeamP/src/backend/getConferenceList.php?article=" + article;
+	$.ajax({
+	 	url: search,
+	 	success: function (result) {
+	 		r = JSON.parse(result);
+			 console.log(r);
+	 	},
+	 	async : false
+	 });
+	
+	 return r;
+	 */
+	 return JSON.parse("[\"article 1\", \"article 2\"]");
+
+
+}
+
+
+function requestAbstract(id, database) {
+	/*
+	var r;
+	console.log("requesting");
+	var search = "http://localhost/csci310TeamP/src/backend/GetAbstract.php?id=" + id + "&database=" + database;
+	$.ajax({
+	 	url: search,
+	 	success: function (result) {
+	 		r = JSON.parse(result);
+			 console.log(r);
+	 	},
+	 	async : false
+	 });
+	
+	 return r;
+	 */
+	 return "SJF computer jlfdsagj hey";
+
+	 
+} 
+
 /***************************************************************
                       Word Cloud View Model
 ***************************************************************/
 var currentWord; //String
 var currentArticle; //JSON object
-
+var currentConference; // String
 
 function setCurrentWord(word){ //void
 	//word: string
@@ -165,6 +219,10 @@ function setCurrentWord(word){ //void
 function setCurrentArticle(article){ //void
 	//song: JSON Object
 	currentArticle = article;
+}
+
+function setCurrentConference(conference) {
+	currentConference = conference;
 }
 
 function clearView(){ //void 
@@ -192,7 +250,6 @@ function hideWordCloudPage(){ //void
 }
 
 function showArticlePage(){ //void
-	setPage(3);
 	setVisible("ArticlePage");
 }
 
@@ -211,6 +268,18 @@ function hideArticleListPage(){ //void
 	clearArticleList();
 }
 
+
+function showConferenceListPage() {
+	setPage(4);
+	setVisible("ConferenceList");
+	populateConferenceList(getConferencelist());
+}
+
+function hideConferenceListPage() {
+	setInvisible("ConferenceList");
+	clearConferenceList();
+}
+
 function hideStatusBar() {
 	statusBar.style.display = "none";
 }
@@ -223,24 +292,21 @@ function showStatusBar() {
 /***************************************************************
                       ArticlePage
 ***************************************************************/
-var articleCanvas = document.getElementById("articleCanvas");
 
 function populateArticlePage(articleText, author, word){ //void
 
 
 
-	/*	
-	var lyric = String(lyrics);
-	var inner = lyrics.replace(new RegExp(" " +word + " ", "g"), '<span style="color:yellow"> ' + word + ' </span>');
-	inner = inner.replace(new RegExp(" " +word + ",", "g"), '<span style="color:yellow"> ' + word + ',</span>');
-	inner = currentSong + "<br> <br>" + inner;
-     var theDiv = document.getElementById("Lyrics");
+	var inner = articleText.replace(new RegExp(" " +word + " ", "g"), '<span style="color:#1ED760"> ' + word + ' </span>');
+	inner = inner.replace(new RegExp(" " +word + ",", "g"), '<span style="color:#1ED760"> ' + word + ',</span>');
+	inner = currentArticle + "<br> <br>" +"Abstract: <br>" + inner;
+     var theDiv = document.getElementById("ArticlePage");
 	theDiv.innerHTML = inner; 
-	*/
 }
 
 function clearArticlePage(){ //void
-	d3.select('#ArticlePage').selectAll("*").remove();
+	 var theDiv = document.getElementById("ArticlePage");
+	theDiv.innerHTML = "";
 }
 
 /***************************************************************
@@ -248,12 +314,8 @@ function clearArticlePage(){ //void
 ***************************************************************/
 var li;
 // tooltip
-var tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
 
 function populateArticleList(articleData){ //void
-
 		clearArticleList();
 
 		var tableData = "[ ";
@@ -267,13 +329,14 @@ function populateArticleList(articleData){ //void
 			tableData += "\"" + curr.title + "\", ";
 			tableData += "\"" + "authors" + "\" : ";
 			var authorString = "";
-			for(var j = 0; j < curr.authors.length; j++) {
-				authorString += curr.authors[j];
-				if(j != curr.authors.length-1) {
+			var authors = curr.authors.sort();
+			for(var j = 0; j < authors.length; j++) {
+				authorString += authors[j];
+				if(j != authors.length-1) {
 					authorString += ", ";
 				}
 			}
-			console.log(authorString);
+
 			tableData += "\"" + authorString + "\", ";
 			tableData += "\"" + "frequency" + "\" : ";
 			tableData += curr.frequency + ", ";
@@ -286,7 +349,7 @@ function populateArticleList(articleData){ //void
 			tableData += "}"
 		}
 		tableData += " ]";
-		console.log(tableData);
+
 		tableData = JSON.parse(tableData);
 		//var test = "[ { \"title\" : \"On the Feasibility of Breast Cancer Imaging Systems at Millimeter-Waves Frequencies\", \"authors\" : \"Simona Di Meo,  Pedro Fidel Espín-López,  Andrea Martellosio,  Marco Pasian,  Giulia Matrone,  Maurizio Bozzi,  Giovanni Magenes,  Andrea Mazzanti,  Luca Perregrini,  Francesco Svelto,  Paul Eugene Summers,  Giuseppe Renne,  Lorenzo Preda,  Massimo Bellomi\", \"frequency\" : 1, \"conference\" : \"IEEE Transactions on Microwave Theory and Techniques\", \"download\" : \"down\", \"bibtex\" : \"bib\" },  { \"title\" : \"GaN Single-Polarity Power Supply Bootstrapped Comparator for High-Temperature Electronics\", \"authors\" : \"Xiaosen Liu,  Kevin J. Chen\", \"frequency\" : 1, \"conference\" : \"IEEE Electron Device Letters\", \"download\" : \"down\", \"bibtex\" : \"bib\" }, { \"title\" : \"GaN Single-Polarity Power Supply Bootstrapped Comparator for High-Temperature Electronics\", \"authors\" : \"Xiaosen Liu,  Kevin J. Chen\", \"frequency\" : 5, \"conference\" : \"IEEE Electron Device Letters\", \"download\" : \"down\", \"bibtex\" : \"bib\" } ]";
 		//tableData = JSON.parse(test);
@@ -295,7 +358,7 @@ function populateArticleList(articleData){ //void
 		var thead = table.append('thead');
 		var	tbody = table.append('tbody');
 		table.append('caption').text(currentWord).style("font-size", "18px").style("font-weight", "bold");
-		console.log("populate");
+
 		// append the header row
 		thead.append('tr')
 	  		.selectAll('th')
@@ -339,14 +402,26 @@ function populateArticleList(articleData){ //void
 	    			t += "</ul>";
 	    			return t;
 
+	    		} else if(i%6!=2) {
+	    			var text = "<p>" + d.value + "<p>";
+	    			return text; 
 	    		} else {
-	    			return d.value; 
+	    			return d.value;
 	    		}
 	    	});
 
 	    cells.on("click", function (d, i) {
 	    	if(i%6 == 0) {
-	    		titleCellAction(d.value);
+	    		var list = getArticleList().articles;
+	    		var article;
+	    		for(var j = 0; j < list.length; j++) {
+	    			if(list[j].title == d.value) {
+
+	    				article = list[j];
+	    				break;
+	    			}
+	    		}
+	    		titleCellAction(d.value, article.id, article.database);
 	    	}
 	    	// if(i%6 == 1) {
 	    	// 	authorCellAction(d.value);
@@ -428,8 +503,14 @@ function sortTable(n) {
   }
 }
 
-function titleCellAction(d) {
-	alert(d);
+function titleCellAction(d, id, database) {
+	var text = requestAbstract(id, database);
+	setCurrentArticle(d);
+	hideArticleListPage();
+	hideConferenceListPage();
+	populateArticlePage(text, currentWord);
+	showArticlePage();
+	setPage(3);
 }
 
 function authorCellAction(d) {
@@ -443,7 +524,11 @@ function authorCellAction(d) {
 }
 
 function conferenceCellAction(d) {
-	alert(d);
+	setCurrentConference(d);
+	var conferenceList = requestConferenceList(d);
+	setConferenceList(conferenceList);
+	hideArticleListPage();
+	showConferenceListPage();
 }
 
 function downloadCellAction(d) {
@@ -459,7 +544,7 @@ function clearArticleList(){ //void
 	d3.select('#ArticleList').selectAll("*").remove();
 
 }
-
+/*
 function articleClickAction(title, author, journal){ //void
 	// Function requests article page data, then displays the page
 	/*
@@ -471,15 +556,124 @@ function articleClickAction(title, author, journal){ //void
 	hideSongListPage();
 	showLyricPage();
 	setPage(3);
-	*/
+	
 }
+*/
+
+/***************************************************************
+                      Conference List 
+***************************************************************/
+var conferenceListDiv = d3.select('#ConferenceList');
+
+
+function populateConferenceList(conferenceData) 	{
+		clearConferenceList();
+
+		var tableData = "[ ";
+		for(var i = 0; i < conferenceData.length; i++) {
+			var curr = conferenceData[i];
+			if(i == 0) 
+				tableData += "{ ";
+			else 
+				tableData += ", {"
+			tableData += "\"" + currentConference + "\" : ";
+			tableData += "\"" + curr + "\" ";
+			tableData += "}"
+		}
+		tableData += " ]";
+
+		tableData = JSON.parse(tableData);
+		//var test = "[ { \"title\" : \"On the Feasibility of Breast Cancer Imaging Systems at Millimeter-Waves Frequencies\", \"authors\" : \"Simona Di Meo,  Pedro Fidel Espín-López,  Andrea Martellosio,  Marco Pasian,  Giulia Matrone,  Maurizio Bozzi,  Giovanni Magenes,  Andrea Mazzanti,  Luca Perregrini,  Francesco Svelto,  Paul Eugene Summers,  Giuseppe Renne,  Lorenzo Preda,  Massimo Bellomi\", \"frequency\" : 1, \"conference\" : \"IEEE Transactions on Microwave Theory and Techniques\", \"download\" : \"down\", \"bibtex\" : \"bib\" },  { \"title\" : \"GaN Single-Polarity Power Supply Bootstrapped Comparator for High-Temperature Electronics\", \"authors\" : \"Xiaosen Liu,  Kevin J. Chen\", \"frequency\" : 1, \"conference\" : \"IEEE Electron Device Letters\", \"download\" : \"down\", \"bibtex\" : \"bib\" }, { \"title\" : \"GaN Single-Polarity Power Supply Bootstrapped Comparator for High-Temperature Electronics\", \"authors\" : \"Xiaosen Liu,  Kevin J. Chen\", \"frequency\" : 5, \"conference\" : \"IEEE Electron Device Letters\", \"download\" : \"down\", \"bibtex\" : \"bib\" } ]";
+		//tableData = JSON.parse(test);
+		var columns = [currentConference];
+		var table = conferenceListDiv.append('table');
+		var thead = table.append('thead');
+		var	tbody = table.append('tbody');
+
+		// append the header row
+		thead.append('tr')
+	  		.selectAll('th')
+	  		.data(columns).enter()
+	  		.append('th')
+	    	.text(function (column) { return column; })
+	    	.on("click", function (d, i) {
+	    	
+	    			sortTable(i);
+	    		
+	    	});
+
+		// create a row for each object in the data
+		var rows = tbody.selectAll('tr')
+	 	 	.data(tableData)
+	  		.enter()
+	  		.append('tr');
+
+
+	  	rows.on("click", function (d, i) {
+
+	  		//songClickAction(songList[i]["Song"], songList[i]["Artist"]);
+	  	})
+		// create a cell in each row for each column
+		var cells = rows.selectAll('td')
+	  		.data(function (row) {
+	    		return columns.map(function (column) {
+	      			return {column: column, value: row[column]};
+	    		});
+	 		 })
+	  		.enter()
+	  		.append('td')
+	    	.html(function (d, i) { 
+
+	    			var text = "<p>" + d.value + "<p>";
+	    			return text; 
+
+	    	});
+
+
+	    cells.on("click", function (d, i) {
+	    		var list = getArticleList();
+	    		var article;
+	    		for(var j = 0; j < list.length; j++) {
+	    			if(list[j].title == d.value) {
+	    				article = list[j];
+	    				break;
+	    			}
+	    		}
+	    		titleCellActionConference(d.value, article.id, article.database);
+
+	    	
+	    });
+
+
+
+	    
+	    table.attr("id", 'myTable');
+
+
+}
+
+function clearConferenceList(){ //void
+	d3.select('#ConferenceList').selectAll("*").remove();
+
+}
+
+function titleCellActionConference(d, id, database) {
+	var text = requestAbstract(id, database);
+	setCurrentArticle(d);
+	hideArticleListPage();
+	hideConferenceListPage();
+	populateArticlePage(text, currentWord);
+	showArticlePage();
+	setPage(5);
+}
+
 
 /***************************************************************
                       HTML
 ***************************************************************/
 
-//PAGE[0] initial, PAGE[1] cloud, PAGE[2] songs, PAGE[3] lyrics
-var PAGE = [true, false, false, false];
+//PAGE[0] initial, PAGE[1] cloud, PAGE[2] articleList, PAGE[3] articlePage, PAGE[4] conferenceList, page[5] articlePage from conferenceList
+var PAGE = [true, false, false, false, false];
 
 
 //Helper functions
@@ -510,6 +704,7 @@ function homeAction(){
 		showSearch();
 		hideArticlePage();
 		hideArticleListPage();
+		hideConferenceListPage();
 		showWordCloudPage();
 	}
 
@@ -531,10 +726,21 @@ function backAction(){
 		hideArticleListPage();
 		showWordCloudPage();
 	}else if(PAGE[3]){ 
-		//If the user is on the lyrics page, go to songListPage
+		//If the user is on the article text page, go to articleList
 		setPage(2);
 		hideArticlePage();
 		showArticleListPage();
+	} else if(PAGE[4]){
+		// If the user is on the conferenceList page got to articleList
+		setPage(2);
+		hideConferenceListPage();
+		var articleList = requestArticleList(currentWord);
+		setArticleList(articleList);
+		showArticleListPage();
+	} else if(PAGE[5]) {
+		setPage(4);
+		hideArticlePage();
+		showConferenceListPage();
 	}
 }
 
@@ -568,7 +774,7 @@ function populateWordCloud(){ //void
         .words(words)
         .start();
   d3.select("#wCCanvas").selectAll("text").on("click", function(d, i) { wordClickAction(d3.select(this).text()); });
-console.log("selected word");
+
             
  
  }
@@ -581,7 +787,6 @@ function clearWordCloud(){ //void
 function wordClickAction(word){ //void
 	//word: string
 	setPage(2);
-	console.log("clicked");
 	setCurrentWord(word);
 	var articleList = requestArticleList(currentWord);
 	setArticleList(articleList);
@@ -598,18 +803,47 @@ var searchAuthorButton = document.getElementById("searchAuthorButton");
 var searchBar = document.getElementById("searchBar");
 var searchContainer = document.getElementById("Search");
 var articleInput = document.getElementById("articleInput");
+var previousSearches = [];
 
-
+function addSearch(search) {
+	previousSearches.push(search);
+}
 
 function searchByKeywordAction(){ //void
+	
+	if(searchBar.value == "")
+		return;
+	addSearch(searchBar.value);
 	hideWordCloudPage();
 	requestWordCloudData(0, searchBar.value, articleInput.value);
 }
 
 function searchByAuthorAction(){ //void
+
+	if(searchBar.value == "")
+		return;
+	addSearch(searchBar.value);
 	hideWordCloudPage();
 	requestWordCloudData(1, searchBar.value, articleInput.value);
 }
+function showSearchHistory() {
+	if(previousSearches.length == 0) {
+		return;
+	}
+	var html = "";
+	for(var i = previousSearches.length-1; i >= 0; i--) {
+		html = html + "<a>" + previousSearches[i] + "</a>";
+	}
+	var theDiv = document.getElementById('dropdown-content');
+	theDiv.innerHTML = html; 
+	d3.selectAll("a")
+		.on("click", function() {
+			searchBar.value = d3.select(this)[0][0].innerHTML;
+			
+		});
+	    	
+}
+
 
 function hideSearch(){ //void 
 	setInvisible("Search");

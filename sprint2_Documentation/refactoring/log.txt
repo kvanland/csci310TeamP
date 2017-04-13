@@ -41,3 +41,9 @@ What was refactored?
 Changed the api call from GetArticleList to GetWordArticleList and the method in WordCloud.php from getListOfArticles to GetWordListOfArticles
 Why?
 These names make more sense because the system gets an article list based off a word or a conference
+
+4/12/17 Pair Programming: Fong an Bergman
+What was refactored?
+The control flow of the front-end search and article apis were refactored.
+Why?
+Before we were not waiting fully for requests to finish. This could potentially cause bugs
