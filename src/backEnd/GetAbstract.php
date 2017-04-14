@@ -7,11 +7,11 @@
  */
 
 include "Constants.php";
+include "simple_html_dom.php";
 
-//$id = $_GET["title"];
-//$database = $_GET["author"];
-$id = "1455209";
-$database = "0";
+$id = $_GET["title"];
+$database = $_GET["author"];
+
 
 echo GetAbstractDriver::getAbstract($id, $database);
 
@@ -31,15 +31,25 @@ class GetAbstractDriver{
             return $abstract;
         }
         else{
-            $url = "http://dl.acm.org.libproxy1.usc.edu/tab_abstract.cfm?id=$id&type=Article&usebody=tabbody&_cf_containerId=abstract&_cf_nodebug=true&_cf_nocache=true&_cf_clientid=36E85E46A5834633E63A802CD6C7FE27&_cf_rc=0";
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7) AppleWebKit/534.48.3 (KHTML, like Gecko) Version/5.1 Safari/534.48.3');
+            $url = str_replace("\\", "", $id);
+            $cr = curl_init($url);
+            curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($cr, CURLOPT_FOLLOWLOCATION, 1);
+            curl_exec($cr);
+            $info = curl_getinfo($cr);
+            $url = $info["url"];
+            $url = $url."&preflayout=flat";
+            $html = file_get_html($url);
 
-            $content = curl_exec($ch);
+            if(empty($html))
+                return "An abstract is not available";
 
-            echo $content;
-
-            curl_close($ch);
+            $abstractNotAvailable = empty($html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0));
+            if (!$abstractNotAvailable){
+                $abstract = $html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0)->innertext();
+                return $abstract;
+            }
+            return "An abstract is not available";
         }
 
 

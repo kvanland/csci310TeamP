@@ -47,3 +47,9 @@ What was refactored?
 The control flow of the front-end search and article apis were refactored.
 Why?
 Before we were not waiting fully for requests to finish. This could potentially cause bugs
+
+4/13 Pair Programming: Zolintakis and Vanland
+What was refactored?
+split database count variable in WordCloud initializeArticles into the variables acmCount and ieeCount.
+Why? 
+This helped readability to distinguish the variable value

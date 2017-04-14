@@ -9,8 +9,13 @@ class GetConferenceArticleListTest extends TestCase
 
     public function testGetConferenceArticleListValidJson()
     {
-        $json = ConferenceArticleListDriver::getConferenceArticleList("2013 IEEE International Conference on Communications Workshops (ICC)");
-        $array = json_decode($json);
+        ConferenceArticleListDriver::$articleList =array();
+        ConferenceArticleListDriver::$articles = array();
+        ConferenceArticleListDriver::$numArticles = 5;
+        ConferenceArticleListDriver::$word = "computer";
+        ConferenceArticleListDriver::$conference = "2013 IEEE International Conference on Communications Workshops (ICC)";
+        $json = ConferenceArticleListDriver::getConferenceArticleList();
+        json_decode($json);
 
         $this->assertEquals(json_last_error(), JSON_ERROR_NONE);
 
@@ -19,19 +24,57 @@ class GetConferenceArticleListTest extends TestCase
 
     public function testGetConferenceArticleListIEEE()
     {
-        $array = ConferenceArticleListDriver::getIEEE("2013 IEEE International Conference on Communications Workshops (ICC)");
+        ConferenceArticleListDriver::$articleList =array();
+        ConferenceArticleListDriver::$articles = array();
+        ConferenceArticleListDriver::$numArticles = 5;
+        ConferenceArticleListDriver::$word = "computer";
+        ConferenceArticleListDriver::$conference = "2013 IEEE International Conference on Communications Workshops (ICC)";
+        ConferenceArticleListDriver::getIEEE();
 
-        $this->assertEquals(($array[0] == "Cooperative drug delivery through molecular communication among biological nanomachines" &&
-        sizeof($array)==296), true);
+        $bool = strcmp(ConferenceArticleListDriver::$articles[0]->conferences, "2013 IEEE International Conference on Communications Workshops (ICC)") == 0;
+
+        $this->assertEquals($bool && sizeof(ConferenceArticleListDriver::$articles)==5, true);
 
     }
 
-    public function testGetConferenceArticleListOther()
+    public function testGetConferenceArticleListACM()
     {
-        $array = ConferenceArticleListDriver::getACM("the 4th international conference");
+        ConferenceArticleListDriver::$articleList =array();
+        ConferenceArticleListDriver::$articles = array();
+        ConferenceArticleListDriver::$numArticles = 5;
+        ConferenceArticleListDriver::$word = "computer";
+        ConferenceArticleListDriver::$conference = "Proceedings of the 4th international conference on Knowledge capture  - K-CAP '07";
+        ConferenceArticleListDriver::getACM();
 
-        $this->assertEquals(($array[0] == "Proceedings of the 4th international conference on Knowledge capture  - K-CAP '07" &&
-            sizeof($array)==328), true);
+        $bool = strcmp(ConferenceArticleListDriver::$articles[0]->conferences, "Proceedings of the 4th international conference on Knowledge capture  - K-CAP '07") == 0;
+
+        $this->assertEquals($bool && sizeof(ConferenceArticleListDriver::$articles)==5, true);
 
     }
+
+    public function testParseACM(){
+        ConferenceArticleListDriver::$articleList = array();
+        $article = new Article("http:\/\/dx.doi.org\/10.1145\/1275152.1275160", "", "", "", 0, 0);
+        ConferenceArticleListDriver::parseACM($article);
+
+        $this->assertEquals(empty(ConferenceArticleListDriver::$articleList), false);
+
+    }
+
+    public function testParseIEEE(){
+        ConferenceArticleListDriver::$articleList = array();
+        $article = new Article("", "", "", "", 1, 4107932);
+        ConferenceArticleListDriver::parseIEEE($article);
+
+        $this->assertEquals(empty(ConferenceArticleListDriver::$articleList), false);
+
+    }
+
+    public function testCountWordOccurences(){
+        $string = "When the count Occurence runs on the computer it should count the word computer about computer amount of times";
+        $count = ConferenceArticleListDriver::countWordOccurence($string);
+
+        $this->assertEquals($count, 3);
+    }
+
 }

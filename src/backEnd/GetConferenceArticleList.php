@@ -6,54 +6,73 @@
  * Time: 5:02 PM
  */
 
-$conference = $_GET["conference"];
+include "Constants.php";
+include "Article.php";
+include "simple_html_dom.php";
+
+ConferenceArticleListDriver::$conference = $_GET["conference"];
+ConferenceArticleListDriver::$word = $_GET["word"];
+ConferenceArticleListDriver::$numArticles = $_GET["numArticles"];
+ConferenceArticleListDriver::$articles = array();
+ConferenceArticleListDriver::$articleList = array();
 
 
-echo ConferenceArticleListDriver::getConferenceArticleList($conference);
+
+echo ConferenceArticleListDriver::getConferenceArticleList();
 
 
 class ConferenceArticleListDriver{
 
-    public static function getConferenceArticleList($conference){
-        $IEEETitles = ConferenceArticleListDriver::getIEEE($conference);
-        $ACMTitles = ConferenceArticleListDriver::getACM($conference);
+    public static $articles;
+    public static $numArticles;
+    public static $word;
+    public static $conference;
+    public static $articleList;
 
-        $conferenceTitles = array_merge($IEEETitles, $ACMTitles);
+    public static function getConferenceArticleList(){
+        ConferenceArticleListDriver::getIEEE(ConferenceArticleListDriver::$conference);
+        ConferenceArticleListDriver::getACM(ConferenceArticleListDriver::$conference);
+
+        foreach (ConferenceArticleListDriver::$articles as $article){
+            if($article->database == Constants::ACM)
+                ConferenceArticleListDriver::parseACM($article);
+            else
+                ConferenceArticleListDriver::parseIEEE($article);
 
 
-        $sendObj = array();
-        foreach ($conferenceTitles as $title) {
-            array_push($sendObj, array("title"=>$title));
         }
 
-        return json_encode($sendObj);
+
+        return json_encode(ConferenceArticleListDriver::$articleList);
     }
 
-    public static function getIEEE($conference)
+    public static function getIEEE()
     {
-        $titles = array();
-        $url = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?jn=$conference&hc=1000";
+        $url = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?jn=".ConferenceArticleListDriver::$conference."&hc=1000";
 
         $xml = simplexml_load_file($url);
         if (empty($xml))
-            return $titles;
+            return;
 
-        for ($i = 0; $i < sizeof($xml->document); $i++) {
-            $xmlConference = $xml->document[$i]->pubtitle;
-            if ($xmlConference == $conference) {
-                $title = (string) $xml->document[$i]->title;
-                array_push($titles, $title);
+        $i = 0;
+        while(sizeof(ConferenceArticleListDriver::$articles)<ConferenceArticleListDriver::$numArticles && $i < sizeof($xml->document)){
+            if(strcmp(ConferenceArticleListDriver::$conference, $xml->document[$i]->pubtitle) == 0) {
+                $title = (string)$xml->document[$i]->title;
+                $authors = explode("; ", (string)$xml->document[$i]->authors);
+                $conference = (string)$xml->document[$i]->pubtitle;
+                $pdfUrl = (string)$xml->document[$i]->pdf;
+                $source = Constants::IEEE;
+                $number = (string)$xml->document[$i]->arnumber;
+                $article = new Article($pdfUrl, $authors, $conference, $title, $source, $number);
+                array_push(ConferenceArticleListDriver::$articles, $article);
             }
+            $i++;
         }
-
-        return $titles;
     }
 
-    public static function getACM($conference){
-        $titles = array();
-        $urlConference = str_replace(" ", "+", $conference);
+    public static function getACM(){
+        $urlConference = str_replace(" ", "+", ConferenceArticleListDriver::$conference);
         $url = "http://api.crossref.org/works?filter=member:320&query=$urlConference&sort=score&order=desc&rows=1000";
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -65,17 +84,110 @@ class ConferenceArticleListDriver{
 
         $acmArray = json_decode($json, true);
 
-        foreach ($acmArray["message"]["items"] as $article){
-            if(array_key_exists("event", $article))
-                if(array_key_exists("name", $article["event"])) {
-                    $acmConference = $article["event"]["name"];
-                    if(strcmp($acmConference,$conference) == 0)
-                        array_push($titles,$article["title"][0]);
+        $i = 0;
+        while(sizeof(ConferenceArticleListDriver::$articles) < ConferenceArticleListDriver::$numArticles && $i < sizeof($acmArray["message"]["items"])){
+            $authors = array();
+            $articleUrl = "";
+            $title = "";
+            
+            if(!array_key_exists("container-title", $acmArray["message"]["items"][$i])) {
+                $i++;
+                continue;
+            }
+
+            if(empty($acmArray["message"]["items"][$i]["container-title"])) {
+                $i++;
+                continue;
+            }
+
+            if(strcmp(ConferenceArticleListDriver::$conference, $acmArray["message"]["items"][$i]["container-title"][0]) == 0) {
+                if (array_key_exists("title", $acmArray["message"]["items"][$i]))
+                    if (!empty($acmArray["message"]["items"][$i]["title"]))
+                        $title = $acmArray["message"]["items"][$i]["title"][0];
+
+
+                if (array_key_exists("author", $acmArray["message"]["items"][$i])) {
+                    foreach ($acmArray["message"]["items"][$i]["author"] as $author) {
+                        if (array_key_exists("name", $author)) {
+                            $name = $author["name"];
+                        } else {
+                            $name = "";
+                            if (array_key_exists("given", $author))
+                                $name = $author["given"];
+                            if (array_key_exists("family", $author))
+                                $name = "$name " . $author["family"];
+                        }
+                        array_push($authors, $name);
+                    }
                 }
+                $conference = $acmArray["message"]["items"][$i]["container-title"][0];
+
+                if (array_key_exists("URL", $acmArray["message"]["items"][$i]))
+                    $articleUrl = $acmArray["message"]["items"][$i]["URL"];
+                $source = Constants::ACM;
+                $articleNumber = $articleUrl;
+                $article = new Article($articleUrl, $authors, $conference, $title, $source, $articleNumber);
+                array_push(ConferenceArticleListDriver::$articles, $article);
+                $i++;
+            }
         }
-        return $titles;
-
-
     }
+
+    public static function parseACM($article){
+        $url = str_replace("\\", "", $article->url);
+        $cr = curl_init($url);
+        curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($cr, CURLOPT_FOLLOWLOCATION, 1);
+        curl_exec($cr);
+        $info = curl_getinfo($cr);
+        $url = $info["url"];
+        $url = $url."&preflayout=flat";
+        $html = file_get_html($url);
+
+        $array = array("title"=>$article->name, "authors"=>$article->authors,
+            "conference"=>$article->conferences, "download"=>"down", "bibtex"=>"http://dl.acm.org/exportformats.cfm?id=".$article->articleNumber."&expformat=bibtex", "id"=>$article->articleNumber,
+            "database"=>$article->database);
+
+        if(empty($html)) {
+            $array["frequency"] = "0";
+            array_push(ConferenceArticleListDriver::$articleList, $array);
+            return;
+        }
+
+
+        $abstractNotAvailable = empty($html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0));
+        if (!$abstractNotAvailable){
+            $abstract = $html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0)->innertext();
+            $count = ConferenceArticleListDriver::countWordOccurence($abstract);
+            $array["frequency"] = (string) $count;
+
+        }
+        array_push(ConferenceArticleListDriver::$articleList, $array);
+    }
+
+    public static function parseIEEE($article){
+        $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=".$article->articleNumber;
+        $xml = simplexml_load_file($apiCall);
+        $abstract = (string) $xml->document->abstract;
+
+        $count = ConferenceArticleListDriver::countWordOccurence($abstract);
+
+        array_push(ConferenceArticleListDriver::$articleList, array("title"=>$article->name, "authors"=>$article->authors, "frequency"=>$count,
+            "conference"=>$article->conferences, "download"=>"down", "bibtex"=>"http://ieeexplore.ieee.org/xpl/downloadCitations?recordIds=".$article->articleNumber."&citations-format=citation-only&download-format=download-bibtex", "id"=>$article->articleNumber,
+            "database"=>$article->database));
+    }
+
+    public static function countWordOccurence($abstract){
+        $string = strtolower($abstract);
+        $words = explode(" ", $string);
+        $count = 0;
+        foreach ($words as $word){
+            if(strcmp($word, ConferenceArticleListDriver::$word) == 0)
+                $count++;
+        }
+        return $count;
+    }
+
+
 
 }

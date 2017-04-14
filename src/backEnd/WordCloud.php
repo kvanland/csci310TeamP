@@ -28,34 +28,58 @@ class WordCloud
         $IEEEArticleList = $this->getArticleListIEEE($searchWord, $type, $articleCount);
         $acmArticleList = $this->getArticleListACM($searchWord, $type, $articleCount);
 
-        $databaseCount = 0;
+        $acmCount = 0;
+        $ieeeCount = 0;
         $total = 0;
         if(sizeof($acmArticleList) < $articleCount/2){
-            while($total < $articleCount/2 && $databaseCount < sizeof($acmArticleList)) {
-                $this->articleList[$acmArticleList[$databaseCount]->name] = $acmArticleList[$databaseCount];
-                $databaseCount++;
-                $total++;
-            }
-            $databaseCount = 0;
+            while($total < $articleCount/2 && $acmCount < sizeof($acmArticleList)) {
+                if(!array_key_exists($acmArticleList[$acmCount]->name, $this->articleList)) {
+                    $this->articleList[$acmArticleList[$acmCount]->name] = $acmArticleList[$acmCount];
+                    $total++;
+                }
 
-            while($total < $articleCount && $databaseCount < sizeof($IEEEArticleList)) {
-                $this->articleList[$IEEEArticleList[$databaseCount]->name] = $IEEEArticleList[$databaseCount];
-                $databaseCount ++;
-                $total++;
+                $acmCount++;
+            }
+
+            while($total < $articleCount && $ieeeCount < sizeof($IEEEArticleList)) {
+                if(!array_key_exists($IEEEArticleList[$ieeeCount]->name, $this->articleList)){
+                    $this->articleList[$IEEEArticleList[$ieeeCount]->name] = $IEEEArticleList[$ieeeCount];
+                    $total++;
+                }
+                $ieeeCount++;
             }
         }else{
-            while($total < $articleCount/2 && $databaseCount < sizeof($IEEEArticleList)) {
-                $this->articleList[$IEEEArticleList[$databaseCount]->name] = $IEEEArticleList[$databaseCount];
-                $databaseCount ++;
-                $total++;
+            while($total < $articleCount/2 && $ieeeCount < sizeof($IEEEArticleList)) {
+                if(!array_key_exists($IEEEArticleList[$ieeeCount]->name, $this->articleList)){
+                    $this->articleList[$IEEEArticleList[$ieeeCount]->name] = $IEEEArticleList[$ieeeCount];
+                    $total++;
+                }
+                $ieeeCount++;
             }
-            $databaseCount = 0;
 
-            while($total < $articleCount && $databaseCount < sizeof($acmArticleList)) {
-                $this->articleList[$acmArticleList[$databaseCount]->name] = $acmArticleList[$databaseCount];
-                $databaseCount++;
+            while($total < $articleCount && $acmCount < sizeof($acmArticleList)) {
+                if(!array_key_exists($acmArticleList[$acmCount]->name, $this->articleList)) {
+                    $this->articleList[$acmArticleList[$acmCount]->name] = $acmArticleList[$acmCount];
+                    $total++;
+                }
+                $acmCount++;
+            }
+        }
+
+        while($total < $articleCount && $ieeeCount < sizeof($IEEEArticleList)) {
+            if(!array_key_exists($IEEEArticleList[$ieeeCount]->name, $this->articleList)){
+                $this->articleList[$IEEEArticleList[$ieeeCount]->name] = $IEEEArticleList[$ieeeCount];
                 $total++;
             }
+                $ieeeCount++;
+            }
+
+        while($total < $articleCount && $acmCount < sizeof($acmArticleList)) {
+            if(!array_key_exists($acmArticleList[$acmCount]->name, $this->articleList)) {
+                $this->articleList[$acmArticleList[$acmCount]->name] = $acmArticleList[$acmCount];
+                $total++;
+            }
+            $acmCount++;
         }
 
         if(empty($this->articleList))
@@ -149,14 +173,13 @@ class WordCloud
                 }
             }
             $conference = "";
-            if(array_key_exists("event", $acmArray["message"]["items"][$i]))
-                if(array_key_exists("name", $acmArray["message"]["items"][$i]["event"]))
-                    $conference = $acmArray["message"]["items"][$i]["event"]["name"];
+            if(array_key_exists("container-title", $acmArray["message"]["items"][$i]))
+                $conference = $acmArray["message"]["items"][$i]["container-title"];
 
             if(array_key_exists("URL", $acmArray["message"]["items"][$i]))
                 $articleUrl = $acmArray["message"]["items"][$i]["URL"];
             $source = Constants::ACM;
-            $articleNumber = substr($articleUrl, -7);
+            $articleNumber = $articleUrl;
             $article = new Article($articleUrl, $authors, $conference, $title, $source, $articleNumber);
             array_push($acmArticleList, $article);
             $i++;
@@ -231,6 +254,8 @@ class WordCloud
         }
     }
 
+
+
     public function getWordCloudData(){
         $sortedWordCloud = $this->wcData;
         usort($sortedWordCloud, function($a, $b) {
@@ -251,9 +276,13 @@ class WordCloud
 
         foreach ($wordObject->articleList as $articleTitle=>$numOccurrences){
             $article = $this->articleList[$articleTitle];
-
+            if($article->database == Constants::IEEE){
+                $bib = "http://ieeexplore.ieee.org/xpl/downloadCitations?recordIds=".$article->articleNumber."&citations-format=citation-only&download-format=download-bibtex";
+            }else{
+                $bib = "http://dl.acm.org/exportformats.cfm?id=".$article->articleNumber."&expformat=bibtex";
+            }
             $singleArticleArray = array("title"=>$articleTitle, "authors"=>$article->authors, "frequency"=>$numOccurrences,
-                "conference"=>$article->conferences, "download"=>"down", "bibtex"=>"bib", "id"=>$article->articleNumber,
+                "conference"=>$article->conferences, "download"=>"down", "bibtex"=>$bib, "id"=>$article->articleNumber,
                 "database"=>$article->database);
             array_push($articlesArray, $singleArticleArray);
         }
@@ -262,6 +291,8 @@ class WordCloud
         return json_encode($sendObj);
 
     }
+
+
 
 
 }
