@@ -161,11 +161,11 @@ function requestArticleList(word){ //JSON object array
 	
 }
 
-function requestConferenceList(article) {
-	/*
+function requestConferenceList(conference, word, num) {
+	
 	var r;
 	console.log("requesting");
-	var search = "http://localhost/csci310TeamP/src/backend/getConferenceList.php?article=" + article;
+	var search = "http://localhost/csci310TeamP/src/backend/GetConferenceArticleList.php?conference=" + conference + "&word=" + word + "&numArticles=" + num;
 	$.ajax({
 	 	url: search,
 	 	success: function (result) {
@@ -176,30 +176,26 @@ function requestConferenceList(article) {
 	 });
 	
 	 return r;
-	 */
-	 return JSON.parse("[\"article 1\", \"article 2\"]");
-
+	 
 
 }
 
 
 function requestAbstract(id, database) {
-	/*
+	
 	var r;
 	console.log("requesting");
-	var search = "http://localhost/csci310TeamP/src/backend/GetAbstract.php?id=" + id + "&database=" + database;
+	var search = "http://localhost/csci310TeamP/src/backend/GetAbstract.php?title=" + id + "&author=" + database;
 	$.ajax({
 	 	url: search,
 	 	success: function (result) {
-	 		r = JSON.parse(result);
-			 console.log(r);
+	 		r = result;
 	 	},
 	 	async : false
 	 });
 	
 	 return r;
-	 */
-	 return "SJF computer jlfdsagj hey";
+
 
 	 
 } 
@@ -293,12 +289,12 @@ function showStatusBar() {
                       ArticlePage
 ***************************************************************/
 
-function populateArticlePage(articleText, author, word){ //void
+function populateArticlePage(articleText, word){ //void
 
 
 
-	var inner = articleText.replace(new RegExp(" " +word + " ", "g"), '<span style="color:#1ED760"> ' + word + ' </span>');
-	inner = inner.replace(new RegExp(" " +word + ",", "g"), '<span style="color:#1ED760"> ' + word + ',</span>');
+	var text = String(articleText); //
+	var inner = text.replace(new RegExp(word, "g"), '<span style="color:#1ED760">' + word + '</span>');
 	inner = currentArticle + "<br> <br>" +"Abstract: <br>" + inner;
      var theDiv = document.getElementById("ArticlePage");
 	theDiv.innerHTML = inner; 
@@ -525,18 +521,18 @@ function authorCellAction(d) {
 
 function conferenceCellAction(d) {
 	setCurrentConference(d);
-	var conferenceList = requestConferenceList(d);
+	var conferenceList = requestConferenceList(d, currentWord, articleInput.value);
 	setConferenceList(conferenceList);
 	hideArticleListPage();
 	showConferenceListPage();
 }
 
 function downloadCellAction(d) {
-	alert(d);
+	window.open(d);
 }
 
 function bibCellAction(d) {
-	alert(d);
+	window.open(d);
 }
 
 
@@ -569,6 +565,8 @@ var conferenceListDiv = d3.select('#ConferenceList');
 function populateConferenceList(conferenceData) 	{
 		clearConferenceList();
 
+
+
 		var tableData = "[ ";
 		for(var i = 0; i < conferenceData.length; i++) {
 			var curr = conferenceData[i];
@@ -576,8 +574,27 @@ function populateConferenceList(conferenceData) 	{
 				tableData += "{ ";
 			else 
 				tableData += ", {"
-			tableData += "\"" + currentConference + "\" : ";
-			tableData += "\"" + curr + "\" ";
+			tableData += "\"" + "title" + "\" : ";
+			tableData += "\"" + curr.title + "\", ";
+			tableData += "\"" + "authors" + "\" : ";
+			var authorString = "";
+			var authors = curr.authors.sort();
+			for(var j = 0; j < authors.length; j++) {
+				authorString += authors[j];
+				if(j != authors.length-1) {
+					authorString += ", ";
+				}
+			}
+
+			tableData += "\"" + authorString + "\", ";
+			tableData += "\"" + "frequency" + "\" : ";
+			tableData += curr.frequency + ", ";
+			tableData += "\"" + "conference" + "\" : ";
+			tableData += "\"" + curr.conference + "\", ";
+			tableData += "\"" + "download" + "\" : ";
+			tableData += "\"" + curr.download + "\", ";
+			tableData += "\"" + "bibtex" + "\" : ";
+			tableData += "\"" + curr.bibtex + "\" ";
 			tableData += "}"
 		}
 		tableData += " ]";
@@ -585,10 +602,11 @@ function populateConferenceList(conferenceData) 	{
 		tableData = JSON.parse(tableData);
 		//var test = "[ { \"title\" : \"On the Feasibility of Breast Cancer Imaging Systems at Millimeter-Waves Frequencies\", \"authors\" : \"Simona Di Meo,  Pedro Fidel Espín-López,  Andrea Martellosio,  Marco Pasian,  Giulia Matrone,  Maurizio Bozzi,  Giovanni Magenes,  Andrea Mazzanti,  Luca Perregrini,  Francesco Svelto,  Paul Eugene Summers,  Giuseppe Renne,  Lorenzo Preda,  Massimo Bellomi\", \"frequency\" : 1, \"conference\" : \"IEEE Transactions on Microwave Theory and Techniques\", \"download\" : \"down\", \"bibtex\" : \"bib\" },  { \"title\" : \"GaN Single-Polarity Power Supply Bootstrapped Comparator for High-Temperature Electronics\", \"authors\" : \"Xiaosen Liu,  Kevin J. Chen\", \"frequency\" : 1, \"conference\" : \"IEEE Electron Device Letters\", \"download\" : \"down\", \"bibtex\" : \"bib\" }, { \"title\" : \"GaN Single-Polarity Power Supply Bootstrapped Comparator for High-Temperature Electronics\", \"authors\" : \"Xiaosen Liu,  Kevin J. Chen\", \"frequency\" : 5, \"conference\" : \"IEEE Electron Device Letters\", \"download\" : \"down\", \"bibtex\" : \"bib\" } ]";
 		//tableData = JSON.parse(test);
-		var columns = [currentConference];
-		var table = conferenceListDiv.append('table');
+		var columns = ['title', 'authors', 'frequency', 'conference', 'download', 'bibtex'];
+		var table = d3.select('#ConferenceList').append('table');
 		var thead = table.append('thead');
 		var	tbody = table.append('tbody');
+		table.append('caption').text(currentConference).style("font-size", "18px").style("font-weight", "bold");
 
 		// append the header row
 		thead.append('tr')
@@ -597,9 +615,9 @@ function populateConferenceList(conferenceData) 	{
 	  		.append('th')
 	    	.text(function (column) { return column; })
 	    	.on("click", function (d, i) {
-	    	
+	    		if(i%6 < 4) {
 	    			sortTable(i);
-	    		
+	    		}
 	    	});
 
 		// create a row for each object in the data
@@ -623,32 +641,59 @@ function populateConferenceList(conferenceData) 	{
 	  		.enter()
 	  		.append('td')
 	    	.html(function (d, i) { 
+	    		// if author cell add list of authors
+	    		if(i%6==1) {
+	    			var authors = d.value.split(", ");
+	    			var t = "<ul>";
+	    			for(var j = 0; j < authors.length; j++) {
+	    				t = t + "<li>" + authors[j] + "</li>";
+	    			}
+	    			t += "</ul>";
+	    			return t;
 
+	    		} else if(i%6!=2) {
 	    			var text = "<p>" + d.value + "<p>";
 	    			return text; 
-
+	    		} else {
+	    			return d.value;
+	    		}
 	    	});
 
-
 	    cells.on("click", function (d, i) {
-	    		var list = getArticleList();
+	    	if(i%6 == 0) {
+	    		var list = getArticleList().articles;
 	    		var article;
 	    		for(var j = 0; j < list.length; j++) {
 	    			if(list[j].title == d.value) {
+
 	    				article = list[j];
 	    				break;
 	    			}
 	    		}
 	    		titleCellActionConference(d.value, article.id, article.database);
-
-	    	
+	    	}
+	    	// if(i%6 == 1) {
+	    	// 	authorCellAction(d.value);
+	    	// }
+	    	if(i%6 == 3) {
+	    		conferenceCellAction(d.value);
+	    	}
+	    	if(i%6 == 4) {
+	    		downloadCellAction(d.value);
+	    	}
+	    	if(i%6 == 5) {
+	    		bibCellAction(d.value);
+	    	}
 	    });
 
+	    var authorLi = cells.selectAll("li");
+	    authorLi.on("click", function(d, i) {
+	    	var author = d3.select(this)[0][0].innerHTML.trim();
+	    	authorCellAction(author);
+	    });
 
-
-	    
 	    table.attr("id", 'myTable');
-
+	    	
 
 }
 
