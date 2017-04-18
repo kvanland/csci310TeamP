@@ -1,9 +1,9 @@
-Feature: Search History
+Feature: Abstract
     In order to understand what kinds of article contain a selected word
     as a website user
     I must be able to view the abstract of articles with that word highlighted
 
-    Scenario: Click article from "information" wordcloud
+    Scenario: Click article from "decidable" wordcloud
     Given The current page is "http://127.0.0.1"
     When I enter the term "decidable" into the search bar
     And I press the "searchKeywordButton" button

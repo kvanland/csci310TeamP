@@ -18,17 +18,10 @@ Feature: Search History
     And I press on "Adleman" in the dropdown
     Then I should see a Word Cloud
 
-    Scenario: Search for keyword jjjj
+    Scenario: Search for keyword decidable
     Given The current page is "http://127.0.0.1"
-    When I enter the term "jjjj" into the search bar
+    When I enter the term "decidable" into the search bar
     And I press the "searchAuthorButton" button
     And I press the "searchHistoryButton" button
-    Then I should see a dropdown with "jjjj"
+    Then I should see a dropdown with "decidable"
 
-    Scenario: Click on jjjj in search history
-    Given The current page is "http://127.0.0.1"
-    When I enter the term "jjjj" into the search bar
-    And I press the "searchAuthorButton" button
-    And I press the "searchHistoryButton" button
-    And I press on "jjjj" in the dropdown
-    Then I should not see a wordcloud
