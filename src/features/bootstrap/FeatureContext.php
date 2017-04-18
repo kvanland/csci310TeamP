@@ -170,7 +170,15 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnInTheWordcloud($arg1)
     {
-        throw new PendingException();
+         $session = $this->getSession();
+        $page = $session->getPage();
+        $word = $page->find('named', array('content', $arg1));
+        if(!$word){
+            throw new Exception("Word " + $arg1 + " could not be found");
+        }else{
+            $word->click();
+        }
+
     }
 
     /**
@@ -178,7 +186,17 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnInTheArticleList($arg1)
     {
-        throw new PendingException();
+         $session = $this->getSession();
+        $page = $session->getPage();
+        $songListDiv = $page->findById("ArticleList");
+        $table_rows = $songListDiv->findAll('css', 'tr');
+        foreach($table_rows as $row){
+            $table_data = $row->findall('css', 'td');
+            $par = $table_data[0]->find('css', 'p');
+            if($par->getText() == $arg1){
+                $par->click();
+            }
+        }
     }
 
     /**
@@ -186,7 +204,27 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeTheAbstractOf($arg1)
     {
-        throw new PendingException();
+        $session = $this->getSession();
+        $page = $session->getPage();
+        $articleDiv = $page->findById("ArticlePage");
+        $expectedAbstract;
+        if($arg1 == "Temporal logics over unranked trees")  {
+            $expectedAbstract = "Temporal logics over unranked trees
+
+Abstract: 
+We consider unranked trees that have become an active subject of study recently due to XML applications, and characterize commonly used fragments of first-order (FO) and monadic second-order logic (MSO) for them via various temporal logics. We look at both unordered trees and ordered trees (in which children of the same node are ordered by the next-sibling relation), and characterize Boolean and unary FO and MSO queries. For MSO Boolean queries, we use extensions of the μ-calculus: with counting for unordered trees, and with the past for ordered. For Boolean FO queries, we use similar extensions of CTL*. We then use composition techniques to transfer results to unary queries. For the ordered case, we need the same logics as for Boolean queries, but for the unordered case, we need to add both past and counting to the μ-calculus and CTL*. We also consider MSO sibling-invariant queries, that can use the sibling ordering but do not depend on the particular one used, and capture them by a variant of the μ-calculus with modulo quantifiers.";
+
+        }  else if( $arg1 == "Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos") {
+                $expectedAbstract = "Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos
+
+Abstract: 
+Interpersonal synchrony, i.e. the temporal coordination of persons during social interactions, was traditionally studied by developmental psychologists. It now holds an important role in fields such as social signal processing, usually treated as a dyadic issue. In this paper, we focus on the behavioral patterns from body motion to identify subtle social interactions in the context of multi-person discussion panels, typically involving more than two interacting individuals. We propose a computer-vision based approach for automatic speaker identification that takes advantage of body motion interpersonal synchrony between participants. The approach characterizes human body motion with a novel feature descriptor based on the pixel change history of multiple body regions, which is then used to classify the motor behavioral patterns of the participants into speaking/non-speaking. Our approach was evaluated on a challenging dataset of video segments from discussion panel scenes collected from YouTube. Results are very promising and suggest that interpersonal synchrony of motion behavior is indeed indicative of speaker/listener roles.";
+        }
+
+        $abstract = $articleDiv->getText();
+        if ($abstract != $expectedAbstract) {
+            throw new Exception("Abstract does not match for ".$arg1.".");
+        }
     }
 
     /**
@@ -194,7 +232,16 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAnArticleList()
     {
-        throw new PendingException();
+        $session = $this->getSession();
+        $page = $session->getPage();
+        $songListDiv = $page->findById("ArticleList");
+        $table_rows = $songListDiv->findAll('css', 'tr');
+        foreach($table_rows as $row){
+            $table_data = $row->findall('css', 'td');
+            if(count($table_data)==0) {
+                throw new Exception("No article list seen");
+            };
+        }
     }
 
     /**
@@ -210,7 +257,15 @@ class FeatureContext extends MinkContext
      */
     public function iSelectTheWord($arg1)
     {
-        throw new PendingException();
+        
+        $session = $this->getSession();
+        $page = $session->getPage();
+        $word = $page->find('named', array('content', $arg1));
+        if(!$word){
+            throw new Exception("Word " + $arg1 + " could not be found");
+        }else{
+            $word->click();
+        }
     }
 
     /**
@@ -218,7 +273,20 @@ class FeatureContext extends MinkContext
      */
     public function iSelectTheAuthor($arg1)
     {
-        throw new PendingException();
+        $session = $this->getSession();
+        $page = $session->getPage();
+        $songListDiv = $page->findById("ArticleList");
+        $table_rows = $songListDiv->findAll('css', 'tr');
+        foreach($table_rows as $row){
+            $table_data = $row->findall('css', 'td');
+            $list = $table_data[1]->find('css', 'ul');
+            $authors = $list->findAll('css', 'li');
+            foreach ($authors as $author) {
+                if($author->getText() == $arg1) {
+                    $author->click();
+                }
+            }
+        }
     }
 
     /**
