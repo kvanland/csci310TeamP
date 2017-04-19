@@ -1,0 +1,12 @@
+Guide
+# Pair programming members
+What you refactored
+Why
+
+1.
+What you refactored:
+Why:
+
+2.
+What you refactored:
+Why:
