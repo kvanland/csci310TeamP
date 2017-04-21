@@ -279,10 +279,10 @@ class WordCloud
             if($article->database == Constants::IEEE){
                 $bib = "http://ieeexplore.ieee.org/xpl/downloadCitations?recordIds=".$article->articleNumber."&citations-format=citation-only&download-format=download-bibtex";
             }else{
-                $bib = "http://dl.acm.org/exportformats.cfm?id=".$article->articleNumber."&expformat=bibtex";
+                $bib = "http://dl.acm.org/exportformats.cfm?id=".substr($article->articleNumber,-7)."&expformat=bibtex";
             }
             $singleArticleArray = array("title"=>$articleTitle, "authors"=>$article->authors, "frequency"=>$numOccurrences,
-                "conference"=>$article->conferences, "download"=>"down", "bibtex"=>$bib, "id"=>$article->articleNumber,
+                "conference"=>$article->conferences, "download"=>$article->url, "bibtex"=>$bib, "id"=>$article->articleNumber,
                 "database"=>$article->database);
             array_push($articlesArray, $singleArticleArray);
         }

@@ -1,5 +1,5 @@
 Feature: Abstract
-    In order to understand what kinds of article contain a selected word
+    In order to understand what kinds of articles contain a selected word
     as a website user
     I must be able to view the abstract of articles with that word highlighted
 

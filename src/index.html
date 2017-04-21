@@ -31,10 +31,13 @@
 
   </div>
 
-
   <div id = "ArticleList" >
 
   </div>
+
+  <button id="exportPlainTextButton" class="defaultButton" onclick = writeListToPlainText() visible=hidden>
+      Export as Text
+  </button>
 
     <div id = "ConferenceList" >
 
@@ -59,8 +62,8 @@
       </div>
     </div>
     <br></br>
-    <button id = "searchKeywordButton" class = "purpleButton" onclick = searchByKeywordAction()> Search by Keyword </button>
-    <button id = "searchAuthorButton" onclick = searchByAuthorAction() class = "purpleButton"> Search by Author </button>
+    <button id = "searchKeywordButton" class = "defaultButton" onclick = searchByKeywordAction()> Search by Keyword </button>
+    <button id = "searchAuthorButton" onclick = searchByAuthorAction() class = "defaultButton"> Search by Author </button>
     <br></br>
     <div id = "numArticlesDiv">
       <label for = "articleInput" id = "articleLabel"> Enter number of articles to be used. </label>

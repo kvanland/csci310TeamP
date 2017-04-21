@@ -3,9 +3,9 @@ Guide
 What you refactored
 Why
 
-1.
-What you refactored:
-Why:
+1. 4/20 Vanland and Zolintakis
+What you refactored: Changed class of buttons in index.html and style.css from purpleButton to defaultButton
+Why: purpleButton was based off of the project 1 UI so it no longer applied. This change improved readability
 
 2.
 What you refactored:

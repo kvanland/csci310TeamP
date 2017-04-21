@@ -256,11 +256,13 @@ function hideArticlePage(){ //void
 function showArticleListPage(){ //void
 	setPage(2);
 	setVisible("ArticleList");
+	setVisible("exportPlainTextButton");
 	populateArticleList(getArticleList());
 }
 
 function hideArticleListPage(){ //void
 	setInvisible("ArticleList");
+	setInvisible("exportPlainTextButton");
 	clearArticleList();
 }
 
@@ -268,11 +270,13 @@ function hideArticleListPage(){ //void
 function showConferenceListPage() {
 	setPage(4);
 	setVisible("ConferenceList");
+	setVisible("exportPlainTextButton");
 	populateConferenceList(getConferencelist());
 }
 
 function hideConferenceListPage() {
 	setInvisible("ConferenceList");
+	setInvisible("exportPlainTextButton");
 	clearConferenceList();
 }
 
@@ -539,6 +543,30 @@ function bibCellAction(d) {
 function clearArticleList(){ //void
 	d3.select('#ArticleList').selectAll("*").remove();
 
+}
+
+function writeListToPlainText(){
+	var articleData = getArticleList();
+	var content = currentWord + "\n\n";
+	for(var i = 0; i < articleData['articles'].length; i++) {
+		var curr = articleData['articles'][i];
+		content += "title: " + curr.title + "\n";
+		content += "author: ";
+		var authors = curr.authors.sort();
+		for(var j = 0; j < authors.length; j++) {
+			content += authors[j];
+				if(j != authors.length-1) {
+					content += ", ";
+				}
+		}
+		content += "\n";
+		content += "frequency: " + curr.frequency + "\n"
+		content += "conference: " + curr.conference + "\n";
+		content += "download: " + curr.download + "\n";
+		content += "bibtex: " + curr.bibtex + "\n\n";
+	}
+	uriContent = "data:application/octet-stream," + encodeURIComponent(content);
+	newWindow = window.open(uriContent, 'neuesDokument');
 }
 /*
 function articleClickAction(title, author, journal){ //void
