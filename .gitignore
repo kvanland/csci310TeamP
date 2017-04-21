@@ -28,6 +28,7 @@
 *.log
 *.sql
 *.sqlite
+*Config.py
 
 # OS generated files #
 ######################
