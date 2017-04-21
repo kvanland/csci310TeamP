@@ -17,9 +17,9 @@ class GetArticleListTest extends TestCase
         $wordCloud = new WordCloud();
         $wordCloud->initializeArticleList("computer", "keyword", 5);
 
-        for($i = 0; $i < 5; $i++){
-            $wordCloud->parseNextArticle();
-        }
+//        for($i = 0; $i < 5; $i++){
+//            $wordCloud->parseNextArticle();
+//        }
 
 
         $_SESSION["wordCloud"] = $wordCloud;

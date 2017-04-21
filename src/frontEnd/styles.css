@@ -27,6 +27,11 @@ table, th, td {
     padding: 5px;
 }
 
+#exportPlainTextButton{
+	margin-top: 20px;
+	visibility:hidden;
+}
+
 #ArticleList {
 	padding-left:10px;
 	padding-right: 10px;
@@ -179,7 +184,7 @@ h1{  /*Cumulyrics title*/
 	border-color: white;
 }
 
-.purpleButton{ /* class selector for the search button and add to cloud button */
+.defaultButton{ /* class selector for the search button and add to cloud button */
 	background-color:  #1ED760;
 	color: white;
 
