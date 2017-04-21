@@ -64,7 +64,8 @@ class GetPDF:
 
         if(type == "a"):
             print("dowloading ACM PDF...")
-            open(fileName,'w').write(br.open(self.link).read())
+            br.open(self.link)
+            open(fileName,'w').write(br.follow_link(nr=6).read())
         elif(type == "i"):
             print("dowloading IEEE PDF...")
             br.open(self.link)
