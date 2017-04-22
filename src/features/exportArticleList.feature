@@ -10,3 +10,11 @@ Feature: Exporting Article List
     And I press on "logic" in the wordcloud
     And I press on "exportPlainTextButton" button
     then I should download a plain text document that contains all of the article list information
+
+    Scenario: Click the export as pdf
+    Given The current page is "http://127.0.0.1"
+    When I enter the term "decidable" into the search bar
+    And I press the "searchKeywordButton" button
+    And I press on "logic" in the wordcloud
+    And I press on "exportPdf" button
+    then I should download a pdf document that contains all of the article list information

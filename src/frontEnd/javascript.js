@@ -257,12 +257,14 @@ function showArticleListPage(){ //void
 	setPage(2);
 	setVisible("ArticleList");
 	setVisible("exportPlainTextButton");
+	setVisible("exportPdfButton");
 	populateArticleList(getArticleList());
 }
 
 function hideArticleListPage(){ //void
 	setInvisible("ArticleList");
 	setInvisible("exportPlainTextButton");
+	setInvisible("exportPdfButton");
 	clearArticleList();
 }
 
@@ -271,12 +273,14 @@ function showConferenceListPage() {
 	setPage(4);
 	setVisible("ConferenceList");
 	setVisible("exportPlainTextButton");
+	setVisible("exportPdfButton");
 	populateConferenceList(getConferencelist());
 }
 
 function hideConferenceListPage() {
 	setInvisible("ConferenceList");
 	setInvisible("exportPlainTextButton");
+	setInvisible("exportPdfButton");
 	clearConferenceList();
 }
 
@@ -545,7 +549,7 @@ function clearArticleList(){ //void
 
 }
 
-function writeListToPlainText(){
+function exportPlainText(){
 	var articleData = getArticleList();
 	var content = currentWord + "\n\n";
 	for(var i = 0; i < articleData['articles'].length; i++) {
@@ -568,6 +572,34 @@ function writeListToPlainText(){
 	uriContent = "data:application/octet-stream," + encodeURIComponent(content);
 	newWindow = window.open(uriContent, 'neuesDokument');
 }
+
+
+function exportPdf(){
+	// $('#myTable').tableExport({type:'pdf', escape:false});
+	// html2canvas(document.getElementById("myTable"),{
+	// 	onrendered: function(canvas){
+	// 		var imgData =canvas.toDataURL('image/png');
+	// 		var doc = new jsPDF('p', 'mm', [1000, 1000]);
+	// 		doc.addImage(imgData, 'PNG',5,5, 900, 400);
+	// 		doc.save('sample.pdf');
+	// 	}
+	// })
+	var articleData = getArticleList();
+	var columns = ["title", "authors", "frequency", "conference", "download", "bibtex"];
+	var rows = [];
+	for(var i = 0; i < articleData['articles'].length; i++) {
+		var curr = articleData['articles'][i];
+		var authors = curr.authors.sort();
+		rows.push([curr.title, authors, curr.frequency, curr.conference, curr.download, curr.bibtex]);
+	}
+	var doc = new jsPDF('p', 'mm', [1000, 1000]);
+	doc.autoTable(columns, rows,{
+		tableWidth: 'wrap',
+		theme: 'grid'
+	});
+	doc.save('table.pdf');
+}
+
 /*
 function articleClickAction(title, author, journal){ //void
 	// Function requests article page data, then displays the page
