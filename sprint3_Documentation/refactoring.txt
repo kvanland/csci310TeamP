@@ -10,3 +10,7 @@ Why: purpleButton was based off of the project 1 UI so it no longer applied. Thi
 2.4/21 Vanland and Zolintakis
 What you refactored:Moved scripts in index.html file to head tag.
 Why:This is the most common practice
+
+3. 4/23/17
+What you refactored: Created the article list and conference list on a common canvas. Also created a createTable function to consolidate functionality
+Why: Makes the code more readable and easier to edit

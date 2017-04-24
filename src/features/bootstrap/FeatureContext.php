@@ -392,4 +392,52 @@ class FeatureContext extends MinkContext
     {
         throw new PendingException();
     }
+
+    /**
+     * @When I press on :arg1 button
+     */
+    public function iPressOnButton($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should download a plain text document that contains all of the article list information
+     */
+    public function iShouldDownloadAPlainTextDocumentThatContainsAllOfTheArticleListInformation()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should download a pdf document that contains all of the article list information
+     */
+    public function iShouldDownloadAPdfDocumentThatContainsAllOfTheArticleListInformation()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I select the top :arg1 articles in the table
+     */
+    public function iSelectTheTopArticlesInTheTable($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see a wordcloud made from the articles
+     */
+    public function iShouldSeeAWordcloudMadeFromTheArticles()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see an alert to :arg1
+     */
+    public function iShouldSeeAnAlertTo($arg1)
+    {
+        throw new PendingException();
+    }
 }

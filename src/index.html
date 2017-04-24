@@ -51,18 +51,22 @@
 
   </div>
 
-  <button id="exportPlainTextButton" class="defaultButton exportButton" onclick = exportPlainText() visible=hidden>
+
+  <div id = "ListButtons" style="display:none;">
+      <button id="exportPlainTextButton" class="defaultButton exportButton" onclick = exportPlainText()>
       Export as Text
   </button>
 
-   <button id="exportPdfButton" class="defaultButton exportButton" onclick = exportPdf() visible=hidden>
+   <button id="exportPdfButton" class="defaultButton exportButton" onclick = exportPdf()>
       Export as PDF
   </button>
 
-    <div id = "ConferenceList" >
-
+      <br>
+      <br>
+      <button id="createSubsetWC" class="defaultButton" onclick = createSubsetWC()> 
+      Create WC With Selected Articles </button>
+  </button>
   </div>
-
 
   <div id = "ArticlePage">
 
