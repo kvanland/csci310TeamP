@@ -88,15 +88,19 @@ function requestWordCloudSubset(subset) {
 	// subset is JSON array of article subset
 	
 	var articles = JSON.stringify(subset);
-	/*
-	var search = "http://localhost/csci310TeamP/src/backend/getSubsetWordCloud.php?articles=" + articles;
+	
+	var search = "http://localhost/csci310TeamP/src/backend/getSubsetWordCloud.php?";
 	$.ajax({
 	 	url: search,
+		data: {
+			articles: subset
+		},
 	 	success: function (result) {
 	 		search_result = JSON.parse(result);
 	 		 if (search_result["result"] === "fail") {
         		alert("No articles found!");
         	}else{
+				clearView();
         		updateStatus(0);
         		showStatusBar();
         		pollStatus();
@@ -104,7 +108,7 @@ function requestWordCloudSubset(subset) {
 	 	},
 	 	async : true
 	});
-	*/
+	
 	console.log(articles);
 
 }
