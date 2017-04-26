@@ -65,10 +65,10 @@ class GetPDF:
         if(type == "a"):
             print("dowloading ACM PDF...")
             br.open(self.link)
-            open(fileName,'w').write(br.follow_link(nr=6).read())
+            open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())
         elif(type == "i"):
             print("dowloading IEEE PDF...")
-            br.open(self.link)
+            print(br.open(self.link).read())
             open(fileName,'w').write(br.follow_link(nr=1).read())
         else:
             print('incorrect argument provided for type of paper ie: a,i')
