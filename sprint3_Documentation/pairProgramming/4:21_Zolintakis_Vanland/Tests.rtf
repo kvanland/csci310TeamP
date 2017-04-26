@@ -1,0 +1,254 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 Menlo-Bold;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red47\green180\blue29;\red180\green36\blue25;\red46\green174\blue187;
+\red178\green178\blue178;\red133\green0\blue2;\red0\green0\blue0;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf0 \CocoaLigature0 \'97\'97\'97\'97\'97\'97\'97\'97\'97 Behat Tests \'97\'97\'97\'97\'97\'97\'97\
+\
+Feature:
+\f1\b0  Abstract\
+    In order to understand what kinds of articles contain a selected word\
+    as a website user\
+    I must be able to view the abstract of articles with that word highlighted\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click article from "decidable" wordcloud                         # features/abstract.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                              # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0                     # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                              # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b logic
+\f1\b0 " in the wordcloud\cf0                                   # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b Temporal logics over unranked trees
+\f1\b0 " in the article list\cf0  # FeatureContext::iPressOnInTheArticleList()\
+    \cf2 Then I should see the abstract of "
+\f0\b Temporal logics over unranked trees
+\f1\b0 "\cf0   # FeatureContext::iShouldSeeTheAbstractOf()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click article from "Cote" wordcloud                                                                                                                  # features/abstract.feature:14\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                                                                                                                  # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Cote
+\f1\b0 " into the search bar\cf0                                                                                                              # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0                                                                                                                   # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b interpersonal
+\f1\b0 " in the wordcloud\cf0                                                                                                               # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos
+\f1\b0 " in the article list\cf0  # FeatureContext::iPressOnInTheArticleList()\
+    \cf2 Then I should see the abstract of "
+\f0\b Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos
+\f1\b0 "\cf0   # FeatureContext::iShouldSeeTheAbstractOf()\
+\
+
+\f0\b Feature:
+\f1\b0  Viewing article list\
+    In order to show the list of articles from the wordclud that contain a word\
+    as a website user\
+    I must be able to click on a word in the word cloud\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click on word "lunar"                       # features/articleList.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Adleman
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf3 And I press on "
+\f0\b lunar
+\f1\b0 " in the wordcloud\cf0              # FeatureContext::iPressOnInTheWordcloud()\
+\cf3       Word lunar could not be found (Exception)\cf0 \
+    \cf4 Then I should see an article list\cf0                    # FeatureContext::iShouldSeeAnArticleList()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click on word "comparator"                   # features/articleList.feature:13\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0          # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b computer
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf3 And I press on "
+\f0\b comparator
+\f1\b0 " in the wordcloud\cf0          # FeatureContext::iPressOnInTheWordcloud()\
+\cf3       Word comparator could not be found (Exception)\cf0 \
+    \cf4 Then I should see an article list\cf0                     # FeatureContext::iShouldSeeAnArticleList()\
+\
+
+\f0\b Feature:
+\f1\b0  Viewing article list\
+    In order to easily make new word clouds from an article list\
+    as a website user\
+    I must be able to click an author name to make a word cloud absed on that author\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click "Max Kanovich"                          # features/clickAuthorWordCloud.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b systems
+\f1\b0 " in the wordcloud\cf0              # FeatureContext::iPressOnInTheWordcloud()\
+    \cf3 And I press on "
+\f0\b Max Kanovich
+\f1\b0 " in the article list\cf0      # FeatureContext::iPressOnInTheArticleList()\
+\cf3       Article Max Kanovich not found. (Exception)\cf0 \
+    \cf4 Then I should see a Word Cloud\cf0                         # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click "Sonal Mahajan"                       # features/clickAuthorWordCloud.feature:14\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Halfond
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b energy
+\f1\b0 " in the wordcloud\cf0             # FeatureContext::iPressOnInTheWordcloud()\
+    \cf3 And I press on "
+\f0\b Sonal Mahajan
+\f1\b0 " in the article list\cf0   # FeatureContext::iPressOnInTheArticleList()\
+\cf3       Article Sonal Mahajan not found. (Exception)\cf0 \
+    \cf4 Then I should see a Word Cloud\cf0                       # FeatureContext::iShouldSeeAWordCloud()\
+\
+
+\f0\b Feature:
+\f1\b0  Viewing article list\
+    In order to create a list of articles from a specific conference\
+    as a website user\
+    I must be able to click on a conference in an article list\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click on conference "20th Annual Symposium on Foundations of Computer Science (sfcs 1979)"            # features/conferenceArticleList.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                                                                   # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Adleman
+\f1\b0 " into the search bar\cf0                                                            # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0                                                                    # FeatureContext::iPressTheButton()\
+    \cf3 And I press on "
+\f0\b complexity
+\f1\b0 " in the wordcloud\cf0                                                                   # FeatureContext::iPressOnInTheWordcloud()\
+\cf3       Word complexity could not be found (Exception)\cf0 \
+    \cf4 And I press on "
+\f0\b 20th Annual Symposium on Foundations of Computer Science (sfcs 1979)
+\f1\b0 " in the article list\cf0      # FeatureContext::iPressOnInTheArticleList()\
+    \cf4 Then I should see an article list from "
+\f0\b 20th Annual Symposium on Foundations of Computer Science (sfcs 1979)
+\f1\b0 "\cf0  # FeatureContext::iShouldSeeAnArticleListFrom()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click on conference "IEEE Electron Device Letters"            # features/conferenceArticleList.feature:14\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                           # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b computer
+\f1\b0 " into the search bar\cf0                   # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                           # FeatureContext::iPressTheButton()\
+    \cf3 And I press on "
+\f0\b power
+\f1\b0 " in the wordcloud\cf0                                # FeatureContext::iPressOnInTheWordcloud()\
+\cf3       Word power could not be found (Exception)\cf0 \
+    \cf4 And I press on "
+\f0\b IEEE Electron Device Letters
+\f1\b0 " in the article list\cf0      # FeatureContext::iPressOnInTheArticleList()\
+    \cf4 Then I should see an article list from "
+\f0\b IEEE Electron Device Letters
+\f1\b0 "\cf0  # FeatureContext::iShouldSeeAnArticleListFrom()\
+\
+\
+\cf5 \cb6                                                                                                                                                                                                                                         \cf0 \
+\cf5   [Behat\\Gherkin\\Exception\\ParserException]                                                                                                                                                                                             \cf0 \
+\cf5   Expected Step, but got text: "    then I should download a plain text document that contains all of the article list information" in file: /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/features/exportArticleList.feature  \cf0 \
+\cf5                                                                                                                                                                                                                                         \cf0 \
+\cb1 \
+\cf2 behat [-s|--suite SUITE] [-f|--format FORMAT] [-o|--out OUT] [--format-settings FORMAT-SETTINGS] [--init] [--lang LANG] [--name NAME] [--tags TAGS] [--role ROLE] [--story-syntax] [-d|--definitions DEFINITIONS] [--snippets-for [SNIPPETS-FOR]] [--snippets-type SNIPPETS-TYPE] [--append-snippets] [--no-snippets] [--strict] [--order ORDER] [--rerun] [--stop-on-failure] [--dry-run] [--] [<paths>]\
+\
+\
+
+\fs24 \cf7 \'97\'97\'97\'97\'97\'97\'97\'97 PHP Tests \'97\'97\'97\'97\'97\'97\'97\'97\
+\
+
+\fs22 \cf0 --ArticleTest---\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+......\
+\
+Time: 87 ms, Memory: 12.00MB\
+\
+OK (6 tests, 6 assertions)\
+--GetWordCloudTest---\
+\{"result":"fail"\}PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+.\
+\
+Time: 2.09 seconds, Memory: 13.25MB\
+\
+OK (1 test, 1 assertion)\
+--GetWordArticleListTest---\
+\
+Fatal error: Call to a member function getWordListOfArticles() on a non-object in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 21\
+--GetConferenceArticleListTest---\
+[]PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+......\
+\
+Time: 30.73 seconds, Memory: 40.25MB\
+\
+OK (6 tests, 6 assertions)\
+--WordCloudTest---\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+...............\
+\
+Time: 1.03 minutes, Memory: 39.75MB\
+\
+OK (15 tests, 15 assertions)\
+89% Code Coverage\
+}

@@ -7,6 +7,14 @@ Why
 What you refactored: Changed class of buttons in index.html and style.css from purpleButton to defaultButton
 Why: purpleButton was based off of the project 1 UI so it no longer applied. This change improved readability
 
-2.
-What you refactored:
-Why:
+2.4/21 Vanland and Zolintakis
+What you refactored: Moved scripts in index.html file to head tag.
+Why:This is the most common practice
+
+3. 4/23/17
+What you refactored: Created the article list and conference list on a common canvas. Also created a createTable function to consolidate functionality
+Why: Makes the code more readable and easier to edit
+
+4. 4/23/17 Zolintakis and Vanland
+What you refactored: In javascript file changed hideArticleList() to clearView()
+Why: clearView calls hideArticleList and has extra functionality that the system needs to execute

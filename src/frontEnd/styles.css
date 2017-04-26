@@ -21,20 +21,29 @@ td{
 
 }
 
+table {
+    text-align: left;
+    margin-left: auto; 
+	 margin-right: auto; 
+
+    
+}
+
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
     padding: 5px;
 }
 
-#exportPlainTextButton{
+.exportButton{
 	margin-top: 20px;
 	visibility:hidden;
 }
 
 #ArticleList {
-	padding-left:10px;
-	padding-right: 10px;
+	 overflow-x: auto;
+    display:block;
 }
 
 
@@ -51,6 +60,12 @@ th, td {
 th {
     background-color: #1ED760;
     color: white;
+}
+
+
+p {
+	max-width: 150px;
+	 word-wrap: break-word;
 }
 
 p:hover {

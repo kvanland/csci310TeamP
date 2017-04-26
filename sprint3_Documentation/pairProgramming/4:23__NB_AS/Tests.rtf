@@ -1,0 +1,690 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 Menlo-Bold;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red46\green174\blue187;\red159\green160\blue28;\red47\green180\blue29;
+}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf0 \CocoaLigature0 \'97\'97\'97\'97\'97\'97\'97\'97\'97 Behat Tests \'97\'97\'97\'97\'97\'97\'97\
+\
+Feature:
+\f1\b0  Abstract\
+    In order to understand what kinds of articles contain a selected word\
+    as a website user\
+    I must be able to view the abstract of articles with that word highlighted\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click article from "decidable" wordcloud                         # features/abstract.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                              # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0                     # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                              # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b logic
+\f1\b0 " in the wordcloud\cf0                                   # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b Temporal logics over unranked trees
+\f1\b0 " in the article list\cf0  # FeatureContext::iPressOnInTheArticleList()\
+    \cf2 Then I should see the abstract of "
+\f0\b Temporal logics over unranked trees
+\f1\b0 "\cf0   # FeatureContext::iShouldSeeTheAbstractOf()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click article from "Cote" wordcloud                                                                                                                  # features/abstract.feature:14\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                                                                                                                  # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Cote
+\f1\b0 " into the search bar\cf0                                                                                                              # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0                                                                                                                   # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b interpersonal
+\f1\b0 " in the wordcloud\cf0                                                                                                               # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos
+\f1\b0 " in the article list\cf0  # FeatureContext::iPressOnInTheArticleList()\
+    \cf2 Then I should see the abstract of "
+\f0\b Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos
+\f1\b0 "\cf0   # FeatureContext::iShouldSeeTheAbstractOf()\
+\
+
+\f0\b Feature:
+\f1\b0  Viewing article list\
+    In order to show the list of articles from the wordclud that contain a word\
+    as a website user\
+    I must be able to click on a word in the word cloud\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click on word "lunar"                       # features/articleList.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Adleman
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b lunar
+\f1\b0 " in the wordcloud\cf0              # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 Then I should see an article list\cf0                    # FeatureContext::iShouldSeeAnArticleList()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click on word "comparator"                   # features/articleList.feature:13\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0          # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b computer
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b comparator
+\f1\b0 " in the wordcloud\cf0          # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 Then I should see an article list\cf0                     # FeatureContext::iShouldSeeAnArticleList()\
+\
+
+\f0\b Feature:
+\f1\b0  Viewing article list\
+    In order to easily make new word clouds from an article list\
+    as a website user\
+    I must be able to click an author name to make a word cloud absed on that author\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click "Max Kanovich"                          # features/clickAuthorWordCloud.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b systems
+\f1\b0 " in the wordcloud\cf0              # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b Max Kanovich
+\f1\b0 " in the article list\cf0      # FeatureContext::iPressOnInTheArticleList()\
+    \cf2 Then I should see a Word Cloud\cf0                         # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click "Sonal Mahajan"                       # features/clickAuthorWordCloud.feature:14\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Halfond
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b energy
+\f1\b0 " in the wordcloud\cf0             # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b Sonal Mahajan
+\f1\b0 " in the article list\cf0   # FeatureContext::iPressOnInTheArticleList()\
+    \cf2 Then I should see a Word Cloud\cf0                       # FeatureContext::iShouldSeeAWordCloud()\
+\
+
+\f0\b Feature:
+\f1\b0  Viewing article list\
+    In order to create a list of articles from a specific conference\
+    as a website user\
+    I must be able to click on a conference in an article list\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click on conference "20th Annual Symposium on Foundations of Computer Science (sfcs 1979)"            # features/conferenceArticleList.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                                                                   # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Adleman
+\f1\b0 " into the search bar\cf0                                                            # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0                                                                    # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b complexity
+\f1\b0 " in the wordcloud\cf0                                                                   # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b 20th Annual Symposium on Foundations of Computer Science (sfcs 1979)
+\f1\b0 " in the article list\cf0      # FeatureContext::iPressOnInTheArticleList()\
+    \cf2 Then I should see an article list from "
+\f0\b 20th Annual Symposium on Foundations of Computer Science (sfcs 1979)
+\f1\b0 "\cf0  # FeatureContext::iShouldSeeAnArticleListFrom()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click on conference "IEEE Electron Device Letters"            # features/conferenceArticleList.feature:14\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                           # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b computer
+\f1\b0 " into the search bar\cf0                   # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                           # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b power
+\f1\b0 " in the wordcloud\cf0                                # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b IEEE Electron Device Letters
+\f1\b0 " in the article list\cf0      # FeatureContext::iPressOnInTheArticleList()\
+    \cf2 Then I should see an article list from "
+\f0\b IEEE Electron Device Letters
+\f1\b0 "\cf0  # FeatureContext::iShouldSeeAnArticleListFrom()\
+\
+
+\f0\b Feature:
+\f1\b0  Exporting Article List\
+    In order to store the article list data\
+    as a website user\
+    I must be able to export the article list as a plain text file or pdf\
+\
+  
+\f0\b Scenario:
+\f1\b0  Click the export as plain text                                                         # features/exportArticleList.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                                                    # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0                                           # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                                                    # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b logic
+\f1\b0 " in the wordcloud\cf0                                                         # FeatureContext::iPressOnInTheWordcloud()\
+    \cf3 And I press on "exportPlainTextButton" button\cf0 \
+    \cf3 Then I should download a plain text document that contains all of the article list information\cf0 \
+\
+  
+\f0\b Scenario:
+\f1\b0  Click the export as pdf                                                         # features/exportArticleList.feature:14\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                                             # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0                                    # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                                             # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b logic
+\f1\b0 " in the wordcloud\cf0                                                  # FeatureContext::iPressOnInTheWordcloud()\
+    \cf3 And I press on "exportPdf" button\cf0 \
+    \cf3 Then I should download a pdf document that contains all of the article list information\cf0 \
+\
+
+\f0\b Feature:
+\f1\b0  Search\
+    In order to generate a word cloud for a given keyword or author\
+    as a website user\
+    I must be able to search for a word cloud based on a given keyword or author\
+\
+  
+\f0\b Scenario:
+\f1\b0  Search for author Adleman                   # features/search.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Adleman
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a Word Cloud\cf0                       # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Search for author abcdefg                        # features/search.feature:12\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0              # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b abcdefg
+\f1\b0 " into the search bar\cf0       # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a message saying there were no results\cf0  # FeatureContext::iShouldSeeAMessageSayingThereWereNoResults()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Search for term computers                     # features/search.feature:18\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b computers
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a Word Cloud\cf0                         # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Search for term fjhaksjdfhladjksf                     # features/search.feature:24\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                   # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b fjhaksjdfhladjksf
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                   # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a message saying there were no results\cf0       # FeatureContext::iShouldSeeAMessageSayingThereWereNoResults()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Search for term algorithm with one paper      # features/search.feature:30\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b algorithm
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I limit articles to "
+\f0\b 1
+\f1\b0 "\cf0                            # FeatureContext::iLimitArticlesTo()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a Word Cloud based on algorithm\cf0      # FeatureContext::iShouldSeeAWordCloudBasedOnAlgorithm()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Search for author by clicking author name in word list # features/search.feature:37\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                    # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Adleman
+\f1\b0 " into the search bar\cf0             # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0                     # FeatureContext::iPressTheButton()\
+    \cf2 And I select the word "
+\f0\b raised
+\f1\b0 "\cf0                                  # FeatureContext::iSelectTheWord()\
+    \cf2 And I select the author "
+\f0\b Leonard M. Adleman
+\f1\b0 "\cf0                    # FeatureContext::iSelectTheAuthor()\
+    \cf2 Then I should see a Word Cloud based on Adelman\cf0                 # FeatureContext::iShouldSeeAWordCloudBasedOnAdelman()\
+\
+
+\f0\b Feature:
+\f1\b0  Search History\
+    In order to regenerate previously searched wordclouds\
+    as a website user\
+    I must be able to access my search history\
+\
+  
+\f0\b Scenario:
+\f1\b0  Search for author adleman                   # features/searchHistory.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Adleman
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf2 And I press the "
+\f0\b searchHistoryButton
+\f1\b0 " button\cf0         # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a dropdown with "
+\f0\b Adleman
+\f1\b0 "\cf0          # FeatureContext::iShouldSeeADropdownWith()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Generate wordcloud from Adleman in search history # features/searchHistory.feature:13\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0               # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Adleman
+\f1\b0 " into the search bar\cf0        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0                # FeatureContext::iPressTheButton()\
+    \cf2 And I press the "
+\f0\b searchHistoryButton
+\f1\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b Adleman
+\f1\b0 " in the dropdown\cf0                   # FeatureContext::iPressOnInTheDropdown()\
+    \cf2 Then I should see a Word Cloud\cf0                             # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Search for keyword decidable                  # features/searchHistory.feature:21\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0            # FeatureContext::iPressTheButton()\
+    \cf2 And I press the "
+\f0\b searchHistoryButton
+\f1\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a dropdown with "
+\f0\b decidable
+\f1\b0 "\cf0          # FeatureContext::iShouldSeeADropdownWith()\
+\
+
+\f0\b Feature:
+\f1\b0  Viewing article list\
+    In order to view article lists in different orders\
+    as a website user\
+    I must be able to sort article lists by frequency, author, conference, and title\
+\
+  
+\f0\b Scenario:
+\f1\b0  Sort by frequency                                                                                                   # features/sorting.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                                                                                 # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0                                                                        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                                                                                 # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b systems
+\f1\b0 " in the wordcloud\cf0                                                                                    # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b frequency
+\f1\b0 " in the article table header\cf0                                                                       # FeatureContext::iPressOnInTheArticleTableHeader()\
+    \cf2 Then The first article in the article list is "
+\f0\b Compositional reasoning and decidable checking for dependent contract types
+\f1\b0 "\cf0  # FeatureContext::theFirstArticleInTheArticleListIs()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Sort by author                                                                         # features/sorting.feature:14\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                                                    # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0                                           # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                                                    # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b systems
+\f1\b0 " in the wordcloud\cf0                                                       # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b author
+\f1\b0 " in the article table header\cf0                                             # FeatureContext::iPressOnInTheArticleTableHeader()\
+    \cf2 Then The first article in the article list is "
+\f0\b Race-free scenarios of message sequence charts
+\f1\b0 "\cf0  # FeatureContext::theFirstArticleInTheArticleListIs()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Reverse sort by conference                                                                                          # features/sorting.feature:22\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                                                                                 # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0                                                                        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                                                                                 # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b systems
+\f1\b0 " in the wordcloud\cf0                                                                                    # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b conference
+\f1\b0 " in the article table header\cf0                                                                      # FeatureContext::iPressOnInTheArticleTableHeader()\
+    \cf2 Then The first article in the article list is "
+\f0\b Compositional reasoning and decidable checking for dependent contract types
+\f1\b0 "\cf0  # FeatureContext::theFirstArticleInTheArticleListIs()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Reverse sort by title                                                       # features/sorting.feature:30\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                                         # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b decidable
+\f1\b0 " into the search bar\cf0                                # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                                         # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b systems
+\f1\b0 " in the wordcloud\cf0                                            # FeatureContext::iPressOnInTheWordcloud()\
+    \cf2 And I press on "
+\f0\b title
+\f1\b0 " in the article table header\cf0                                   # FeatureContext::iPressOnInTheArticleTableHeader()\
+    \cf2 Then The first article in the article list is "
+\f0\b Collaborative Planning With Privacy
+\f1\b0 "\cf0  # FeatureContext::theFirstArticleInTheArticleListIs()\
+\
+
+\f0\b Feature:
+\f1\b0  Status Bar\
+    In order to understand that the functionality of the website is working\
+    As a website user\
+    I should be able to visually see the progress of the website generating the word cloud\
+\
+  
+\f0\b Scenario:
+\f1\b0  Search for author "Adleman"                       # features/statusBar.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0               # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Adleman
+\f1\b0 " into the search bar\cf0        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0                # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a progress bar that gradually increases\cf0  # FeatureContext::iShouldSeeAProgressBarThatGraduallyIncreases()\
+\
+  
+\f0\b Scenario:
+\f1\b0  Search for keyword "computer"                     # features/statusBar.feature:12\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0               # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b computer
+\f1\b0 " into the search bar\cf0       # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf2 Then I should see a progress bar that gradually increases\cf0  # FeatureContext::iShouldSeeAProgressBarThatGraduallyIncreases()\
+\
+
+\f0\b Feature:
+\f1\b0  Creating WC from subset of articles selected\
+  In order to view a WC from a subset of articles\
+  as a website user\
+  I must be able to select the articles and create the WC with them\
+\
+  
+\f0\b Scenario:
+\f1\b0  Create Subset WC from article list page      # features/SubsetWC.feature:6\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0          # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b computer
+\f1\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b computer
+\f1\b0 " in the wordcloud\cf0            # FeatureContext::iPressOnInTheWordcloud()\
+    \cf3 And I select the top "2" articles in the table\cf0 \
+    \cf2 And I press the "
+\f0\b createSubsetWC
+\f1\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf3 Then I should see a wordcloud made from the articles\cf0 \
+\
+  
+\f0\b Scenario:
+\f1\b0  Create Subset WC from conference list page   # features/SubsetWC.feature:15\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0          # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b Adleman
+\f1\b0 " into the search bar\cf0   # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchAuthorButton
+\f1\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b optical
+\f1\b0 " in the wordcloud\cf0             # FeatureContext::iPressOnInTheWordcloud()\
+    \cf3 And I select the top "1" articles in the table\cf0 \
+    \cf2 And I press the "
+\f0\b createSubsetWC
+\f1\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf3 Then I should see a wordcloud made from the articles\cf0 \
+\
+  
+\f0\b Scenario:
+\f1\b0  Create WC with no articles selected                        # features/SubsetWC.feature:24\
+    \cf2 Given The current page is "
+\f0\b http://127.0.0.1
+\f1\b0 "\cf0                        # FeatureContext::theCurrentPageIs()\
+    \cf2 When I enter the term "
+\f0\b computer
+\f1\b0 " into the search bar\cf0                # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf2 And I press the "
+\f0\b searchKeywordButton
+\f1\b0 " button\cf0                        # FeatureContext::iPressTheButton()\
+    \cf2 And I press on "
+\f0\b computer
+\f1\b0 " in the wordcloud\cf0                          # FeatureContext::iPressOnInTheWordcloud()\
+    \cf3 And I select the top "0" articles in the table\cf0 \
+    \cf2 And I press the "
+\f0\b createSubsetWC
+\f1\b0 " button\cf0                             # FeatureContext::iPressTheButton()\
+    \cf3 Then I should see an alert to "Please select a subset of articles"\cf0 \
+\
+--- \cf2 Skipped scenarios:\cf0 \
+\
+    \cf2 features/abstract.feature:6\cf0 \
+    \cf2 features/abstract.feature:14\cf0 \
+    \cf2 features/articleList.feature:6\cf0 \
+    \cf2 features/articleList.feature:13\cf0 \
+    \cf2 features/clickAuthorWordCloud.feature:6\cf0 \
+    \cf2 features/clickAuthorWordCloud.feature:14\cf0 \
+    \cf2 features/conferenceArticleList.feature:6\cf0 \
+    \cf2 features/conferenceArticleList.feature:14\cf0 \
+    \cf2 features/search.feature:6\cf0 \
+    \cf2 features/search.feature:12\cf0 \
+    \cf2 features/search.feature:18\cf0 \
+    \cf2 features/search.feature:24\cf0 \
+    \cf2 features/search.feature:30\cf0 \
+    \cf2 features/search.feature:37\cf0 \
+    \cf2 features/searchHistory.feature:6\cf0 \
+    \cf2 features/searchHistory.feature:13\cf0 \
+    \cf2 features/searchHistory.feature:21\cf0 \
+    \cf2 features/sorting.feature:6\cf0 \
+    \cf2 features/sorting.feature:14\cf0 \
+    \cf2 features/sorting.feature:22\cf0 \
+    \cf2 features/sorting.feature:30\cf0 \
+    \cf2 features/statusBar.feature:6\cf0 \
+    \cf2 features/statusBar.feature:12\cf0 \
+\
+28 scenarios (\cf3 5 undefined\cf0 , \cf2 23 skipped\cf0 )\
+154 steps (\cf3 10 undefined\cf0 , \cf2 144 skipped\cf0 )\
+0m0.25s (15.22Mb)\
+\
+ >> 
+\f0\b default
+\f1\b0 \cf3  suite has undefined steps. Please choose the context to generate snippets:\cf0 \
+\
+  [\cf4 0\cf0 ] None\
+  [\cf4 1\cf0 ] FeatureContext\
+ > 1\
+\
+\cf4 u\cf0  features/bootstrap/FeatureContext.php - `\cf3 I press on "exportPlainTextButton" button\cf0 ` definition added\
+\cf4 u\cf0  features/bootstrap/FeatureContext.php - `\cf3 I should download a plain text document that contains all of the article list information\cf0 ` definition added\
+\cf4 u\cf0  features/bootstrap/FeatureContext.php - `\cf3 I should download a pdf document that contains all of the article list information\cf0 ` definition added\
+\cf4 u\cf0  features/bootstrap/FeatureContext.php - `\cf3 I select the top "2" articles in the table\cf0 ` definition added\
+\cf4 u\cf0  features/bootstrap/FeatureContext.php - `\cf3 I should see a wordcloud made from the articles\cf0 ` definition added\
+\cf4 u\cf0  features/bootstrap/FeatureContext.php - `\cf3 I should see an alert to "Please select a subset of articles"\cf0 ` definition added\cf4 \
+\
+
+\fs24 \cf0 \'97\'97\'97\'97\'97\'97\'97\'97 PHP Tests \'97\'97\'97\'97\'97\'97\'97\'97\
+
+\fs22 --ArticleTest---\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+......\
+\
+Time: 112 ms, Memory: 12.00MB\
+\
+OK (6 tests, 6 assertions)\
+--GetWordCloudTest---\
+\{"result":"fail"\}PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+.\
+\
+Time: 2.66 seconds, Memory: 13.25MB\
+\
+OK (1 test, 1 assertion)\
+--GetWordArticleListTest---\
+\
+Fatal error: Call to a member function getWordListOfArticles() on a non-object in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 21\
+--GetConferenceArticleListTest---\
+[]PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+......\
+\
+Time: 27.61 seconds, Memory: 40.25MB\
+\
+OK (6 tests, 6 assertions)\
+--WordCloudTest---\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+...............\
+\
+Time: 1.21 minutes, Memory: 32.50MB\
+\
+OK (15 tests, 15 assertions)\
+89% Code Coverage}
