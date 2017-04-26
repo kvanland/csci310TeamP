@@ -69,8 +69,6 @@ class GetPDF:
         elif(type == "i"):
             print("dowloading IEEE PDF...")
             print(br.open(self.link).read())
-            for l in br.links():
-                print(l)
             open(fileName,'w').write(br.follow_link(nr=1).read())
         else:
             print('incorrect argument provided for type of paper ie: a,i')
