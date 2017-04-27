@@ -30,6 +30,7 @@
 *.sqlite
 *Config.py
 *.p
+*.pdf
 
 # OS generated files #
 ######################
