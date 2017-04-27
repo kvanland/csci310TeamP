@@ -1,0 +1,184 @@
+--ArticleTest---
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.
+
+......
+
+Time: 142 ms, Memory: 8.00MB
+
+OK (6 tests, 6 assertions)
+--GetWordCloudTest---
+PHP Notice:  Undefined index: searchTerm in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php on line 5
+
+Notice: Undefined index: searchTerm in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php on line 5
+PHP Notice:  Undefined index: searchType in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php on line 6
+
+Notice: Undefined index: searchType in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php on line 6
+PHP Notice:  Undefined index: numArticles in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php on line 7
+
+Notice: Undefined index: numArticles in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php on line 7
+PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php:5) in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php on line 16
+
+Warning: session_start(): Cannot send session cookie - headers already sent by (output started at /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php:5) in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php on line 16
+PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php:5) in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php on line 16
+
+Warning: session_start(): Cannot send session cache limiter - headers already sent (output started at /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php:5) in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php on line 16
+{"result":"fail"}PHPUnit 4.8.35 by Sebastian Bergmann and contributors.
+
+E
+
+Time: 1.03 seconds, Memory: 10.00MB
+
+There was 1 error:
+
+1) GetWordCloudTest::testGetWordCloud
+A session had already been started - ignoring session_start()
+
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordCloud.php:16
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/GetWordCloudTest.php:10
+
+FAILURES!
+Tests: 1, Assertions: 0, Errors: 1.
+--GetWordArticleListTest---
+PHP Notice:  Undefined index: word in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 11
+
+Notice: Undefined index: word in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 11
+PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php:11) in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 19
+
+Warning: session_start(): Cannot send session cookie - headers already sent by (output started at /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php:11) in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 19
+PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php:11) in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 19
+
+Warning: session_start(): Cannot send session cache limiter - headers already sent (output started at /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php:11) in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 19
+PHP Notice:  Undefined index: wordCloud in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 20
+
+Notice: Undefined index: wordCloud in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 20
+PHP Fatal error:  Uncaught Error: Call to a member function getWordListOfArticles() on null in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php:21
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php(14): WordArticleListDriver::getWordArticleList(NULL)
+#1 phar:///usr/local/bin/phpunit/phpunit/Util/Fileloader.php(56): include_once('/Applications/X...')
+#2 phar:///usr/local/bin/phpunit/phpunit/Util/Fileloader.php(38): PHPUnit_Util_Fileloader::load('/Applications/X...')
+#3 phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php(779): PHPUnit_Util_Fileloader::checkAndLoad('GetWordArticleL...')
+#4 phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php(656): PHPUnit_TextUI_Command->handleBootstrap('GetWordArticleL...')
+#5 phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php(111): PHPUnit_TextUI_Command->handleArguments(Array)
+#6 phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php(100): PHPUnit_TextUI_Command->run(Array, true)
+#7 /usr/lo in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 21
+
+Fatal error: Uncaught Error: Call to a member function getWordListOfArticles() on null in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php:21
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php(14): WordArticleListDriver::getWordArticleList(NULL)
+#1 phar:///usr/local/bin/phpunit/phpunit/Util/Fileloader.php(56): include_once('/Applications/X...')
+#2 phar:///usr/local/bin/phpunit/phpunit/Util/Fileloader.php(38): PHPUnit_Util_Fileloader::load('/Applications/X...')
+#3 phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php(779): PHPUnit_Util_Fileloader::checkAndLoad('GetWordArticleL...')
+#4 phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php(656): PHPUnit_TextUI_Command->handleBootstrap('GetWordArticleL...')
+#5 phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php(111): PHPUnit_TextUI_Command->handleArguments(Array)
+#6 phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php(100): PHPUnit_TextUI_Command->run(Array, true)
+#7 /usr/lo in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 21
+--GetConferenceArticleListTest---
+PHP Notice:  Undefined index: conference in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetConferenceArticleList.php on line 13
+
+Notice: Undefined index: conference in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetConferenceArticleList.php on line 13
+PHP Notice:  Undefined index: word in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetConferenceArticleList.php on line 14
+
+Notice: Undefined index: word in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetConferenceArticleList.php on line 14
+PHP Notice:  Undefined index: numArticles in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetConferenceArticleList.php on line 15
+
+Notice: Undefined index: numArticles in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetConferenceArticleList.php on line 15
+[]PHPUnit 4.8.35 by Sebastian Bergmann and contributors.
+
+......
+
+Time: 33.67 seconds, Memory: 28.11MB
+
+OK (6 tests, 6 assertions)
+--WordCloudTest---
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.
+
+.....F..Fhttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/login.py:20: UserWarning: gzip transfer encoding is experimental!
+  br.set_handle_gzip(True)
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!
+  br.set_handle_gzip(True)
+.Low-power sensing and digitization of cardiac signals based on sigma-delta conversion (poster session).pdf
+http://dl.acm.org/citation.cfm?doid=344166.344593&preflayout=flat
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!
+  br.set_handle_gzip(True)
+FAnalysis of opportunistic localization algorithms based on the linear matrix inequality method.pdf
+http://dl.acm.org/citation.cfm?doid=1755743.1755777&preflayout=flat
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!
+  br.set_handle_gzip(True)
+Traceback (most recent call last):
+  File "getPDF.py", line 80, in <module>
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])
+  File "getPDF.py", line 68, in downLoadPDF
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 569, in follow_link
+    return self.open(self.click_link(link, **kwds))
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 553, in click_link
+    link = self.find_link(**kwds)
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 620, in find_link
+    raise LinkNotFoundError()
+mechanize._mechanize.LinkNotFoundError
+TCPDF_PARSER ERROR: Empty PDF data.
+Ehttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!
+  br.set_handle_gzip(True)
+Ehttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!
+  br.set_handle_gzip(True)
+Fhttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!
+  br.set_handle_gzip(True)
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6134704
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!
+  br.set_handle_gzip(True)
+E
+
+Time: 1.25 minutes, Memory: 18.00MB
+
+There were 3 errors:
+
+1) WordCloudTest::testParseACM
+Undefined index: mobile
+
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:130
+
+2) WordCloudTest::testParseIEEE
+Undefined index: improvement
+
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:146
+
+3) WordCloudTest::testGetWordListOfArticles
+Error: Call to a member function getText() on null
+
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/vendor/smalot/pdfparser/src/Smalot/PdfParser/Document.php:261
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/PDFParser.php:21
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/WordCloud.php:221
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/WordCloud.php:203
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:170
+
+--
+
+There were 4 failures:
+
+1) WordCloudTest::testGetArticleListIEEEAuthor
+Failed asserting that true matches expected false.
+
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:59
+
+2) WordCloudTest::testGetArticleListIEEEKeyWord
+Failed asserting that true matches expected false.
+
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:100
+
+3) WordCloudTest::testParseNextArticleOnLastArticleRead
+Failed asserting that 5 matches expected 0.
+
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:117
+
+4) WordCloudTest::testGetWordCloudData
+Failed asserting that 4 matches expected 0.
+
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:162
+
+FAILURES!
+Tests: 15, Assertions: 12, Errors: 3, Failures: 4.
+89% Code Coverage
