@@ -73,9 +73,8 @@ class GetPDF:
         else:
             print('incorrect argument provided for type of paper ie: a,i')
 
-if(len(sys.argv) < 3):
+if (len(sys.argv) < 4):
     print("missing arguments")
-    quit()
-
-gp = GetPDF(sys.argv[1])
-gp.downLoadPDF('currentPDF.pdf',sys.argv[2])
+else:
+    gp = GetPDF(sys.argv[1])
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])
