@@ -5,6 +5,7 @@ include "Constants.php";
 include "Article.php";
 include "simple_html_dom.php";
 include "Word.php";
+include "PDFParser.php";
 include "../vendor/autoload.php";
 
 class WordCloud
@@ -13,9 +14,11 @@ class WordCloud
     public $articlesRead;
     public $articleList;
     public $stopwords;
+    private $pdfParser;
 
 
     public function __construct(){
+        $this->pdfParser = new PDFParser();
         $this->wcData = array();
         $this->articleList = array();
         $this->articlesRead = 0;
@@ -211,15 +214,20 @@ class WordCloud
     {
         $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=".$article->articleNumber;
         $xml = simplexml_load_file($apiCall);
-        $abstract = $xml->document->abstract;
-        $this->documentToWordCloudData($abstract, $article->name);
+        $pdf_link = $xml->document->pdf;
+        error_log($pdf_link);
+        shell_exec("python getPDF.py '".$pdf_link."' i");
+        $pdf_text = $this->pdfParser->parsePDF('currentPDF.pdf');
+        if (!$pdf_text) {
+            return;
+        }
+        $this->documentToWordCloudData($pdf_text, $article->name);
     }
 
     public function parseArticleACM($article)
     {
-
-
         $url = str_replace("\\", "", $article->url);
+        error_log($url);
         $cr = curl_init($url);
         curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($cr, CURLOPT_FOLLOWLOCATION, 1);
@@ -227,17 +235,13 @@ class WordCloud
         $info = curl_getinfo($cr);
         $url = $info["url"];
         $url = $url."&preflayout=flat";
-        $html = file_get_html($url);
-
-        if(empty($html))
+        error_log($url);
+        shell_exec("python getPDF.py '".$url."' a");
+        $pdf_text = $this->pdfParser->parsePDF('currentPDF.pdf');
+        if (!$pdf_text) {
             return;
-
-        $abstractNotAvailable = empty($html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0));
-        if (!$abstractNotAvailable){
-            $abstract = $html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0)->innertext();
-            $this->documentToWordCloudData($abstract, $article->name);
         }
-
+        $this->documentToWordCloudData($pdf_text, $article->name);
     }
 
     public function documentToWordCloudData($string, $articleName){
