@@ -2,18 +2,24 @@
 
 use PHPUnit\Framework\TestCase;
 
-class GetStatusTest extends TestCase
-{
+class GetStatusTest extends TestCase{
 
-    public function testGetStatus(){
-        session_start();
-        $wordCloud = new WordCloud();
-        $wordCloud->initializeArticleList("Andrea Zanella","author",6);
-        echo"dick";
-        print_r($wordCloud);
-        $_SESSION["wordCloud"] = $wordCloud;
-        //json_decode(StatusDriver::getStatus());
+
+    public function testGetStatusJSON(){
+        $wc = new WordCloud();
+        $wc->initializeArticleList("Andrea Zanella", "author", 5);
+        $json = StatusDriver::getStatus($wc);
+        json_decode($json);
         $this->assertEquals(json_last_error(), JSON_ERROR_NONE);
+    }
+
+    public function testGetStatusPercent(){
+        $wc = new WordCloud();
+        $wc->initializeArticleList("Andrea Zanella", "author", 5);
+        $json = StatusDriver::getStatus($wc);
+        $array = json_decode($json, true);
+
+        $this->assertEquals($array["status"], 20);
     }
 
 }

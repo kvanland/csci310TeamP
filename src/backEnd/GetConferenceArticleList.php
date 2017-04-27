@@ -9,10 +9,14 @@
 include "Constants.php";
 include "Article.php";
 include "simple_html_dom.php";
+include "PDFParser.php";
+include "../vendor/autoload.php";
+
 
 ConferenceArticleListDriver::$conference = $_GET["conference"];
 ConferenceArticleListDriver::$word = $_GET["word"];
-ConferenceArticleListDriver::$numArticles = $_GET["numArticles"];
+ConferenceArticleListDriver::$listSize = $_GET["numArticles"];
+ConferenceArticleListDriver::$numArticles = 4 * ConferenceArticleListDriver::$listSize;
 ConferenceArticleListDriver::$articles = array();
 ConferenceArticleListDriver::$articleList = array();
 
@@ -25,6 +29,7 @@ class ConferenceArticleListDriver{
 
     public static $articles;
     public static $numArticles;
+    public static $listSize;
     public static $word;
     public static $conference;
     public static $articleList;
@@ -34,6 +39,8 @@ class ConferenceArticleListDriver{
         ConferenceArticleListDriver::getACM(ConferenceArticleListDriver::$conference);
 
         foreach (ConferenceArticleListDriver::$articles as $article){
+            if(sizeof(ConferenceArticleListDriver::$articleList) >= ConferenceArticleListDriver::$listSize)
+                break;
             if($article->database == Constants::ACM)
                 ConferenceArticleListDriver::parseACM($article);
             else
@@ -48,7 +55,7 @@ class ConferenceArticleListDriver{
 
     public static function getIEEE()
     {
-        $url = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?jn=".ConferenceArticleListDriver::$conference."&hc=1000";
+        $url = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?jn=".ConferenceArticleListDriver::$conference."&hc=100";
 
         $xml = simplexml_load_file($url);
         if (empty($xml))
@@ -72,7 +79,7 @@ class ConferenceArticleListDriver{
 
     public static function getACM(){
         $urlConference = str_replace(" ", "+", ConferenceArticleListDriver::$conference);
-        $url = "http://api.crossref.org/works?filter=member:320&query=$urlConference&sort=score&order=desc&rows=1000";
+        $url = "http://api.crossref.org/works?filter=member:320&query=$urlConference&sort=score&order=desc&rows=100";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -130,11 +137,14 @@ class ConferenceArticleListDriver{
                 array_push(ConferenceArticleListDriver::$articles, $article);
                 $i++;
             }
+            else
+                $i++;
         }
     }
 
     public static function parseACM($article){
         $url = str_replace("\\", "", $article->url);
+        error_log($url);
         $cr = curl_init($url);
         curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($cr, CURLOPT_FOLLOWLOCATION, 1);
@@ -142,39 +152,46 @@ class ConferenceArticleListDriver{
         $info = curl_getinfo($cr);
         $url = $info["url"];
         $url = $url."&preflayout=flat";
-        $html = file_get_html($url);
-
-        $array = array("title"=>$article->name, "authors"=>$article->authors,
-            "conference"=>$article->conferences, "download"=>"down", "bibtex"=>"http://dl.acm.org/exportformats.cfm?id=".$article->articleNumber."&expformat=bibtex", "id"=>$article->articleNumber,
-            "database"=>$article->database);
-
-        if(empty($html)) {
-            $array["frequency"] = "0";
-            array_push(ConferenceArticleListDriver::$articleList, $array);
+        error_log($url);
+        shell_exec("python getPDF.py '".$url."' a");
+        $pdfParser = new PDFParser();
+        $pdf_text = $pdfParser->parsePDF('currentPDF.pdf');
+        if (!$pdf_text) {
             return;
         }
 
+        $count = ConferenceArticleListDriver::countWordOccurence($pdf_text);
 
-        $abstractNotAvailable = empty($html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0));
-        if (!$abstractNotAvailable){
-            $abstract = $html->find("A[NAME=abstract]", 0)->parent()->next_sibling()->find("p", 0)->innertext();
-            $count = ConferenceArticleListDriver::countWordOccurence($abstract);
-            $array["frequency"] = (string) $count;
-
+        if($count != 0) {
+            $array = array("title" => $article->name, "authors" => $article->authors,
+                "conference" => $article->conferences, "download" => $article->url, "bibtex" => "http://dl.acm.org/exportformats.cfm?id=" . $article->articleNumber . "&expformat=bibtex", "id" => $article->articleNumber,
+                "database" => $article->database, "frequency" => (string)$count);
+            array_push(ConferenceArticleListDriver::$articleList, $array);
         }
-        array_push(ConferenceArticleListDriver::$articleList, $array);
+
+
+
     }
 
     public static function parseIEEE($article){
         $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=".$article->articleNumber;
         $xml = simplexml_load_file($apiCall);
-        $abstract = (string) $xml->document->abstract;
+        $pdf_link = $xml->document->pdf;
+        error_log($pdf_link);
+        shell_exec("python getPDF.py '".$pdf_link."' i");
+        $pdfParser = new PDFParser();
+        $pdf_text = $pdfParser->parsePDF('currentPDF.pdf');
+        if (!$pdf_text) {
+            return;
+        }
 
-        $count = ConferenceArticleListDriver::countWordOccurence($abstract);
+        $count = ConferenceArticleListDriver::countWordOccurence($pdf_text);
 
-        array_push(ConferenceArticleListDriver::$articleList, array("title"=>$article->name, "authors"=>$article->authors, "frequency"=>$count,
-            "conference"=>$article->conferences, "download"=>"down", "bibtex"=>"http://ieeexplore.ieee.org/xpl/downloadCitations?recordIds=".$article->articleNumber."&citations-format=citation-only&download-format=download-bibtex", "id"=>$article->articleNumber,
-            "database"=>$article->database));
+        if ($count != 0) {
+            array_push(ConferenceArticleListDriver::$articleList, array("title" => $article->name, "authors" => $article->authors, "frequency" => $count,
+                "conference" => $article->conferences, "download" => $article->url, "bibtex" => "http://ieeexplore.ieee.org/xpl/downloadCitations?recordIds=" . $article->articleNumber . "&citations-format=citation-only&download-format=download-bibtex", "id" => $article->articleNumber,
+                "database" => $article->database));
+        }
     }
 
     public static function countWordOccurence($abstract){

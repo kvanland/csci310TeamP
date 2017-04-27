@@ -22,3 +22,7 @@ Why: clearView calls hideArticleList and has extra functionality that the system
 5. 4/25/17 Schule and Fong
 What you refactored: Implemented exception handling in PDFParser.php
 Why: Better practice since code may sometimes fail in situations we have no control over (file downloaded from remote server)
+
+6. 4/26/17 Zolintakis and Fong
+What you refactored: separated getStatus test into percentage test and valid json tests.
+Why: This made tests for both aspects of the feature individually instead of keeping them both in one test 
