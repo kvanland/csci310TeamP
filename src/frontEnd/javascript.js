@@ -486,7 +486,7 @@ function populateArticleList(articleData, caption, articles){ //void
 	    });
 
 	    table.attr("id", 'myTable');
-
+		sortTable(2, true); //Sorts table by frequency by default
 
 }
 
@@ -516,9 +516,6 @@ function sortTable(n, isNum) {
       /*check if the two rows should switch place,
       based on the direction, asc or desc:*/
 	  if(isNum) {
-		  console.log('IS NUM');
-		  console.log(x.innerHTML);
-		  console.log(y.innerHTML);
 		  if (dir == "asc") {
 	        if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
 	          //if so, mark as a switch and break the loop:
@@ -534,9 +531,6 @@ function sortTable(n, isNum) {
 	      }
 	  }
 	  else {
-		console.log('IS NOT NUM');
-  		console.log(x.innerHTML);
-  		console.log(y.innerHTML);
       if (dir == "asc") {
         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
           //if so, mark as a switch and break the loop:
