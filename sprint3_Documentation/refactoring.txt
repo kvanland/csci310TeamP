@@ -18,3 +18,7 @@ Why: Makes the code more readable and easier to edit
 4. 4/23/17 Zolintakis and Vanland
 What you refactored: In javascript file changed hideArticleList() to clearView()
 Why: clearView calls hideArticleList and has extra functionality that the system needs to execute
+
+5. 4/25/17 Schule and Fong
+What you refactored: Implemented exception handling in PDFParser.php
+Why: Better practice since code may sometimes fail in situations we have no control over (file downloaded from remote server)
