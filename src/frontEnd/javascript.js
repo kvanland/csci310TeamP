@@ -660,6 +660,7 @@ function exportPdf(){
 		var articleData = getArticleList();
 	else
 		var articleData = getConferencelist();
+
 	var columns = ["title", "authors", "frequency", "conference", "download", "bibtex"];
 	var rows = [];
 	for(var i = 0; i < articleData.length; i++) {
@@ -667,10 +668,19 @@ function exportPdf(){
 		var authors = curr.authors.sort();
 		rows.push([curr.title, authors, curr.frequency, curr.conference, curr.download, curr.bibtex]);
 	}
-	var doc = new jsPDF('p', 'mm', [1000, 1000]);
+	var doc = new jsPDF('p', 'mm', 'a4');
 	doc.autoTable(columns, rows,{
-		tableWidth: 'wrap',
-		theme: 'grid'
+		theme: 'grid',
+		styles: {
+			overflow:'linebreak',
+			columnWidth: doc.internal.pageSize.width/6.0
+		},
+		addPageContent: function(data){
+			doc.text(currentWord, doc.internal.pageSize.width/2.0, 10);
+		},
+		margin: {
+			left: 0
+		}
 	});
 	doc.save('table.pdf');
 }

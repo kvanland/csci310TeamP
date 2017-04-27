@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+include "ArticleTest.php";
 
 class WordCloudTest extends TestCase
 {
@@ -50,10 +51,10 @@ class WordCloudTest extends TestCase
         $wordCloud = new WordCloud();
         $result = $wordCloud->getArticleListIEEE("Andrea Zanella","author",40);
 
-        $nameBoolean = $result[0]->name == "Group behavior impact on an opportunistic localization scheme";
-        $authorBool = $result[0]->authors[0] == "GuoDong Kang";
-        $urlBool = $result[0]->url == "http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5722403";
-        $conferenceBool = $result[0]->conferences == "2010 Future Network & Mobile Summit";
+        $nameBoolean = $result[0]->name == "Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels";
+        $authorBool = $result[0]->authors[0] == "Andrea Zanella";
+        $urlBool = $result[0]->url == "http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328";
+        $conferenceBool = $result[0]->conferences == "2008 IEEE Wireless Communications and Networking Conference";
         $databaseBool = $result[0]->database == Constants::IEEE;
 
         $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($result) == 40), true);
@@ -91,10 +92,10 @@ class WordCloudTest extends TestCase
         $wordCloud = new WordCloud();
         $result = $wordCloud->getArticleListIEEE("stratus","keyWord",40);
 
-        $nameBoolean = $result[0]->name == "L'Institut International de Musique Electroacoustique de Bourges: Synth&#232;se 97 and Synth&#232;se 98 [Review Article]";
-        $authorBool = $result[0]->authors[0] == "Eric Strother";
-        $urlBool = $result[0]->url == "http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6797795";
-        $conferenceBool = $result[0]->conferences == "Computer Music Journal";
+        $nameBoolean = $result[0]->name == "Physical modeling of em wave propagation over the earth";
+        $authorBool = $result[0]->authors[0] == "R. J. King";
+        $urlBool = $result[0]->url == "http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7767948";
+        $conferenceBool = $result[0]->conferences == "Radio Science";
         $databaseBool = $result[0]->database == Constants::IEEE;
 
         $this->assertEquals($nameBoolean && $authorBool && $urlBool && $conferenceBool && $databaseBool && (sizeof($result) == 40), true);
@@ -120,41 +121,32 @@ class WordCloudTest extends TestCase
 
     public function testParseACM(){
         $wordCloud = new WordCloud();
-        $wordCloud->initializeArticleList("Andrea Zanella","author",40);
 
-        $articlePair = array_slice($wordCloud->articleList,20,1);
-        $values = array_values($articlePair);
-        $article = $values[0];
+        $article = new article("http:\/\/dx.doi.org\/10.1145\/1755743.1755777", "", "", "Analysis of opportunistic localization algorithms based on the linear matrix inequality method", 0, "http:\/\/dx.doi.org\/10.1145\/1755743.1755777");
         $wordCloud->parseArticleACM($article);
 
-        $differentBool = $wordCloud->wcData["mobile"]->occurrences == 2;
-        $inequalitiesBool = $wordCloud->wcData["wide"]->occurrences == 1;
+        $modelBool = $wordCloud->wcData["model"]->occurrences == 4;
+        $systemsBool = $wordCloud->wcData["systems"]->occurrences == 2;
 
-        $this->assertEquals($differentBool && $inequalitiesBool, true);
+        $this->assertEquals($modelBool && $systemsBool, true);
     }
 
     public function testParseIEEE(){
         $wordCloud = new WordCloud();
-        $wordCloud->initializeArticleList("Andrea Zanella","author",40);
 
-        $articlePair = array_slice($wordCloud->articleList,0,1);
-        $values = array_values($articlePair);
-        $article = $values[0];
+        $article = new article("http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328", "", "", "Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels", 0, "4489328");
         $wordCloud->parseArticleIEEE($article);
 
-        $theyBool = $wordCloud->wcData["model"]->occurrences == 2;
-        $andBool = $wordCloud->wcData["improvement"]->occurrences == 1;
+        $frameworkBool = $wordCloud->wcData["framework"]->occurrences == 7;
+        $consumptionBool = $wordCloud->wcData["consumption"]->occurrences == 1;
 
-        $this->assertEquals($theyBool && $andBool, true);
+        $this->assertEquals($frameworkBool && $consumptionBool, true);
     }
 
     public function testGetWordCloudData(){
         $wordCloud = new WordCloud();
-        $wordCloud->initializeArticleList("Andrea Zanella","author",40);
 
-        $articlePair = array_slice($wordCloud->articleList,0,1);
-        $values = array_values($articlePair);
-        $article = $values[0];
+        $article = new article("http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328", "", "", "Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels", 0, "4489328");
         $wordCloud->parseArticleIEEE($article);
 
         json_decode($wordCloud->getWordCloudData());

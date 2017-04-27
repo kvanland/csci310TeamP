@@ -390,7 +390,18 @@ class FeatureContext extends MinkContext
      */
     public function theFirstArticleInTheArticleListIs($arg1)
     {
+//        $session = $this->getSession();
+//        $page = $session->getPage();
+//        $content = $page->find('css', sprintf('table tr:contains("%s")', $arg1));
+//        print_r($content);
+//        if(!content){
+//            throw new Exception($arg1. " could not be found");
+//        }
+//        if(strcmp(content,$arg1) != 0){
+//            throw new Exception($arg1. " does not match first article in article list");
+//        }
         throw new PendingException();
+
     }
 
     /**
@@ -398,7 +409,7 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnButton($arg1)
     {
-        throw new PendingException();
+        $this->iPressTheButton($arg1);
     }
 
     /**
@@ -406,7 +417,9 @@ class FeatureContext extends MinkContext
      */
     public function iShouldDownloadAPlainTextDocumentThatContainsAllOfTheArticleListInformation()
     {
-        throw new PendingException();
+        sleep(5);
+        if(!file_exists("~/Downloads/download"))
+            throw new Exception("Plain text not downloaded");
     }
 
     /**
