@@ -63,7 +63,7 @@ function getConferencelist(){ //Array of Strings
 
 function requestArticleText(articleTitle, author, journal){ //String
 	//articleTitle: string, author: string, journal: string
-	
+
 	/*
 	var r;
 	var search = "http://localhost:8081/api/find/" + artist + "/" + songTitle;
@@ -78,7 +78,7 @@ function requestArticleText(articleTitle, author, journal){ //String
 	 	},
 	 	async: false
 	 });
-	 return r; 
+	 return r;
 	 */
 
 
@@ -86,9 +86,9 @@ function requestArticleText(articleTitle, author, journal){ //String
 
 function requestWordCloudSubset(subset) {
 	// subset is JSON array of article subset
-	
+
 	var articles = JSON.stringify(subset);
-	
+
 	var search = "http://localhost/csci310TeamP/src/backend/getSubsetWordCloud.php?";
 	$.ajax({
 	 	url: search,
@@ -108,7 +108,7 @@ function requestWordCloudSubset(subset) {
 	 	},
 	 	async : true
 	});
-	
+
 	console.log(articles);
 
 }
@@ -171,7 +171,7 @@ function pollStatus(){
 	        		showWordCloudPage();
             	}, 500);
 
-               
+
             	}
                 },
                 async : true
@@ -181,9 +181,9 @@ function pollStatus(){
 
 
 function requestArticleList(word){ //JSON object array
-	
+
 	var r;
-	
+
 	console.log("requesting");
 	var search = "http://localhost/csci310TeamP/src/backend/GetWordArticleList.php?word=" + word;
 	$.ajax({
@@ -194,13 +194,13 @@ function requestArticleList(word){ //JSON object array
 	 	},
 	 	async : false
 	 });
-	
+
 	 return r;
-	
+
 }
 
 function requestConferenceList(conference, word, num) {
-	
+
 	var r;
 	console.log("requesting");
 	var search = "http://localhost/csci310TeamP/src/backend/GetConferenceArticleList.php?conference=" + conference + "&word=" + word + "&numArticles=" + num;
@@ -212,15 +212,15 @@ function requestConferenceList(conference, word, num) {
 	 	},
 	 	async : false
 	 });
-	
+
 	 return r;
-	 
+
 
 }
 
 
 function requestAbstract(id, database) {
-	
+
 	var r;
 	console.log("requesting");
 	var search = "http://localhost/csci310TeamP/src/backend/GetAbstract.php?title=" + id + "&author=" + database;
@@ -231,12 +231,12 @@ function requestAbstract(id, database) {
 	 	},
 	 	async : false
 	 });
-	
+
 	 return r;
 
 
-	 
-} 
+
+}
 
 /***************************************************************
                       Word Cloud View Model
@@ -259,7 +259,7 @@ function setCurrentConference(conference) {
 	currentConference = conference;
 }
 
-function clearView(){ //void 
+function clearView(){ //void
 	//Set screen to initial state
 	hideWordCloudPage();
 	clearWordCloud();
@@ -273,17 +273,16 @@ function clearView(){ //void
 	searchBar.value = "";
 	showSearch();
 	setPage(0);
-
 }
 
 function showWordCloudPage(){ //void
 	setPage(1);
 	setVisible("WordCloud");
 	setHeight("wCCanvas", "500px");
-   
+
 }
 
-function hideWordCloudPage(){ //void 
+function hideWordCloudPage(){ //void
 	setInvisible("WordCloud");
 	setHeight("wCCanvas", "0");
 }
@@ -310,7 +309,7 @@ function hideListButtons() {
 function showArticleListPage(){ //void
 	setVisible("ArticleList");
 	showListButtons();
-	
+
 }
 
 function hideArticleListPage(){ //void
@@ -341,7 +340,7 @@ function populateArticlePage(articleText, word){ //void
 	var inner = text.replace(new RegExp(word, "g"), '<span style="color:#1ED760">' + word + '</span>');
 	inner = currentArticle + "<br> <br>" +"Abstract: <br>" + inner;
      var theDiv = document.getElementById("ArticlePage");
-	theDiv.innerHTML = inner; 
+	theDiv.innerHTML = inner;
 }
 
 function clearArticlePage(){ //void
@@ -361,9 +360,9 @@ function populateArticleList(articleData, caption, articles){ //void
 		var tableData = "[ ";
 		for(var i = 0; i < articleData.length; i++) {
 			var curr = articleData[i];
-			if(i == 0) 
+			if(i == 0)
 				tableData += "{ ";
-			else 
+			else
 				tableData += ", {"
 			tableData += "\"" + "title" + "\" : ";
 			tableData += "\"" + curr.title + "\", ";
@@ -380,7 +379,7 @@ function populateArticleList(articleData, caption, articles){ //void
 			tableData += "\"" + "frequency" + "\" : ";
 			if(curr.frequency >= 0)
 				tableData += curr.frequency + ", ";
-			else 
+			else
 				tableData += "0, ";
 			tableData += "\"" + "conference" + "\" : ";
 			tableData += "\"" + curr.conference + "\", ";
@@ -408,8 +407,11 @@ function populateArticleList(articleData, caption, articles){ //void
 	  		.append('th')
 	    	.text(function (column) { return column; })
 	    	.on("click", function (d, i) {
-	    		if(i%7 < 4) {
-	    			sortTable(i);
+				if(i==2) {
+					sortTable(i, true);
+				}
+	    		else if(i%7 < 4) {
+	    			sortTable(i, false);
 	    		}
 	    	});
 
@@ -429,7 +431,7 @@ function populateArticleList(articleData, caption, articles){ //void
 	 		 })
 	  		.enter()
 	  		.append('td')
-	    	.html(function (d, i) { 
+	    	.html(function (d, i) {
 	    		// if author cell add list of authors
 	    		if(i%7==1) {
 	    			var authors = d.value.split(", ");
@@ -443,11 +445,11 @@ function populateArticleList(articleData, caption, articles){ //void
 	    		} else if(i%7==6) {
 
 					return "<input type=\"checkbox\" id=\"" + d.value + "\"> </input>";
-	    		
+
 	    		} else if(i%7!=2) {
 
 	    			var text = "<p>" + d.value + "<p>";
-	    			return text; 
+	    			return text;
 
 	    		} else {
 	    			return d.value;
@@ -484,16 +486,16 @@ function populateArticleList(articleData, caption, articles){ //void
 	    });
 
 	    table.attr("id", 'myTable');
-	    	
+
 
 }
 
-function sortTable(n) {
+function sortTable(n, isNum) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("myTable");
   switching = true;
   //Set the sorting direction to ascending:
-  dir = "asc"; 
+  dir = "asc";
   /*Make a loop that will continue until
   no switching has been done:*/
   while (switching) {
@@ -509,8 +511,32 @@ function sortTable(n) {
       one from current row and one from the next:*/
       x = rows[i].getElementsByTagName("TD")[n];
       y = rows[i + 1].getElementsByTagName("TD")[n];
+	  console.log(x);
+	  console.log(y);
       /*check if the two rows should switch place,
       based on the direction, asc or desc:*/
+	  if(isNum) {
+		  console.log('IS NUM');
+		  console.log(x.innerHTML);
+		  console.log(y.innerHTML);
+		  if (dir == "asc") {
+	        if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+	          //if so, mark as a switch and break the loop:
+	          shouldSwitch= true;
+	          break;
+	        }
+	      } else if (dir == "desc") {
+	        if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+	          //if so, mark as a switch and break the loop:
+	          shouldSwitch= true;
+	          break;
+	        }
+	      }
+	  }
+	  else {
+		console.log('IS NOT NUM');
+  		console.log(x.innerHTML);
+  		console.log(y.innerHTML);
       if (dir == "asc") {
         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
           //if so, mark as a switch and break the loop:
@@ -524,14 +550,14 @@ function sortTable(n) {
           break;
         }
       }
-    }
+  } }
     if (shouldSwitch) {
       /*If a switch has been marked, make the switch
       and mark that a switch has been done:*/
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       switching = true;
       //Each time a switch is done, increase this count by 1:
-      switchcount ++; 
+      switchcount ++;
     } else {
       /*If no switching has been done AND the direction is "asc",
       set the direction to "desc" and run the while loop again.*/
@@ -562,7 +588,7 @@ function authorCellAction(d) {
 	updateStatus(0);
     showStatusBar();
 	searchByAuthorAction();
-	
+
 }
 
 function conferenceCellAction(d) {
@@ -632,7 +658,7 @@ function exportPdf(){
 	// })
 	if(PAGE[2])
 		var articleData = getArticleList();
-	else 
+	else
 		var articleData = getConferencelist();
 
 	var columns = ["title", "authors", "frequency", "conference", "download", "bibtex"];
@@ -671,7 +697,7 @@ function articleClickAction(title, author, journal){ //void
 	hideSongListPage();
 	showLyricPage();
 	setPage(3);
-	
+
 }
 */
 
@@ -692,7 +718,7 @@ function createSubsetWC() {
 	if(subset.length == 0) {
 		alert("Please select a subset of articles");
 		return;
-	} 
+	}
 	setArticleSubset(subset);
 	//clearView();
     requestWordCloudSubset(getArticleSubset());
@@ -702,7 +728,7 @@ function createSubsetWC() {
 
 
 /***************************************************************
-                      Conference List 
+                      Conference List
 ***************************************************************/
 var conferenceListDiv = d3.select('#ConferenceList');
 
@@ -732,11 +758,11 @@ function homeAction(){
 		// if user is already all the way home do nothing
 		return;
 	}
-	else if(PAGE[1]){ 
+	else if(PAGE[1]){
 		//If the user is on the cloud page go all the way home
 		clearView();
 		setPage(0);
-	} else { 
+	} else {
 		// take user back to cloud page
 		setPage(1);
 		shiftInputsDown();
@@ -749,21 +775,21 @@ function homeAction(){
 }
 
 function backAction(){
-		if(PAGE[1]){ 
+		if(PAGE[1]){
 		//If the user is on the cloud page, reset page
 		setPage(0);
 		clearView();
 		shiftInputsCenter();
 		searchBar.value = "";
-		
-	}else if(PAGE[2]){ 
+
+	}else if(PAGE[2]){
 		//If the user is on the articleList page, go to wordCloudPage
 		setPage(1);
 		shiftInputsDown();
 		showSearch();
 		hideArticleListPage();
 		showWordCloudPage();
-	}else if(PAGE[3]){ 
+	}else if(PAGE[3]){
 		//If the user is on the article text page, go to articleList
 		setPage(2);
 		hideArticlePage();
@@ -814,8 +840,8 @@ function populateWordCloud(){ //void
         .start();
   d3.select("#wCCanvas").selectAll("text").on("click", function(d, i) { wordClickAction(d3.select(this).text()); });
 
-            
- 
+
+
  }
 
 
@@ -850,7 +876,7 @@ function addSearch(search) {
 }
 
 function searchByKeywordAction(){ //void
-	
+
 	if(searchBar.value == "")
 		return;
 	addSearch(searchBar.value);
@@ -875,17 +901,17 @@ function showSearchHistory() {
 		html = html + "<a>" + previousSearches[i] + "</a>";
 	}
 	var theDiv = document.getElementById('dropdown-content');
-	theDiv.innerHTML = html; 
+	theDiv.innerHTML = html;
 	d3.selectAll("a")
 		.on("click", function() {
 			searchBar.value = d3.select(this)[0][0].innerHTML;
-			
+
 		});
-	    	
+
 }
 
 
-function hideSearch(){ //void 
+function hideSearch(){ //void
 	setInvisible("Search");
 }
 
@@ -922,12 +948,12 @@ function resetDisplay(id) {
 	d3.select(tag).style("display", "block");
 }
 
-function setInvisible(id){ //void 
+function setInvisible(id){ //void
 	//id: string
 	document.getElementById(id).style.visibility = "hidden";
 }
 
-function setVisible (id) { //void 
+function setVisible (id) { //void
 	//id: string
 	document.getElementById(id).style.visibility = "visible";
 }
