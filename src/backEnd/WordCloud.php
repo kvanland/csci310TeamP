@@ -213,11 +213,12 @@ class WordCloud
     public function parseArticleIEEE($article)
     {
         $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=".$article->articleNumber;
+        $pdf_name = $article->name . '.pdf';
         $xml = simplexml_load_file($apiCall);
         $pdf_link = $xml->document->pdf;
         error_log($pdf_link);
-        shell_exec("python getPDF.py '".$pdf_link."' i");
-        $pdf_text = $this->pdfParser->parsePDF('currentPDF.pdf');
+        shell_exec("python getPDF.py '".$pdf_link."' i '".$pdf_name."'");
+        $pdf_text = $this->pdfParser->parsePDF($pdf_name);
         if (!$pdf_text) {
             return;
         }
@@ -227,7 +228,8 @@ class WordCloud
     public function parseArticleACM($article)
     {
         $url = str_replace("\\", "", $article->url);
-        error_log($url);
+        $pdf_name = $article->name . '.pdf';
+        error_log($pdf_name);
         $cr = curl_init($url);
         curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($cr, CURLOPT_FOLLOWLOCATION, 1);
@@ -236,8 +238,8 @@ class WordCloud
         $url = $info["url"];
         $url = $url."&preflayout=flat";
         error_log($url);
-        shell_exec("python getPDF.py '".$url."' a");
-        $pdf_text = $this->pdfParser->parsePDF('currentPDF.pdf');
+        shell_exec("python getPDF.py '".$url."' a '".$pdf_name."'");
+        $pdf_text = $this->pdfParser->parsePDF($pdf_name);
         if (!$pdf_text) {
             return;
         }
