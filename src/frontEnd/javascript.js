@@ -279,12 +279,14 @@ function showWordCloudPage(){ //void
 	setPage(1);
 	setVisible("WordCloud");
 	setHeight("wCCanvas", "500px");
+	setVisible("downloadButton");
 
 }
 
 function hideWordCloudPage(){ //void
 	setInvisible("WordCloud");
 	setHeight("wCCanvas", "0");
+	setInvisible("downloadButton");
 }
 
 function showListButtons() {
@@ -950,4 +952,24 @@ function setInvisible(id){ //void
 function setVisible (id) { //void
 	//id: string
 	document.getElementById(id).style.visibility = "visible";
+}
+
+/***************************************************************
+                      Downloading Image
+***************************************************************/
+function downloadAction () {
+	svgToCanvas();
+}
+
+function svgToCanvas() {
+	var svgDiv = $("#wCCanvas");
+
+var svg = svgDiv[0].outerHTML;
+var canvas = document.getElementById('hiddenCanvas');
+canvg(canvas, svg);
+var theImage = canvas.toDataURL('image/png');
+var download = document.getElementById('hiddenPng');
+ download.href = theImage;
+  download.download = 'WC.png';
+  download.click();
 }

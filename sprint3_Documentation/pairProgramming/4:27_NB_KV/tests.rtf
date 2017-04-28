@@ -1,0 +1,1256 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red178\green178\blue178;\red133\green0\blue2;\red47\green180\blue29;
+\red46\green174\blue187;\red159\green160\blue28;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf0 \CocoaLigature0 \'97\'97\'97\'97\'97\'97\'97\'97PHPUnit Tests\'97\'97\'97\'97\'97\'97\
+\
+--ArticleTest---\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+......\
+\
+Time: 91 ms, Memory: 12.00MB\
+\
+OK (6 tests, 6 assertions)\
+--GetWordCloudTest---\
+\{"result":"fail"\}PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+.\
+\
+Time: 2.61 seconds, Memory: 13.25MB\
+\
+OK (1 test, 1 assertion)\
+--GetStatusTest---\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: 'Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf'\
+file_get_contents(Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf): failed to open stream: No such file or directory\
+.http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: 'Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf'\
+file_get_contents(Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf): failed to open stream: No such file or directory\
+.\
+\
+Time: 5.34 seconds, Memory: 13.00MB\
+\
+OK (2 tests, 2 assertions)\
+--GetWordArticleListTest---\
+\
+Fatal error: Call to a member function getWordListOfArticles() on a non-object in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 21\
+--GetConferenceArticleListTest---\
+[]PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+....pdf\
+http://dl.acm.org/citation.cfm?doid=1275152.1275160&preflayout=flat\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 66, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+IOError: [Errno 13] Permission denied: '.pdf'\
+file_get_contents(.pdf): failed to open stream: No such file or directory\
+Fhttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4107932\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: '.pdf'\
+file_get_contents(.pdf): failed to open stream: No such file or directory\
+F.\
+\
+Time: 9.98 seconds, Memory: 15.50MB\
+\
+There were 2 failures:\
+\
+1) GetConferenceArticleListTest::testParseACM\
+Failed asserting that false matches expected true.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/GetConferenceArticleListTest.php:60\
+\
+2) GetConferenceArticleListTest::testParseIEEE\
+Failed asserting that false matches expected true.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/GetConferenceArticleListTest.php:69\
+\
+FAILURES!\
+Tests: 6, Assertions: 6, Failures: 2.\
+--WordCloudTest---\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+.........http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: 'Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf'\
+file_get_contents(Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf): failed to open stream: No such file or directory\
+.Low-power sensing and digitization of cardiac signals based on sigma-delta conversion (poster session).pdf\
+http://dl.acm.org/citation.cfm?doid=344166.344593&preflayout=flat\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 66, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+IOError: [Errno 13] Permission denied: 'Low-power sensing and digitization of cardiac signals based on sigma-delta conversion (poster session).pdf'\
+file_get_contents(Low-power sensing and digitization of cardiac signals based on sigma-delta conversion (poster session).pdf): failed to open stream: No such file or directory\
+.Analysis of opportunistic localization algorithms based on the linear matrix inequality method.pdf\
+http://dl.acm.org/citation.cfm?doid=1755743.1755777&preflayout=flat\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 66, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+IOError: [Errno 13] Permission denied: 'Analysis of opportunistic localization algorithms based on the linear matrix inequality method.pdf'\
+file_get_contents(Analysis of opportunistic localization algorithms based on the linear matrix inequality method.pdf): failed to open stream: No such file or directory\
+Fhttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: 'Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf'\
+file_get_contents(Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf): failed to open stream: No such file or directory\
+Fhttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: 'Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf'\
+file_get_contents(Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf): failed to open stream: No such file or directory\
+.http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: 'Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf'\
+file_get_contents(Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf): failed to open stream: No such file or directory\
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6134704\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: 'Estimating Collision Set Size in Framed Slotted Aloha Wireless Networks and RFID Systems.pdf'\
+file_get_contents(Estimating Collision Set Size in Framed Slotted Aloha Wireless Networks and RFID Systems.pdf): failed to open stream: No such file or directory\
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6850361\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: 'SSIM-based video admission control and resource allocation algorithms.pdf'\
+file_get_contents(SSIM-based video admission control and resource allocation algorithms.pdf): failed to open stream: No such file or directory\
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7249297\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: 'QoE-aware Video Rate Adaptation algorithms in multi-user IEEE 802.11 wireless networks.pdf'\
+file_get_contents(QoE-aware Video Rate Adaptation algorithms in multi-user IEEE 802.11 wireless networks.pdf): failed to open stream: No such file or directory\
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=1593519\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 70, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(nr=1).read())\
+IOError: [Errno 13] Permission denied: 'Pricing VoWLAN services through a micro-economic framework.pdf'\
+file_get_contents(Pricing VoWLAN services through a micro-economic framework.pdf): failed to open stream: No such file or directory\
+Analysis of opportunistic localization algorithms based on the linear matrix inequality method.pdf\
+http://dl.acm.org/citation.cfm?doid=1755743.1755777&preflayout=flat\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 66, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+IOError: [Errno 13] Permission denied: 'Analysis of opportunistic localization algorithms based on the linear matrix inequality method.pdf'\
+file_get_contents(Analysis of opportunistic localization algorithms based on the linear matrix inequality method.pdf): failed to open stream: No such file or directory\
+Experimental localization application in opportunistic scenario.pdf\
+http://dl.acm.org/citation.cfm?doid=1755743.1755784&preflayout=flat\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 66, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+IOError: [Errno 13] Permission denied: 'Experimental localization application in opportunistic scenario.pdf'\
+file_get_contents(Experimental localization application in opportunistic scenario.pdf): failed to open stream: No such file or directory\
+SignetLab.pdf\
+http://dl.acm.org/citation.cfm?doid=1182807.1182862&preflayout=flat\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 66, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+IOError: [Errno 13] Permission denied: 'SignetLab.pdf'\
+file_get_contents(SignetLab.pdf): failed to open stream: No such file or directory\
+CRABSS.pdf\
+http://dl.acm.org/citation.cfm?doid=1815396.1815439&preflayout=flat\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 66, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+IOError: [Errno 13] Permission denied: 'CRABSS.pdf'\
+file_get_contents(CRABSS.pdf): failed to open stream: No such file or directory\
+Experimental comparison of RSSI-based localization algorithms for indoor wireless sensor networks.pdf\
+http://dl.acm.org/citation.cfm?doid=1435473.1435475&preflayout=flat\
+getPDF.py:55: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 73, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 66, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+IOError: [Errno 13] Permission denied: 'Experimental comparison of RSSI-based localization algorithms for indoor wireless sensor networks.pdf'\
+file_get_contents(Experimental comparison of RSSI-based localization algorithms for indoor wireless sensor networks.pdf): failed to open stream: No such file or directory\
+.\
+\
+Time: 1.29 minutes, Memory: 14.25MB\
+\
+There were 2 failures:\
+\
+1) WordCloudTest::testParseACM\
+Failed asserting that true matches expected false.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:131\
+\
+2) WordCloudTest::testParseIEEE\
+Failed asserting that true matches expected false.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:143\
+\
+FAILURES!\
+Tests: 15, Assertions: 15, Failures: 2.\
+89% Code Coverage\
+\
+--ArticleTest---\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+......\
+\
+Time: 96 ms, Memory: 11.75MB\
+\
+OK (6 tests, 6 assertions)\
+--GetWordCloudTest---\
+\{"result":"fail"\}PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+.\
+\
+Time: 2.6 seconds, Memory: 13.50MB\
+\
+OK (1 test, 1 assertion)\
+\
+\
+\
+\
+--GetWordArticleListTest---\
+\
+Fatal error: Call to a member function getWordListOfArticles() on null in /Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/GetWordArticleList.php on line 21\
+--GetConferenceArticleListTest---\
+[]PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+...http://dx.doi.org/10.1145/1275152.1275160\
+http://dl.acm.org/citation.cfm?doid=1275152.1275160&preflayout=flat\
+DateTime::createFromFormat(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone.\
+Fhttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4107932\
+DateTime::createFromFormat(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone.\
+F.\
+\
+Time: 45.66 seconds, Memory: 17.50MB\
+\
+There were 2 failures:\
+\
+1) GetConferenceArticleListTest::testParseACM\
+Failed asserting that false matches expected true.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/GetConferenceArticleListTest.php:60\
+\
+2) GetConferenceArticleListTest::testParseIEEE\
+Failed asserting that false matches expected true.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/GetConferenceArticleListTest.php:69\
+\
+FAILURES!\
+Tests: 6, Assertions: 6, Failures: 2.\
+[]PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+...http://dx.doi.org/10.1145/1275152.1275160\
+http://dl.acm.org/citation.cfm?doid=1275152.1275160&preflayout=flat\
+DateTime::createFromFormat(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone.\
+Fhttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4107932\
+DateTime::createFromFormat(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone.\
+F.\
+\
+Time: 9.33 seconds, Memory: 17.50MB\
+\
+There were 2 failures:\
+\
+1) GetConferenceArticleListTest::testParseACM\
+Failed asserting that false matches expected true.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/GetConferenceArticleListTest.php:60\
+\
+2) GetConferenceArticleListTest::testParseIEEE\
+Failed asserting that false matches expected true.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/GetConferenceArticleListTest.php:69\
+\
+FAILURES!\
+Tests: 6, Assertions: 6, Failures: 2.\
+--WordCloudTest---\
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.\
+\
+.........http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+TCPDF_PARSER ERROR: Invalid PDF data: missing %PDF header.\
+RLow-power sensing and digitization of cardiac signals based on sigma-delta conversion (poster session).pdf\
+http://dl.acm.org/citation.cfm?doid=344166.344593&preflayout=flat\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+DateTime::createFromFormat(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone.\
+.Analysis of opportunistic localization algorithms based on the linear matrix inequality method.pdf\
+http://dl.acm.org/citation.cfm?doid=1755743.1755777&preflayout=flat\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 80, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 68, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 569, in follow_link\
+    return self.open(self.click_link(link, **kwds))\
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 553, in click_link\
+    link = self.find_link(**kwds)\
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 620, in find_link\
+    raise LinkNotFoundError()\
+mechanize._mechanize.LinkNotFoundError\
+TCPDF_PARSER ERROR: Empty PDF data.\
+Fhttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+TCPDF_PARSER ERROR: Invalid PDF data: missing %PDF header.\
+Fhttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+TCPDF_PARSER ERROR: Invalid PDF data: missing %PDF header.\
+Rhttp://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4489328\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+TCPDF_PARSER ERROR: Invalid PDF data: missing %PDF header.\
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6134704\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+TCPDF_PARSER ERROR: Invalid PDF data: missing %PDF header.\
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6850361\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+TCPDF_PARSER ERROR: Invalid PDF data: missing %PDF header.\
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7249297\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+TCPDF_PARSER ERROR: Invalid PDF data: missing %PDF header.\
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=1593519\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+TCPDF_PARSER ERROR: Invalid PDF data: missing %PDF header.\
+Analysis of opportunistic localization algorithms based on the linear matrix inequality method.pdf\
+http://dl.acm.org/citation.cfm?doid=1755743.1755777&preflayout=flat\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 80, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 68, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 569, in follow_link\
+    return self.open(self.click_link(link, **kwds))\
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 553, in click_link\
+    link = self.find_link(**kwds)\
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 620, in find_link\
+    raise LinkNotFoundError()\
+mechanize._mechanize.LinkNotFoundError\
+TCPDF_PARSER ERROR: Empty PDF data.\
+Experimental localization application in opportunistic scenario.pdf\
+http://dl.acm.org/citation.cfm?doid=1755743.1755784&preflayout=flat\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+Traceback (most recent call last):\
+  File "getPDF.py", line 80, in <module>\
+    gp.downLoadPDF(sys.argv[3],sys.argv[2])\
+  File "getPDF.py", line 68, in downLoadPDF\
+    open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())\
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 569, in follow_link\
+    return self.open(self.click_link(link, **kwds))\
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 553, in click_link\
+    link = self.find_link(**kwds)\
+  File "/Library/Python/2.7/site-packages/mechanize/_mechanize.py", line 620, in find_link\
+    raise LinkNotFoundError()\
+mechanize._mechanize.LinkNotFoundError\
+TCPDF_PARSER ERROR: Empty PDF data.\
+SignetLab.pdf\
+http://dl.acm.org/citation.cfm?doid=1182807.1182862&preflayout=flat\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+DateTime::createFromFormat(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone.\
+CRABSS.pdf\
+http://dl.acm.org/citation.cfm?doid=1815396.1815439&preflayout=flat\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+DateTime::createFromFormat(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone.\
+Experimental comparison of RSSI-based localization algorithms for indoor wireless sensor networks.pdf\
+http://dl.acm.org/citation.cfm?doid=1435473.1435475&preflayout=flat\
+getPDF.py:57: UserWarning: gzip transfer encoding is experimental!\
+  br.set_handle_gzip(True)\
+DateTime::createFromFormat(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone.\
+E\
+\
+Time: 1.39 minutes, Memory: 109.50MB\
+\
+There was 1 error:\
+\
+1) WordCloudTest::testGetWordListOfArticles\
+Invalid argument supplied for foreach()\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/WordCloud.php:283\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:165\
+\
+--\
+\
+There were 2 failures:\
+\
+1) WordCloudTest::testParseACM\
+Failed asserting that true matches expected false.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:131\
+\
+2) WordCloudTest::testParseIEEE\
+Failed asserting that true matches expected false.\
+\
+/Applications/XAMPP/xamppfiles/htdocs/csci310TeamP/src/backEnd/tests/WordCloudTest.php:143\
+\
+FAILURES!\
+Tests: 15, Assertions: 14, Errors: 1, Failures: 2, Risky: 2.\
+./TestScript.sh: line 12: unexpected EOF while looking for matching `"'\
+./TestScript.sh: line 13: syntax error: unexpected end of file\
+\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97Behat Tests\'97\'97\'97\'97\'97\'97-\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \cb3                                                           \cf0 \cb1 \
+\cf2 \cb3   [Symfony\\Component\\Console\\Exception\\RuntimeException]  \cf0 \cb1 \
+\cf2 \cb3   The "--apend-snippets" option does not exist.           \cf0 \cb1 \
+\cf2 \cb3                                                           \cf0 \cb1 \
+\
+\cf4 behat [-s|--suite SUITE] [-f|--format FORMAT] [-o|--out OUT] [--format-settings FORMAT-SETTINGS] [--init] [--lang LANG] [--name NAME] [--tags TAGS] [--role ROLE] [--story-syntax] [-d|--definitions DEFINITIONS] [--snippets-for [SNIPPETS-FOR]] [--snippets-type SNIPPETS-TYPE] [--append-snippets] [--no-snippets] [--strict] [--order ORDER] [--rerun] [--stop-on-failure] [--dry-run] [--] [<paths>]\cf0 \
+\
+guest-wireless-upc-1602-10-120-033-073:src Noah$ vendor/bin/behat --dry-run --append-snippets\
+
+\f1\b Feature:
+\f0\b0  Abstract\
+    In order to understand what kinds of articles contain a selected word\
+    as a website user\
+    I must be able to view the abstract of articles with that word highlighted\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click article from "decidable" wordcloud                         # features/abstract.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                              # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0                     # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                              # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b logic
+\f0\b0 " in the wordcloud\cf0                                   # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b Temporal logics over unranked trees
+\f0\b0 " in the article list\cf0  # FeatureContext::iPressOnInTheArticleList()\
+    \cf5 Then I should see the abstract of "
+\f1\b Temporal logics over unranked trees
+\f0\b0 "\cf0   # FeatureContext::iShouldSeeTheAbstractOf()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click article from "Cote" wordcloud                                                                                                                  # features/abstract.feature:14\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                                                                                                                  # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Cote
+\f0\b0 " into the search bar\cf0                                                                                                              # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0                                                                                                                   # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b interpersonal
+\f0\b0 " in the wordcloud\cf0                                                                                                               # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos
+\f0\b0 " in the article list\cf0  # FeatureContext::iPressOnInTheArticleList()\
+    \cf5 Then I should see the abstract of "
+\f1\b Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos
+\f0\b0 "\cf0   # FeatureContext::iShouldSeeTheAbstractOf()\
+\
+
+\f1\b Feature:
+\f0\b0  Viewing article list\
+    In order to show the list of articles from the wordclud that contain a word\
+    as a website user\
+    I must be able to click on a word in the word cloud\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click on word "lunar"                       # features/articleList.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b lunar
+\f0\b0 " in the wordcloud\cf0              # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 Then I should see the article list for "
+\f1\b Adleman
+\f0\b0 "\cf0     # FeatureContext::iShouldSeeTheArticleListFor()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click on word "comparator"                   # features/articleList.feature:13\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0          # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b computer
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b comparator
+\f0\b0 " in the wordcloud\cf0          # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 Then I should see an article list for "
+\f1\b comparator
+\f0\b0 "\cf0    # FeatureContext::iShouldSeeAnArticleListFor()\
+\
+
+\f1\b Feature:
+\f0\b0  Bibtex\
+    In order to look at the article\
+    as a website user\
+    I must be able to download the article as a pdf\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click the bibtex link in the article list     # features/bibtex.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b logic
+\f0\b0 " in the wordcloud\cf0                # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on the first "
+\f1\b bibtexLink
+\f0\b0 " link\cf0             # FeatureContext::iPressOnTheFirstLink()\
+    \cf5 Then I should open a new window\cf0                        # FeatureContext::iShouldOpenANewWindow()\
+\
+
+\f1\b Feature:
+\f0\b0  Viewing article list\
+    In order to easily make new word clouds from an article list\
+    as a website user\
+    I must be able to click an author name to make a word cloud absed on that author\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click "Max Kanovich"                          # features/clickAuthorWordCloud.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b systems
+\f0\b0 " in the wordcloud\cf0              # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b Max Kanovich
+\f0\b0 " in the article list\cf0      # FeatureContext::iPressOnInTheArticleList()\
+    \cf5 Then I should see a Word Cloud\cf0                         # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click "Sonal Mahajan"                       # features/clickAuthorWordCloud.feature:14\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Halfond
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b energy
+\f0\b0 " in the wordcloud\cf0             # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b Sonal Mahajan
+\f0\b0 " in the article list\cf0   # FeatureContext::iPressOnInTheArticleList()\
+    \cf5 Then I should see a Word Cloud\cf0                       # FeatureContext::iShouldSeeAWordCloud()\
+\
+
+\f1\b Feature:
+\f0\b0  Viewing article list\
+    In order to create a list of articles from a specific conference\
+    as a website user\
+    I must be able to click on a conference in an article list\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click on conference "20th Annual Symposium on Foundations of Computer Science (sfcs 1979)"            # features/conferenceArticleList.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                                                                   # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0                                                            # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0                                                                    # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b complexity
+\f0\b0 " in the wordcloud\cf0                                                                   # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b 20th Annual Symposium on Foundations of Computer Science (sfcs 1979)
+\f0\b0 " in the article list\cf0      # FeatureContext::iPressOnInTheArticleList()\
+    \cf5 Then I should see an article list from "
+\f1\b 20th Annual Symposium on Foundations of Computer Science (sfcs 1979)
+\f0\b0 "\cf0  # FeatureContext::iShouldSeeAnArticleListFrom()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click on conference "IEEE Electron Device Letters"            # features/conferenceArticleList.feature:14\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                           # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b computer
+\f0\b0 " into the search bar\cf0                   # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                           # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b power
+\f0\b0 " in the wordcloud\cf0                                # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b IEEE Electron Device Letters
+\f0\b0 " in the article list\cf0      # FeatureContext::iPressOnInTheArticleList()\
+    \cf5 Then I should see an article list from "
+\f1\b IEEE Electron Device Letters
+\f0\b0 "\cf0  # FeatureContext::iShouldSeeAnArticleListFrom()\
+\
+
+\f1\b Feature:
+\f0\b0  Download link\
+    In order to look at the article\
+    as a website user\
+    I must be able to download the article as a pdf\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click the download link in the article list   # features/downloadLink.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b logic
+\f0\b0 " in the wordcloud\cf0                # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on the first "
+\f1\b downloadLink
+\f0\b0 " link\cf0           # FeatureContext::iPressOnTheFirstLink()\
+    \cf5 Then I should open a new window\cf0                        # FeatureContext::iShouldOpenANewWindow()\
+\
+
+\f1\b Feature:
+\f0\b0  Download WC Image\
+  In order to save a WC for later viewing\
+  as a website user\
+  I must be able to download the WC as an image\
+\
+  
+\f1\b Scenario:
+\f0\b0  Download WC from searchByAuthor             # features/DownloadWCImage.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 And I press the "
+\f1\b downloadButton
+\f0\b0 " button\cf0              # FeatureContext::iPressTheButton()\
+    \cf6 Then the WC image should download\cf0 \
+\
+  
+\f1\b Scenario:
+\f0\b0  Download WC from searchByKeyword             # features/DownloadWCImage.feature:14\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0          # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b computer
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 And I press the "
+\f1\b downloadButton
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf6 Then the WC image should download\cf0 \
+\
+
+\f1\b Feature:
+\f0\b0  Exporting Article List\
+    In order to store the article list data\
+    as a website user\
+    I must be able to export the article list as a plain text file or pdf\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click the export as plain text                                                         # features/exportArticleList.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                                                    # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0                                           # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                                                    # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b logic
+\f0\b0 " in the wordcloud\cf0                                                         # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b exportPlainTextButton
+\f0\b0 " button\cf0                                                   # FeatureContext::iPressOnButton()\
+    \cf5 Then I should download a plain text document that contains all of the article list information\cf0  # FeatureContext::iShouldDownloadAPlainTextDocumentThatContainsAllOfTheArticleListInformation()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Click the export as pdf                                                         # features/exportArticleList.feature:14\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                                             # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0                                    # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                                             # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b logic
+\f0\b0 " in the wordcloud\cf0                                                  # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b exportPdf
+\f0\b0 " button\cf0                                                        # FeatureContext::iPressOnButton()\
+    \cf5 Then I should download a pdf document that contains all of the article list information\cf0  # FeatureContext::iShouldDownloadAPdfDocumentThatContainsAllOfTheArticleListInformation()\
+\
+
+\f1\b Feature:
+\f0\b0  Search\
+    In order to generate a word cloud for a given keyword or author\
+    as a website user\
+    I must be able to search for a word cloud based on a given keyword or author\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author Adleman                   # features/search.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a Word Cloud\cf0                       # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author abcdefg                        # features/search.feature:12\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0              # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b abcdefg
+\f0\b0 " into the search bar\cf0       # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a message saying there were no results\cf0  # FeatureContext::iShouldSeeAMessageSayingThereWereNoResults()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for term computers                     # features/search.feature:18\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b computers
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a Word Cloud\cf0                         # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for term fjhaksjdfhladjksf                     # features/search.feature:24\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                   # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b fjhaksjdfhladjksf
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                   # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a message saying there were no results\cf0       # FeatureContext::iShouldSeeAMessageSayingThereWereNoResults()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for term algorithm with one paper      # features/search.feature:30\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b algorithm
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I limit articles to "
+\f1\b 1
+\f0\b0 "\cf0                            # FeatureContext::iLimitArticlesTo()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a Word Cloud based on algorithm\cf0      # FeatureContext::iShouldSeeAWordCloudBasedOnAlgorithm()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author by clicking author name in word list # features/search.feature:37\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                    # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0             # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0                     # FeatureContext::iPressTheButton()\
+    \cf5 And I select the word "
+\f1\b raised
+\f0\b0 "\cf0                                  # FeatureContext::iSelectTheWord()\
+    \cf5 And I select the author "
+\f1\b Leonard M. Adleman
+\f0\b0 "\cf0                    # FeatureContext::iSelectTheAuthor()\
+    \cf5 Then I should see a Word Cloud based on Adelman\cf0                 # FeatureContext::iShouldSeeAWordCloudBasedOnAdelman()\
+\
+
+\f1\b Feature:
+\f0\b0  Search History\
+    In order to regenerate previously searched wordclouds\
+    as a website user\
+    I must be able to access my search history\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author adleman                   # features/searchHistory.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0         # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 And I press the "
+\f1\b searchHistoryButton
+\f0\b0 " button\cf0         # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a dropdown with "
+\f1\b Adleman
+\f0\b0 "\cf0          # FeatureContext::iShouldSeeADropdownWith()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Generate wordcloud from Adleman in search history # features/searchHistory.feature:13\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0               # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0                # FeatureContext::iPressTheButton()\
+    \cf5 And I press the "
+\f1\b searchHistoryButton
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b Adleman
+\f0\b0 " in the dropdown\cf0                   # FeatureContext::iPressOnInTheDropdown()\
+    \cf5 Then I should see a Word Cloud\cf0                             # FeatureContext::iShouldSeeAWordCloud()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for keyword decidable                  # features/searchHistory.feature:21\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0           # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0            # FeatureContext::iPressTheButton()\
+    \cf5 And I press the "
+\f1\b searchHistoryButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a dropdown with "
+\f1\b decidable
+\f0\b0 "\cf0          # FeatureContext::iShouldSeeADropdownWith()\
+\
+
+\f1\b Feature:
+\f0\b0  Viewing article list\
+    In order to view article lists in different orders\
+    as a website user\
+    I must be able to sort article lists by frequency, author, conference, and title\
+\
+  
+\f1\b Scenario:
+\f0\b0  Sort by frequency                                                                                                   # features/sorting.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                                                                                 # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0                                                                        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                                                                                 # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b systems
+\f0\b0 " in the wordcloud\cf0                                                                                    # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b frequency
+\f0\b0 " in the article table header\cf0                                                                       # FeatureContext::iPressOnInTheArticleTableHeader()\
+    \cf5 Then The first article in the article list is "
+\f1\b Compositional reasoning and decidable checking for dependent contract types
+\f0\b0 "\cf0  # FeatureContext::theFirstArticleInTheArticleListIs()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Sort by author                                                                         # features/sorting.feature:14\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                                                    # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0                                           # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                                                    # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b systems
+\f0\b0 " in the wordcloud\cf0                                                       # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b author
+\f0\b0 " in the article table header\cf0                                             # FeatureContext::iPressOnInTheArticleTableHeader()\
+    \cf5 Then The first article in the article list is "
+\f1\b Race-free scenarios of message sequence charts
+\f0\b0 "\cf0  # FeatureContext::theFirstArticleInTheArticleListIs()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Reverse sort by conference                                                                                          # features/sorting.feature:22\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                                                                                 # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0                                                                        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                                                                                 # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b systems
+\f0\b0 " in the wordcloud\cf0                                                                                    # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b conference
+\f0\b0 " in the article table header\cf0                                                                      # FeatureContext::iPressOnInTheArticleTableHeader()\
+    \cf5 Then The first article in the article list is "
+\f1\b Compositional reasoning and decidable checking for dependent contract types
+\f0\b0 "\cf0  # FeatureContext::theFirstArticleInTheArticleListIs()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Reverse sort by title                                                       # features/sorting.feature:30\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                                         # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b decidable
+\f0\b0 " into the search bar\cf0                                # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                                         # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b systems
+\f0\b0 " in the wordcloud\cf0                                            # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I press on "
+\f1\b title
+\f0\b0 " in the article table header\cf0                                   # FeatureContext::iPressOnInTheArticleTableHeader()\
+    \cf5 Then The first article in the article list is "
+\f1\b Collaborative Planning With Privacy
+\f0\b0 "\cf0  # FeatureContext::theFirstArticleInTheArticleListIs()\
+\
+
+\f1\b Feature:
+\f0\b0  Status Bar\
+    In order to understand that the functionality of the website is working\
+    As a website user\
+    I should be able to visually see the progress of the website generating the word cloud\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for author "Adleman"                       # features/statusBar.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0               # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0        # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0                # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a progress bar that gradually increases\cf0  # FeatureContext::iShouldSeeAProgressBarThatGraduallyIncreases()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Search for keyword "computer"                     # features/statusBar.feature:12\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0               # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b computer
+\f0\b0 " into the search bar\cf0       # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a progress bar that gradually increases\cf0  # FeatureContext::iShouldSeeAProgressBarThatGraduallyIncreases()\
+\
+
+\f1\b Feature:
+\f0\b0  Creating WC from subset of articles selected\
+  In order to view a WC from a subset of articles\
+  as a website user\
+  I must be able to select the articles and create the WC with them\
+\
+  
+\f1\b Scenario:
+\f0\b0  Create Subset WC from article list page      # features/SubsetWC.feature:6\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0          # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b computer
+\f0\b0 " into the search bar\cf0  # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0          # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b computer
+\f0\b0 " in the wordcloud\cf0            # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I select the top "
+\f1\b 2
+\f0\b0 " articles in the table\cf0        # FeatureContext::iSelectTheTopArticlesInTheTable()\
+    \cf5 And I press the "
+\f1\b createSubsetWC
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a wordcloud made from the articles\cf0  # FeatureContext::iShouldSeeAWordcloudMadeFromTheArticles()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Create Subset WC from conference list page   # features/SubsetWC.feature:15\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0          # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b Adleman
+\f0\b0 " into the search bar\cf0   # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchAuthorButton
+\f0\b0 " button\cf0           # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b optical
+\f0\b0 " in the wordcloud\cf0             # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I select the top "
+\f1\b 1
+\f0\b0 " articles in the table\cf0        # FeatureContext::iSelectTheTopArticlesInTheTable()\
+    \cf5 And I press the "
+\f1\b createSubsetWC
+\f0\b0 " button\cf0               # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see a wordcloud made from the articles\cf0  # FeatureContext::iShouldSeeAWordcloudMadeFromTheArticles()\
+\
+  
+\f1\b Scenario:
+\f0\b0  Create WC with no articles selected                        # features/SubsetWC.feature:24\
+    \cf5 Given The current page is "
+\f1\b http://127.0.0.1
+\f0\b0 "\cf0                        # FeatureContext::theCurrentPageIs()\
+    \cf5 When I enter the term "
+\f1\b computer
+\f0\b0 " into the search bar\cf0                # FeatureContext::iEnterTheTermIntoTheSearchBar()\
+    \cf5 And I press the "
+\f1\b searchKeywordButton
+\f0\b0 " button\cf0                        # FeatureContext::iPressTheButton()\
+    \cf5 And I press on "
+\f1\b computer
+\f0\b0 " in the wordcloud\cf0                          # FeatureContext::iPressOnInTheWordcloud()\
+    \cf5 And I select the top "
+\f1\b 0
+\f0\b0 " articles in the table\cf0                      # FeatureContext::iSelectTheTopArticlesInTheTable()\
+    \cf5 And I press the "
+\f1\b createSubsetWC
+\f0\b0 " button\cf0                             # FeatureContext::iPressTheButton()\
+    \cf5 Then I should see an alert to "
+\f1\b Please select a subset of articles
+\f0\b0 "\cf0  # FeatureContext::iShouldSeeAnAlertTo()\
+\
+--- \cf5 Skipped scenarios:\cf0 \
+\
+    \cf5 features/abstract.feature:6\cf0 \
+    \cf5 features/abstract.feature:14\cf0 \
+    \cf5 features/articleList.feature:6\cf0 \
+    \cf5 features/articleList.feature:13\cf0 \
+    \cf5 features/bibtex.feature:6\cf0 \
+    \cf5 features/clickAuthorWordCloud.feature:6\cf0 \
+    \cf5 features/clickAuthorWordCloud.feature:14\cf0 \
+    \cf5 features/conferenceArticleList.feature:6\cf0 \
+    \cf5 features/conferenceArticleList.feature:14\cf0 \
+    \cf5 features/downloadLink.feature:6\cf0 \
+    \cf5 features/exportArticleList.feature:6\cf0 \
+    \cf5 features/exportArticleList.feature:14\cf0 \
+    \cf5 features/search.feature:6\cf0 \
+    \cf5 features/search.feature:12\cf0 \
+    \cf5 features/search.feature:18\cf0 \
+    \cf5 features/search.feature:24\cf0 \
+    \cf5 features/search.feature:30\cf0 \
+    \cf5 features/search.feature:37\cf0 \
+    \cf5 features/searchHistory.feature:6\cf0 \
+    \cf5 features/searchHistory.feature:13\cf0 \
+    \cf5 features/searchHistory.feature:21\cf0 \
+    \cf5 features/sorting.feature:6\cf0 \
+    \cf5 features/sorting.feature:14\cf0 \
+    \cf5 features/sorting.feature:22\cf0 \
+    \cf5 features/sorting.feature:30\cf0 \
+    \cf5 features/statusBar.feature:6\cf0 \
+    \cf5 features/statusBar.feature:12\cf0 \
+    \cf5 features/SubsetWC.feature:6\cf0 \
+    \cf5 features/SubsetWC.feature:15\cf0 \
+    \cf5 features/SubsetWC.feature:24\cf0 \
+\
+32 scenarios (\cf6 2 undefined\cf0 , \cf5 30 skipped\cf0 )\
+176 steps (\cf6 2 undefined\cf0 , \cf5 174 skipped\cf0 )\
+0m0.33s (15.42Mb)\
+\
+ >> 
+\f1\b default
+\f0\b0 \cf6  suite has undefined steps. Please choose the context to generate snippets:\cf0 \
+\
+  [\cf4 0\cf0 ] None\
+  [\cf4 1\cf0 ] FeatureContext\
+ > 1\
+\
+\cf4 u\cf0  features/bootstrap/FeatureContext.php - `\cf6 the WC image should download\cf0 ` definition added}
