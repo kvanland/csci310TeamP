@@ -5,16 +5,16 @@ Feature: Exporting Article List
 
     Scenario: Click the export as plain text
     Given The current page is "http://127.0.0.1"
-    When I enter the term "decidable" into the search bar
+    When I enter the term "Implementations of Coherent Software-Defined Dual-Polarized Radars" into the search bar
     And I press the "searchKeywordButton" button
-    And I press on "logic" in the wordcloud
+    And I press on "radar" in the wordcloud
     And I press on "exportPlainTextButton" button
     Then I should download a plain text document that contains all of the article list information
 
     Scenario: Click the export as pdf
     Given The current page is "http://127.0.0.1"
-    When I enter the term "decidable" into the search bar
+    When I enter the term "Implementations of Coherent Software-Defined Dual-Polarized Radars" into the search bar
     And I press the "searchKeywordButton" button
-    And I press on "logic" in the wordcloud
+    And I press on "radar" in the wordcloud
     And I press on "exportPdf" button
     Then I should download a pdf document that contains all of the article list information

@@ -12,7 +12,7 @@ Feature: Viewing article list
 
     Scenario: Click on word "lunar"
     Given The current page is "http://127.0.0.1"
-    When I enter the term "Adleman" into the search bar
-    And I press the "searchAuthorButton" button
-    And I press on "lunar" in the wordcloud
+    When I enter the term "Implementations of Coherent Software-Defined Dual-Polarized Radars" into the search bar
+    And I press the "searchKeywordButton" button
+    And I press on "radar" in the wordcloud
     Then I should see an article list for "lunar"

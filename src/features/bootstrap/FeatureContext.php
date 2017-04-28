@@ -43,6 +43,7 @@ class FeatureContext extends MinkContext
      */
     public function iEnterTheTermIntoTheSearchBar($arg1)
     {
+
         $session = $this->getSession();
         $page = $session->getPage();
         $searchBar = $page->findById("searchBar");
@@ -57,6 +58,8 @@ class FeatureContext extends MinkContext
      */
     public function iPressTheButton($arg1)
     {
+        if($arg1 == "downloadButton")
+            sleep(30);
         $session = $this->getSession();
         $page = $session->getPage();
         $button = $page->findById($arg1);
@@ -67,12 +70,29 @@ class FeatureContext extends MinkContext
         sleep(1);
     }
 
+      /**
+     * @When I hover the :arg1 button
+     */
+    public function iHoverTheButton($arg1)
+    {
+        if($arg1 == "downloadButton")
+            sleep(30);
+        $session = $this->getSession();
+        $page = $session->getPage();
+        $button = $page->findById($arg1);
+        if (!$button)
+            throw new Exception($arg1 . " not found");
+        else 
+            $button->mouseOver();
+        sleep(1);
+    }
+
     /**
      * @Then I should see a Word Cloud based on algorithm
      */
     public function iShouldSeeAWordCloudBasedOnAlgorithm()
     {
-        sleep(15); // wait for wordcloud generation to finish 
+        sleep(30); // wait for wordcloud generation to finish 
         $session = $this->getSession();
         $page = $session->getPage();
         $word = $page->find('named', array('content', "scada"));
@@ -126,7 +146,7 @@ class FeatureContext extends MinkContext
         if ($style == "width: 100%;") {
             return;
         }
-        sleep(5);
+        sleep(10);
         $new_style = $progress_bar->getAttribute("style");;
         if ($new_style == $style) {
             throw new Exception("Progress bar doesn't gradually increase");
@@ -138,7 +158,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAWordCloud()
     {
-        sleep(20); // wait for wordcloud generation to finish 
+        sleep(30); // wait for wordcloud generation to finish 
         $session = $this->getSession();
         $page = $session->getPage();
         $wordCloudCanvas = $page->findById("wCCanvas");
@@ -170,8 +190,8 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnInTheWordcloud($arg1)
     {
-        sleep(20); // let word cloud generation finish
-         $session = $this->getSession();
+        sleep(30); // let word cloud generation finish
+        $session = $this->getSession();
         $page = $session->getPage();
         $word = $page->find('named', array('content', $arg1));
         if(!$word){
@@ -187,7 +207,7 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnInTheArticleList($arg1)
     {
-        sleep(2);
+        sleep(5);
         $session = $this->getSession();
         $page = $session->getPage();
         $article = $page->find('named', array('content', $arg1));
@@ -213,12 +233,12 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeTheAbstractOf($arg1)
     {
-        sleep(2);
+        sleep(5);
         $session = $this->getSession();
         $page = $session->getPage();
         $articleDiv = $page->findById("ArticlePage");
-        $expectedAbstract; if($arg1 == "Temporal logics over unranked trees")  {
-            $expectedAbstract = "Temporal logics over unranked trees  Abstract: We consider unranked trees that have become an active subject of study recently due to XML applications, and characterize commonly used fragments of first-order (FO) and monadic second-order logic (MSO) for them via various temporal logics. We look at both unordered trees and ordered trees (in which children of the same node are ordered by the next-sibling relation), and characterize Boolean and unary FO and MSO queries. For MSO Boolean queries, we use extensions of the μ-calculus: with counting for unordered trees, and with the past for ordered. For Boolean FO queries, we use similar extensions of CTL*. We then use composition techniques to transfer results to unary queries. For the ordered case, we need the same logics as for Boolean queries, but for the unordered case, we need to add both past and counting to the μ-calculus and CTL*. We also consider MSO sibling-invariant queries, that can use the sibling ordering but do not depend on the particular one used, and capture them by a variant of the μ-calculus with modulo quantifiers.";
+        $expectedAbstract; if($arg1 == "Implementations of Coherent Software-Defined Dual-Polarized Radars")  {
+            $expectedAbstract = "Implementations of Coherent Software-Defined Dual-Polarized Radars  Abstract: Software-defined radio (SDR) platforms represent a compelling solution for low-cost, flexible, dual-polarized radar systems. However, the phase coherency requirements of a dual-polarized radar system between the transmit ports and between the receive ports as well as between transmission and reception, are difficult to attain in popular SDRs. In this paper, we provide high-level overviews of SDR radar systems, dual-polarization radars, and system phase calibration procedures found in literature. The method adopted to achieve coherency involves a manual calibration procedure, which is applied to four dual-polarized radar system configurations designed around commercial off-the-shelf SDR platforms. The implemented, calibrated designs were exercised in a laboratory setting to determine the coherence performance of the SDR-based radar architectures in characterizing a fixed target's full-polarization scattering matrix.  Download Article in PDF format";
 
         }  else if( $arg1 == "Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos") {
                 $expectedAbstract = "Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos  Abstract: Interpersonal synchrony, i.e. the temporal coordination of persons during social interactions, was traditionally studied by developmental psychologists. It now holds an important role in fields such as social signal processing, usually treated as a dyadic issue. In this paper, we focus on the behavioral patterns from body motion to identify subtle social interactions in the context of multi-person discussion panels, typically involving more than two interacting individuals. We propose a computer-vision based approach for automatic speaker identification that takes advantage of body motion interpersonal synchrony between participants. The approach characterizes human body motion with a novel feature descriptor based on the pixel change history of multiple body regions, which is then used to classify the motor behavioral patterns of the participants into speaking/non-speaking. Our approach was evaluated on a challenging dataset of video segments from discussion panel scenes collected from YouTube. Results are very promising and suggest that interpersonal synchrony of motion behavior is indeed indicative of speaker/listener roles.";
@@ -240,12 +260,13 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAnArticleList()
     {
+         sleep(5);
         $session = $this->getSession();
         $page = $session->getPage();
         $songListDiv = $page->findById("ArticleList");
         $table_rows = $songListDiv->findAll('css', 'tr');
         foreach($table_rows as $row){
-            $table_data = $row->findall('css', 'td');
+            $table_data = $row->findAll('css', 'td');
             if(count($table_data)==0) {
                 throw new Exception("No article list seen");
             };
@@ -257,14 +278,15 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAnArticleListFrom($arg1)
     {
+         sleep(5);
 
         $session = $this->getSession();
             $page = $session->getPage();
             $songListDiv = $page->findById("ArticleList");
-            $table_body = $songListDiv->finall('css', 'tbody');
+            $table_body = $songListDiv->find('css', 'tbody');
             $table_rows = $table_body->findAll('css', 'tr');
             foreach($table_rows as $row){
-                $table_data = $row->findall('css', 'td');
+                $table_data = $row->findAll('css', 'td');
                 $par = $table_data[3]->find('css', 'p');
                 if($par->getText() != $arg1) {
                     throw new Exception("Failure displaying conference List");
@@ -279,7 +301,7 @@ class FeatureContext extends MinkContext
      */
     public function iSelectTheWord($arg1)
     {
-        
+        sleep(30);
         $session = $this->getSession();
         $page = $session->getPage();
         $word = $page->find('named', array('content', $arg1));
@@ -295,12 +317,24 @@ class FeatureContext extends MinkContext
      */
     public function iSelectTheAuthor($arg1)
     {
+        sleep(5);
+
+        sleep(30);
+        $session = $this->getSession();
+        $page = $session->getPage();
+        $word = $page->find('named', array('content', $arg1));
+        if(!$word){
+            throw new Exception("Word " + $arg1 + " could not be found");
+        }else{
+            $word->click();
+        }
+        /*
         $session = $this->getSession();
         $page = $session->getPage();
         $songListDiv = $page->findById("ArticleList");
         $table_rows = $songListDiv->findAll('css', 'tr');
         foreach($table_rows as $row){
-            $table_data = $row->findall('css', 'td');
+            $table_data = $row->findAll('css', 'td');
             $list = $table_data[1]->find('css', 'ul');
             $authors = $list->findAll('css', 'li');
             foreach ($authors as $author) {
@@ -308,7 +342,7 @@ class FeatureContext extends MinkContext
                     $author->click();
                 }
             }
-        }
+        } */
     }
 
     /**
@@ -316,7 +350,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAWordCloudBasedOnAdelman()
     {
-        sleep(15); // wait for wordcloud generation to finish 
+        sleep(30); // wait for wordcloud generation to finish 
         $session = $this->getSession();
         $page = $session->getPage();
         $word = $page->find('named', array('content', "optical"));
@@ -349,8 +383,6 @@ class FeatureContext extends MinkContext
         sleep(2);
         $session = $this->getSession();
         $page = $session->getPage();
-        $word = $page->find('named', array('content', "SearchHistory"));
-        $word->click();
         $dropdown = $page->findById("dropdown-content");
         if (!$dropdown) {
             throw new Exception("Dropdown not seen");
@@ -374,7 +406,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldNotSeeAWordcloud()
     {
-        sleep(20); // wait for wordcloud generation to finish 
+        sleep(30); // wait for wordcloud generation to finish 
         $session = $this->getSession();
         $page = $session->getPage();
         $wordCloudCanvas = $page->findById("wCCanvas");
@@ -406,16 +438,17 @@ class FeatureContext extends MinkContext
      */
     public function theFirstArticleInTheArticleListIs($arg1)
     {
-        var valid = false;
+        sleep(5);
+        $valid = false;
         $session = $this->getSession();
         $page = $session->getPage();
         $articleListDiv = $page->findById("ArticleList");
         $table_rows = $articleListDiv->findAll('css', 'tr');
         foreach($table_rows as $row){
-            $table_data = $row->findall('css', 'td');
+            $table_data = $row->findAll('css', 'td');
             $article = $table_data[0]->find('css', 'p');
             if($article->getText() == $arg1) {
-              valid = true;
+              $valid = true;
             }
         }
         if(!valid) throw new Exception("The First Article in the Article List is not " . $arg1);
@@ -467,14 +500,14 @@ class FeatureContext extends MinkContext
         $session = $this->getSession();
         $page = $session->getPage();
         $articleListDiv = $page->findById("ArticleList");
-        $table_body = $songListDiv->findAll('css'. 'tbody');
+        $table_body = $songListDiv->find('css'. 'tbody');
         $table_rows = $table_body->findAll('css', 'tr');
         $counter = 0;
         foreach($table_rows as $row){
             if($counter > $number){
                 break;
             }
-            $table_data = $row->findall('css', 'td');
+            $table_data = $row->findAll('css', 'td');
             $list = $table_data[6]->find('css', 'input');
             $list.click();
         }
@@ -485,9 +518,10 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAWordcloudMadeFromTheArticles($arg1)
     {   
+
         $number = intval($arg1);
         if($number == 2) {
-            sleep(15); // wait for wordcloud generation to finish 
+            sleep(30); // wait for wordcloud generation to finish 
             $session = $this->getSession();
             $page = $session->getPage();
             $word = $page->find('named', array('content', "imaging"));
@@ -511,7 +545,7 @@ class FeatureContext extends MinkContext
                 throw new Exception("Word " + "rotation" + " could not be found");
             }
         } else if ($number == 1) {
-            sleep(15); // wait for wordcloud generation to finish 
+            sleep(30); // wait for wordcloud generation to finish 
             $session = $this->getSession();
             $page = $session->getPage();
             $word = $page->find('named', array('content', "data"));
@@ -542,7 +576,9 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAnAlertTo($arg1)
     {
-        return $arg1 == $this->getSession()->getDriver()->getWebDriverSession()->getAlert_text();
+        if($arg1 != $this->getSession()->getDriver()->getWebDriverSession()->getAlert_text()) {
+            throw new Exception("No Alert");
+        }
     }
 
     /**
@@ -550,28 +586,29 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAnArticleListFor($arg1)
     {
+        sleep(5);
          if($arg1 == "imaging") {
             $session = $this->getSession();
             $page = $session->getPage();
             $songListDiv = $page->findById("ArticleList");
-            $table_body = $songListDiv->finall('css', 'tbody');
-            $table_rows = $table_body->findAll('css', 'tr');
-            foreach($table_rows as $row){
-                $table_data = $row->findall('css', 'td');
+            $table_body = $songListDiv->find('css', 'tbody');
+            $row = $table_body->find('css', 'tr');
+            $table_data = $row->findAll('css', 'td');
                 $par = $table_data[0]->find('css', 'p');
                 if($par->getText() != "On the Feasibility of Breast Cancer Imaging Systems at Millimeter-Waves Frequencies") {
+                    echo $par->getText();
                     throw new Exception("Failure displaying article List for Test 1");
                 }
                 
-            }
+            
         } else if($arg1 == "lunar") {
 
             $session = $this->getSession();
         $page = $session->getPage();
         $songListDiv = $page->findById("ArticleList");
-        $table_body = $songListDiv->finall('css', 'tbody');
+        $table_body = $songListDiv->find('css', 'tbody');
         $table_rows = $table_body->findAll('css', 'tr');
-        if(count($table_rows) != 5) {
+        if(count($table_rows) != 1) {
             throw new Exception("Not correct # articles in article List");
         }
         }
@@ -582,11 +619,12 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnTheFirstLink($arg1)
     {
+        sleep(5);
         if($arg1 == "bibtexLink") {
             $session = $this->getSession();
             $page = $session->getPage();
             $songListDiv = $page->findById("ArticleList");
-            $table_body = $songListDiv->findAll('css' ,'tbody');
+            $table_body = $songListDiv->find('css' ,'tbody');
             $table_rows = $table_body->findAll('css', 'tr');
             $cells = $table_rows[0]->findAll('css', 'td');
             $bib_cell = $cells[5];
@@ -597,7 +635,7 @@ class FeatureContext extends MinkContext
             $session = $this->getSession();
             $page = $session->getPage();
             $songListDiv = $page->findById("ArticleList");
-            $table_body = $songListDiv->findAll('css' ,'tbody');
+            $table_body = $songListDiv->find('css' ,'tbody');
             $table_rows = $table_body->findAll('css', 'tr');
             $cells = $table_rows[0]->findAll('css', 'td');
             $bib_cell = $cells[4];
