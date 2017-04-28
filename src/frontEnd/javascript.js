@@ -604,6 +604,10 @@ function conferenceCellAction(d) {
 
 function bibCellAction(d) {
 	window.open(d);
+	var download = document.getElementById('hiddenA');
+ download.href = d;
+  download.download = "article.pdf";
+  download.click();
 }
 function downloadCellAction(d) {
 	window.open(d);
