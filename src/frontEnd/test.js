@@ -29,18 +29,20 @@ QUnit.test( "Export Plain Text Test", function( assert ) {
 QUnit.test( "Export PDF Test", function( assert ) {
   PAGE = [true, true, true];
   var article = [];
-  article["title"] = "title nine";
-  article["authors"] = ["first auth", "second guy"];
-  article["frequency"] = "5";
-  article["conference"] = "confguy";
-  article["download"] = "download";
-  article["bibtex"] = "bibby";
+  article["title"] = "a";
+  article["authors"] = ["b"];
+  article["frequency"] = "c";
+  article["conference"] = "d";
+  article["download"] = "e";
+  article["bibtex"] = "f";
 
   articleList = [article];
   currentWord = "wordington";
   
-  exportPdf();
-  var correctRows = ["title nine", ["first auth", "second guy"], "5", "confguy", "download", "bibby"];
+  var rows = getPdfData();
+  var correctRows = [["a", ["b"], "c", "d", "e", "f"]];
+  console.log(rows);
+  console.log(correctRows);
   
-  assert.equal(rows,correctRows,"Passed");
+  assert.equal(rows[0][0],correctRows[0][0],"Passed");
 });

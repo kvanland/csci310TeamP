@@ -3,6 +3,9 @@
 
 2. Conference List frequency was always set to 42 because the pdf wasn’t saving so it couldn’t be parsed. 
 We wrote tests for conference list parseACM and parseIEEE making sure the pdf is always saved.
+
 3. The third party api we are using for pdf parsing would sometimes put a null object in its function for a font.  We implemented a check to see if the object is null
-We put have a parseIEEE test in WordCloudTest that makes the object knows
-sorting article list
+We put have a parseIEEE test in WordCloudTest that makes the object null and checks to see if the program crashes
+
+4. The article list was not automatically sorting by frequency.
+We added a scenario in our sorting.feature file that checks to make sure it defaults sorts by frequency.
