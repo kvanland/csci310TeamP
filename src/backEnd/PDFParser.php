@@ -15,7 +15,7 @@ class PDFParser
             $pdf_contents = file_get_contents($path);
             $pdf = $this->parser->parseContent($pdf_contents);
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            // error_log($e->getMessage());
             return null;
         }
         $text = $pdf->getText();

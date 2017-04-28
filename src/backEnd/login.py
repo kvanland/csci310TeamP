@@ -24,25 +24,25 @@ class Login:
         self.br = br
 
     def login(self):
-        # print('attempting login...')
+        print('attempting login...')
         self.br.open('https://libproxy.usc.edu/login')
         self.br.select_form(nr=0)
 
         response = self.br.submit().read()
         self.br.select_form(nr=0)
         response = self.br.submit().read()
-        # print('entering credentials...')
+        print('entering credentials...')
         self.br.select_form(nr=0)
         self.br.form['j_username'] = userConfig.username
         self.br.form['j_password'] = userConfig.password
         response = self.br.submit().read()
         if "form-error" in response:
-            # print('Invalid Login')
+            print('Invalid Login')
             return False
-        # print('verifying...')
+        print('verifying...')
         self.br.select_form(nr=0)
         response = self.br.submit().read()
-        # print('setting cookies...')
+        print('setting cookies...')
         cookies = []
         for cookie in self.cj:
             cookies.append(cookie)
