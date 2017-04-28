@@ -35,8 +35,8 @@ class ConferenceArticleListDriver{
     public static $articleList;
 
     public static function getConferenceArticleList(){
-        ConferenceArticleListDriver::getIEEE(ConferenceArticleListDriver::$conference);
-        ConferenceArticleListDriver::getACM(ConferenceArticleListDriver::$conference);
+        ConferenceArticleListDriver::getIEEE();
+        ConferenceArticleListDriver::getACM();
 
         foreach (ConferenceArticleListDriver::$articles as $article){
             if(sizeof(ConferenceArticleListDriver::$articleList) >= ConferenceArticleListDriver::$listSize)
@@ -129,6 +129,10 @@ class ConferenceArticleListDriver{
                 }
                 $conference = $acmArray["message"]["items"][$i]["container-title"][0];
 
+                if (strcmp($title,"") == 0){
+                    $title = $conference;
+                }
+
                 if (array_key_exists("URL", $acmArray["message"]["items"][$i]))
                     $articleUrl = $acmArray["message"]["items"][$i]["URL"];
                 $source = Constants::ACM;
@@ -144,7 +148,8 @@ class ConferenceArticleListDriver{
 
     public static function parseACM($article){
         $url = str_replace("\\", "", $article->url);
-        error_log($url);
+        $pdf_name = $article->name . '.pdf';
+        error_log($pdf_name);
         $cr = curl_init($url);
         curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($cr, CURLOPT_FOLLOWLOCATION, 1);
@@ -153,9 +158,9 @@ class ConferenceArticleListDriver{
         $url = $info["url"];
         $url = $url."&preflayout=flat";
         error_log($url);
-        shell_exec("python getPDF.py '".$url."' a");
+        shell_exec("python getPDF.py '".$url."' a '".$pdf_name."'");
         $pdfParser = new PDFParser();
-        $pdf_text = $pdfParser->parsePDF('currentPDF.pdf');
+        $pdf_text = $pdfParser->parsePDF($pdf_name);
         if (!$pdf_text) {
             return;
         }
@@ -165,7 +170,7 @@ class ConferenceArticleListDriver{
         if($count != 0) {
             $array = array("title" => $article->name, "authors" => $article->authors,
                 "conference" => $article->conferences, "download" => $article->url, "bibtex" => "http://dl.acm.org/exportformats.cfm?id=" . $article->articleNumber . "&expformat=bibtex", "id" => $article->articleNumber,
-                "database" => $article->database, "frequency" => (string)$count);
+                "database" => $article->database, "frequency" => $count);
             array_push(ConferenceArticleListDriver::$articleList, $array);
         }
 
@@ -175,12 +180,13 @@ class ConferenceArticleListDriver{
 
     public static function parseIEEE($article){
         $apiCall = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=".$article->articleNumber;
+        $pdf_name = $article->name . '.pdf';
         $xml = simplexml_load_file($apiCall);
         $pdf_link = $xml->document->pdf;
         error_log($pdf_link);
-        shell_exec("python getPDF.py '".$pdf_link."' i");
+        shell_exec("python getPDF.py '".$pdf_link."' i '".$pdf_name."'");
         $pdfParser = new PDFParser();
-        $pdf_text = $pdfParser->parsePDF('currentPDF.pdf');
+        $pdf_text = $pdfParser->parsePDF($pdf_name);
         if (!$pdf_text) {
             return;
         }
@@ -194,8 +200,8 @@ class ConferenceArticleListDriver{
         }
     }
 
-    public static function countWordOccurence($abstract){
-        $string = strtolower($abstract);
+    public static function countWordOccurence($text){
+        $string = strtolower($text);
         $words = explode(" ", $string);
         $count = 0;
         foreach ($words as $word){

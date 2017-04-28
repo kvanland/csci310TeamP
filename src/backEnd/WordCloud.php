@@ -111,8 +111,12 @@ class WordCloud
         $i = 0;
         while($i<$articleCount && $i < sizeof($xml->document)){
             $title = (string) $xml->document[$i]->title;
+            $title = str_replace("\"", "", $title);
+
             $authors = explode("; ",(string) $xml->document[$i]->authors);
             $conference = (string) $xml->document[$i]->pubtitle;
+            $conference = str_replace("\"", "", $conference);
+
             $pdfUrl = (string) $xml->document[$i]->pdf;
             $source = Constants::IEEE;
             $number = (string) $xml->document[$i]->arnumber;
@@ -156,8 +160,10 @@ class WordCloud
             $title = "";
 
             if(array_key_exists("title", $acmArray["message"]["items"][$i]))
-                if(!empty($acmArray["message"]["items"][$i]["title"]))
+                if(!empty($acmArray["message"]["items"][$i]["title"])) {
                     $title = $acmArray["message"]["items"][$i]["title"][0];
+                    $title = str_replace("\"", "", $title);
+                }
 
 
 
@@ -176,8 +182,10 @@ class WordCloud
                 }
             }
             $conference = "";
-            if(array_key_exists("container-title", $acmArray["message"]["items"][$i]))
+            if(array_key_exists("container-title", $acmArray["message"]["items"][$i])) {
                 $conference = $acmArray["message"]["items"][$i]["container-title"];
+                $conference = str_replace("\"", "", $conference);
+            }
 
             if(array_key_exists("URL", $acmArray["message"]["items"][$i]))
                 $articleUrl = $acmArray["message"]["items"][$i]["URL"];
@@ -218,7 +226,12 @@ class WordCloud
         $pdf_link = $xml->document->pdf;
         error_log($pdf_link);
         shell_exec("python getPDF.py '".$pdf_link."' i '".$pdf_name."'");
-        $pdf_text = $this->pdfParser->parsePDF($pdf_name);
+        try {
+            $pdf_text = $this->pdfParser->parsePDF($pdf_name);
+        }
+        catch (Exception $e){
+            return;
+        }
         if (!$pdf_text) {
             return;
         }
@@ -239,7 +252,13 @@ class WordCloud
         $url = $url."&preflayout=flat";
         error_log($url);
         shell_exec("python getPDF.py '".$url."' a '".$pdf_name."'");
-        $pdf_text = $this->pdfParser->parsePDF($pdf_name);
+        try {
+            $pdf_text = $this->pdfParser->parsePDF($pdf_name);
+        }
+        catch (Exception $e){
+            return;
+        }
+
         if (!$pdf_text) {
             return;
         }
@@ -277,8 +296,15 @@ class WordCloud
     }
 
     public function getWordListOfArticles($word){
-        $wordObject = $this->wcData[$word];
         $articlesArray = array();
+        if(array_key_exists($word, $this->wcData)){
+            $wordObject = $this->wcData[$word];
+        }
+        else{
+            $sendObj = array("articles"=>$articlesArray);
+            return json_encode($sendObj);
+        }
+
 
         foreach ($wordObject->articleList as $articleTitle=>$numOccurrences){
             $article = $this->articleList[$articleTitle];

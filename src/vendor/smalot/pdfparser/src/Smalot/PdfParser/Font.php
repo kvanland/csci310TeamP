@@ -138,7 +138,10 @@ class Font extends Object
         );
 
         if ($this->has('ToUnicode')) {
-            $content = $this->get('ToUnicode')->getContent();
+            $temp = $this->get('ToUnicode');
+            if($temp == null)
+                return $this->table;
+            $content = $temp->getContent();
             $matches = array();
 
             // Support for multiple spacerange sections

@@ -8,11 +8,11 @@ Feature: Viewing article list
     When I enter the term "Adleman" into the search bar
     And I press the "searchAuthorButton" button
     And I press on "lunar" in the wordcloud
-    Then I should see an article list
+    Then I should see the article list for "Adleman"
 
     Scenario: Click on word "comparator"
     Given The current page is "http://127.0.0.1"
     When I enter the term "computer" into the search bar
     And I press the "searchKeywordButton" button
     And I press on "comparator" in the wordcloud
-    Then I should see an article list
+    Then I should see an article list for "comparator"

@@ -1,2 +1,5 @@
 1. Bug Description
     Test for bug and how it tests for that bug
+Conference list frequency
+pdf parser
+sorting article list

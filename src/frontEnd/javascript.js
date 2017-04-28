@@ -336,9 +336,11 @@ function populateArticlePage(articleText, word){ //void
 
 
 
+        var link = "backEnd/" + encodeURIComponent(currentArticle) + ".pdf";
+        console.log(link);
 	var text = String(articleText); //
 	var inner = text.replace(new RegExp(word, "g"), '<span style="color:#1ED760">' + word + '</span>');
-	inner = currentArticle + "<br> <br>" +"Abstract: <br>" + inner;
+	inner = currentArticle + "<br> <br>" +"Abstract: <br>" + inner + "<br> <br> <a href='" + link + "'>Download Article in PDF format</a>";
      var theDiv = document.getElementById("ArticlePage");
 	theDiv.innerHTML = inner;
 }
@@ -595,10 +597,6 @@ function conferenceCellAction(d) {
 	populateArticleList(getConferencelist(), currentConference, getConferencelist());
 	showArticleListPage();
 	setPage(4);
-}
-
-function downloadCellAction(d) {
-	window.open(d);
 }
 
 function bibCellAction(d) {

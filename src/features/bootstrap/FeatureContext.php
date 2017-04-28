@@ -453,4 +453,36 @@ class FeatureContext extends MinkContext
     {
         throw new PendingException();
     }
+
+    /**
+     * @Then I should see the article list for :arg1
+     */
+    public function iShouldSeeTheArticleListFor($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see an article list for :arg1
+     */
+    public function iShouldSeeAnArticleListFor($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I press on the first :arg1 link
+     */
+    public function iPressOnTheFirstLink($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should open a new window
+     */
+    public function iShouldOpenANewWindow()
+    {
+        throw new PendingException();
+    }
 }
