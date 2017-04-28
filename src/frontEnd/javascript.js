@@ -408,10 +408,10 @@ function populateArticleList(articleData, caption, articles){ //void
 	    	.text(function (column) { return column; })
 	    	.on("click", function (d, i) {
 				if(i==2) {
-					sortTable(i, true);
+					sortTable(i, true, false);
 				}
 	    		else if(i%7 < 4) {
-	    			sortTable(i, false);
+	    			sortTable(i, false, false);
 	    		}
 	    	});
 
@@ -486,16 +486,18 @@ function populateArticleList(articleData, caption, articles){ //void
 	    });
 
 	    table.attr("id", 'myTable');
-		sortTable(2, true); //Sorts table by frequency by default
+		sortTable(2, true, true); //Sorts table by frequency by default
 
 }
 
-function sortTable(n, isNum) {
+function sortTable(n, isNum, isDesc) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("myTable");
   switching = true;
   //Set the sorting direction to ascending:
   dir = "asc";
+  if(isDesc)
+  	dir = "desc";
   /*Make a loop that will continue until
   no switching has been done:*/
   while (switching) {
