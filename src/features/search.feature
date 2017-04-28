@@ -29,15 +29,9 @@ Feature: Search
 
     Scenario: Search for term algorithm with one paper
     Given The current page is "http://127.0.0.1"
-    When I enter the term "algorithm" into the search bar
+    When I enter the term "Implementations of Coherent Software-Defined Dual-Polarized Radars" into the search bar
     And I limit articles to "1"
     And I press the "searchKeywordButton" button
-    Then I should see a Word Cloud based on algorithm
+    Then I should see a Word Cloud
 
-    Scenario: Search for author by clicking author name in word list
-    Given The current page is "http://127.0.0.1"
-    When I enter the term "Adleman" into the search bar
-    And I press the "searchAuthorButton" button
-    And I select the word "raised"
-    And I select the author "Leonard M. Adleman" 
-    Then I should see a Word Cloud based on Adelman
+
