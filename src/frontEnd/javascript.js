@@ -605,9 +605,7 @@ function conferenceCellAction(d) {
 function bibCellAction(d) {
 	window.open(d);
 	var download = document.getElementById('hiddenA');
- download.href = d;
-  download.download = "article.pdf";
-  download.click();
+
 }
 function downloadCellAction(d) {
 	window.open(d);
@@ -651,6 +649,7 @@ function exportPlainText(){
 	}
 	uriContent = "data:application/octet-stream," + encodeURIComponent(content);
 	newWindow = window.open(uriContent, 'neuesDokument');
+	window.open("data:text/html," + encodeURIComponent(content));
 }
 
 
