@@ -8,18 +8,20 @@
 
 include "WordCloud.php";
 
+
+session_start();
+$wordCloud = $_SESSION["wordCloud"];
+
 $word = $_GET["word"];
 
 
-echo WordArticleListDriver::getWordArticleList($word);
+echo WordArticleListDriver::getWordArticleList($word, $wordCloud);
 
 class WordArticleListDriver{
 
-    public static function getWordArticleList($word){
-        session_start();
-        $wordCloud = $_SESSION["wordCloud"];
-        $i = $wordCloud->getWordListOfArticles($word);
-        return $i;
+    public static function getWordArticleList($word, $wc){
+        if(is_object($wc))
+            return $wc->getWordListOfArticles($word);
     }
 
 }

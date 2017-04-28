@@ -127,6 +127,7 @@ class WordCloudTest extends TestCase
 
         $modelBool = $wordCloud->wcData["model"]->occurrences == 4;
         $systemsBool = $wordCloud->wcData["systems"]->occurrences == 2;
+        $pdfExists = file_exists("Analysis of opportunistic localization algorithms based on the linear matrix inequality method.pdf");
 
         $this->assertEquals($modelBool && $systemsBool, true);
     }
@@ -139,8 +140,9 @@ class WordCloudTest extends TestCase
 
         $frameworkBool = $wordCloud->wcData["framework"]->occurrences == 7;
         $consumptionBool = $wordCloud->wcData["consumption"]->occurrences == 1;
+        $pdfBool = file_exists("Throughput and Energy Efficiency of Bluetooth v2 + EDR in Fading Channels.pdf");
 
-        $this->assertEquals($frameworkBool && $consumptionBool, true);
+        $this->assertEquals($pdfBool && $frameworkBool && $consumptionBool, true);
     }
 
     public function testGetWordCloudData(){
