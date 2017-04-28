@@ -223,7 +223,9 @@ class FeatureContext extends MinkContext
         }  else if( $arg1 == "Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos") {
                 $expectedAbstract = "Automatic Speaker Identification from Interpersonal Synchrony of Body Motion Behavioral Patterns in Multi-Person Videos  Abstract: Interpersonal synchrony, i.e. the temporal coordination of persons during social interactions, was traditionally studied by developmental psychologists. It now holds an important role in fields such as social signal processing, usually treated as a dyadic issue. In this paper, we focus on the behavioral patterns from body motion to identify subtle social interactions in the context of multi-person discussion panels, typically involving more than two interacting individuals. We propose a computer-vision based approach for automatic speaker identification that takes advantage of body motion interpersonal synchrony between participants. The approach characterizes human body motion with a novel feature descriptor based on the pixel change history of multiple body regions, which is then used to classify the motor behavioral patterns of the participants into speaking/non-speaking. Our approach was evaluated on a challenging dataset of video segments from discussion panel scenes collected from YouTube. Results are very promising and suggest that interpersonal synchrony of motion behavior is indeed indicative of speaker/listener roles.";
         }
-
+        if(count($articleDiv->findAll('css', 'span')) == 0) {
+            throw new Exception("Word not highlighted in abstract");
+        }
         $abstract = $articleDiv->getText();
         if ($abstract != $expectedAbstract) {
             print($expectedAbstract);
@@ -255,7 +257,21 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAnArticleListFrom($arg1)
     {
-        throw new PendingException();
+
+        $session = $this->getSession();
+            $page = $session->getPage();
+            $songListDiv = $page->findById("ArticleList");
+            $table_body = $songListDiv->finall('css', 'tbody');
+            $table_rows = $table_body->findAll('css', 'tr');
+            foreach($table_rows as $row){
+                $table_data = $row->findall('css', 'td');
+                $par = $table_data[3]->find('css', 'p');
+                if($par->getText() != $arg1) {
+                    throw new Exception("Failure displaying conference List");
+                }
+                
+            }
+        
     }
 
     /**
@@ -390,17 +406,19 @@ class FeatureContext extends MinkContext
      */
     public function theFirstArticleInTheArticleListIs($arg1)
     {
-//        $session = $this->getSession();
-//        $page = $session->getPage();
-//        $content = $page->find('css', sprintf('table tr:contains("%s")', $arg1));
-//        print_r($content);
-//        if(!content){
-//            throw new Exception($arg1. " could not be found");
-//        }
-//        if(strcmp(content,$arg1) != 0){
-//            throw new Exception($arg1. " does not match first article in article list");
-//        }
-        throw new PendingException();
+        var valid = false;
+        $session = $this->getSession();
+        $page = $session->getPage();
+        $articleListDiv = $page->findById("ArticleList");
+        $table_rows = $articleListDiv->findAll('css', 'tr');
+        foreach($table_rows as $row){
+            $table_data = $row->findall('css', 'td');
+            $article = $table_data[0]->find('css', 'p');
+            if($article->getText() == $arg1) {
+              valid = true;
+            }
+        }
+        if(!valid) throw new Exception("The First Article in the Article List is not " . $arg1);
 
     }
 
@@ -417,9 +435,13 @@ class FeatureContext extends MinkContext
      */
     public function iShouldDownloadAPlainTextDocumentThatContainsAllOfTheArticleListInformation()
     {
+        
         sleep(5);
-        if(!file_exists("~/Downloads/download"))
-            throw new Exception("Plain text not downloaded");
+        $session = $this->getSession();
+        $windowNames = $session->getWindowNames();
+        if (sizeof($windowNames) < 2) {
+            throw new Exception("No pdf document was opened in a new tab");
+        }
     }
 
     /**
@@ -427,7 +449,13 @@ class FeatureContext extends MinkContext
      */
     public function iShouldDownloadAPdfDocumentThatContainsAllOfTheArticleListInformation()
     {
-        throw new PendingException();
+       
+        sleep(5);
+        $session = $this->getSession();
+        $windowNames = $session->getWindowNames();
+        if (sizeof($windowNames) < 2) {
+            throw new Exception("No pdf document was opened in a new tab");
+        }
     }
 
     /**
@@ -435,15 +463,78 @@ class FeatureContext extends MinkContext
      */
     public function iSelectTheTopArticlesInTheTable($arg1)
     {
-        throw new PendingException();
+        $number = intval($arg1);
+        $session = $this->getSession();
+        $page = $session->getPage();
+        $articleListDiv = $page->findById("ArticleList");
+        $table_body = $songListDiv->findAll('css'. 'tbody');
+        $table_rows = $table_body->findAll('css', 'tr');
+        $counter = 0;
+        foreach($table_rows as $row){
+            if($counter > $number){
+                break;
+            }
+            $table_data = $row->findall('css', 'td');
+            $list = $table_data[6]->find('css', 'input');
+            $list.click();
+        }
     }
 
     /**
-     * @Then I should see a wordcloud made from the articles
+     * @Then I should see a wordcloud made from the :arg1 articles
      */
-    public function iShouldSeeAWordcloudMadeFromTheArticles()
-    {
-        throw new PendingException();
+    public function iShouldSeeAWordcloudMadeFromTheArticles($arg1)
+    {   
+        $number = intval($arg1);
+        if($number == 2) {
+            sleep(15); // wait for wordcloud generation to finish 
+            $session = $this->getSession();
+            $page = $session->getPage();
+            $word = $page->find('named', array('content', "imaging"));
+            if(!$word){
+                throw new Exception("Word " + "imaging" + " could not be found");
+            }
+            $word = $page->find('named', array('content', "image"));
+            if(!$word){
+                throw new Exception("Word " + "image" + " could not be found");
+            }
+            $word = $page->find('named', array('content', "microwave"));
+            if(!$word){
+                throw new Exception("Word " + "microwave" + " could not be found");
+            }
+            $word = $page->find('named', array('content', "European"));
+            if(!$word){
+                throw new Exception("Word " + "European" + " could not be found");
+            }
+            $word = $page->find('named', array('content', "rotation"));
+            if(!$word){
+                throw new Exception("Word " + "rotation" + " could not be found");
+            }
+        } else if ($number == 1) {
+            sleep(15); // wait for wordcloud generation to finish 
+            $session = $this->getSession();
+            $page = $session->getPage();
+            $word = $page->find('named', array('content', "data"));
+            if(!$word){
+                throw new Exception("Word " + "data" + " could not be found");
+            }
+            $word = $page->find('named', array('content', "language"));
+            if(!$word){
+                throw new Exception("Word " + "language" + " could not be found");
+            }
+            $word = $page->find('named', array('content', "syntax"));
+            if(!$word){
+                throw new Exception("Word " + "syntax" + " could not be found");
+            }
+            $word = $page->find('named', array('content', "procedure"));
+            if(!$word){
+                throw new Exception("Word " + "procedure" + " could not be found");
+            }
+            $word = $page->find('named', array('content', "evaluation"));
+            if(!$word){
+                throw new Exception("Word " + "evaluation" + " could not be found");
+            }
+        }
     }
 
     /**
@@ -451,15 +542,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAnAlertTo($arg1)
     {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then I should see the article list for :arg1
-     */
-    public function iShouldSeeTheArticleListFor($arg1)
-    {
-        throw new PendingException();
+        return $arg1 == $this->getSession()->getDriver()->getWebDriverSession()->getAlert_text();
     }
 
     /**
@@ -467,7 +550,31 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAnArticleListFor($arg1)
     {
-        throw new PendingException();
+         if($arg1 == "imaging") {
+            $session = $this->getSession();
+            $page = $session->getPage();
+            $songListDiv = $page->findById("ArticleList");
+            $table_body = $songListDiv->finall('css', 'tbody');
+            $table_rows = $table_body->findAll('css', 'tr');
+            foreach($table_rows as $row){
+                $table_data = $row->findall('css', 'td');
+                $par = $table_data[0]->find('css', 'p');
+                if($par->getText() != "On the Feasibility of Breast Cancer Imaging Systems at Millimeter-Waves Frequencies") {
+                    throw new Exception("Failure displaying article List for Test 1");
+                }
+                
+            }
+        } else if($arg1 == "lunar") {
+
+            $session = $this->getSession();
+        $page = $session->getPage();
+        $songListDiv = $page->findById("ArticleList");
+        $table_body = $songListDiv->finall('css', 'tbody');
+        $table_rows = $table_body->findAll('css', 'tr');
+        if(count($table_rows) != 5) {
+            throw new Exception("Not correct # articles in article List");
+        }
+        }
     }
 
     /**
@@ -475,7 +582,28 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnTheFirstLink($arg1)
     {
-        throw new PendingException();
+        if($arg1 == "bibtexLink") {
+            $session = $this->getSession();
+            $page = $session->getPage();
+            $songListDiv = $page->findById("ArticleList");
+            $table_body = $songListDiv->findAll('css' ,'tbody');
+            $table_rows = $table_body->findAll('css', 'tr');
+            $cells = $table_rows[0]->findAll('css', 'td');
+            $bib_cell = $cells[5];
+            $bib_cell->click();
+        
+        } else if($arg1 == "downloadLink") {
+
+            $session = $this->getSession();
+            $page = $session->getPage();
+            $songListDiv = $page->findById("ArticleList");
+            $table_body = $songListDiv->findAll('css' ,'tbody');
+            $table_rows = $table_body->findAll('css', 'tr');
+            $cells = $table_rows[0]->findAll('css', 'td');
+            $bib_cell = $cells[4];
+            $bib_cell->click();
+
+        }
     }
 
     /**
@@ -483,7 +611,13 @@ class FeatureContext extends MinkContext
      */
     public function iShouldOpenANewWindow()
     {
-        throw new PendingException();
+        
+        sleep(5);
+        $session = $this->getSession();
+        $windowNames = $session->getWindowNames();
+        if (sizeof($windowNames) < 2) {
+            throw new Exception("No pdf document was opened in a new tab");
+        }
     }
 
     /**
@@ -491,6 +625,12 @@ class FeatureContext extends MinkContext
      */
     public function theWcImageShouldDownload()
     {
-        throw new PendingException();
+        
+        sleep(5);
+        $session = $this->getSession();
+        $windowNames = $session->getWindowNames();
+        if (sizeof($windowNames) < 2) {
+            throw new Exception("No pdf document was opened in a new tab");
+        }
     }
 }
