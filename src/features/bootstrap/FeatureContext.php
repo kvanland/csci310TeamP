@@ -92,7 +92,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAWordCloudBasedOnAlgorithm()
     {
-        sleep(30); // wait for wordcloud generation to finish 
+        sleep(40); // wait for wordcloud generation to finish 
         $session = $this->getSession();
         $page = $session->getPage();
         $word = $page->find('named', array('content', "scada"));
@@ -123,7 +123,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAMessageSayingThereWereNoResults()
     {
-        sleep(2);
+        sleep(5);
         $session = $this->getSession();
         $page = $session->getPage();
         $message = $session->getDriver()->getWebDriverSession()->getAlert_text();
@@ -146,7 +146,7 @@ class FeatureContext extends MinkContext
         if ($style == "width: 100%;") {
             return;
         }
-        sleep(10);
+        sleep(20);
         $new_style = $progress_bar->getAttribute("style");;
         if ($new_style == $style) {
             throw new Exception("Progress bar doesn't gradually increase");
@@ -158,7 +158,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAWordCloud()
     {
-        sleep(30); // wait for wordcloud generation to finish 
+        sleep(40); // wait for wordcloud generation to finish 
         $session = $this->getSession();
         $page = $session->getPage();
         $wordCloudCanvas = $page->findById("wCCanvas");
@@ -190,7 +190,7 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnInTheWordcloud($arg1)
     {
-        sleep(30); // let word cloud generation finish
+        sleep(40); // let word cloud generation finish
         $session = $this->getSession();
         $page = $session->getPage();
         $word = $page->find('named', array('content', $arg1));
@@ -207,7 +207,7 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnInTheArticleList($arg1)
     {
-        sleep(5);
+        sleep(10);
         $session = $this->getSession();
         $page = $session->getPage();
         $article = $page->find('named', array('content', $arg1));
@@ -233,7 +233,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeTheAbstractOf($arg1)
     {
-        sleep(5);
+        sleep(10);
         $session = $this->getSession();
         $page = $session->getPage();
         $articleDiv = $page->findById("ArticlePage");
@@ -260,7 +260,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAnArticleList()
     {
-         sleep(5);
+         sleep(10);
         $session = $this->getSession();
         $page = $session->getPage();
         $songListDiv = $page->findById("ArticleList");
@@ -278,7 +278,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAnArticleListFrom($arg1)
     {
-         sleep(5);
+         sleep(10);
 
         $session = $this->getSession();
             $page = $session->getPage();
@@ -301,7 +301,7 @@ class FeatureContext extends MinkContext
      */
     public function iSelectTheWord($arg1)
     {
-        sleep(30);
+        sleep(40);
         $session = $this->getSession();
         $page = $session->getPage();
         $word = $page->find('named', array('content', $arg1));
@@ -317,7 +317,7 @@ class FeatureContext extends MinkContext
      */
     public function iSelectTheAuthor($arg1)
     {
-        sleep(5);
+        sleep(10);
 
         sleep(30);
         $session = $this->getSession();
@@ -350,7 +350,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAWordCloudBasedOnAdelman()
     {
-        sleep(30); // wait for wordcloud generation to finish 
+        sleep(40); // wait for wordcloud generation to finish 
         $session = $this->getSession();
         $page = $session->getPage();
         $word = $page->find('named', array('content', "optical"));
@@ -380,7 +380,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeADropdownWith($arg1)
     {
-        sleep(2);
+        sleep(5);
         $session = $this->getSession();
         $page = $session->getPage();
         $dropdown = $page->findById("dropdown-content");
@@ -394,7 +394,7 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnInTheDropdown($arg1)
     {
-        sleep(2);
+        sleep(5);
         $session = $this->getSession();
         $page = $session->getPage();
         $word = $page->find('named', array('content', $arg1));
@@ -423,7 +423,7 @@ class FeatureContext extends MinkContext
      */
     public function iPressOnInTheArticleTableHeader($arg1)
     {
-        sleep(2);
+        sleep(5);
         $session = $this->getSession();
         $page = $session->getPage();
         $content = $page->find('named', array('content', $arg1));
@@ -521,7 +521,7 @@ class FeatureContext extends MinkContext
 
         $number = intval($arg1);
         if($number == 2) {
-            sleep(30); // wait for wordcloud generation to finish 
+            sleep(40); // wait for wordcloud generation to finish 
             $session = $this->getSession();
             $page = $session->getPage();
             $word = $page->find('named', array('content', "imaging"));
@@ -545,7 +545,7 @@ class FeatureContext extends MinkContext
                 throw new Exception("Word " + "rotation" + " could not be found");
             }
         } else if ($number == 1) {
-            sleep(30); // wait for wordcloud generation to finish 
+            sleep(40); // wait for wordcloud generation to finish 
             $session = $this->getSession();
             $page = $session->getPage();
             $word = $page->find('named', array('content', "data"));
