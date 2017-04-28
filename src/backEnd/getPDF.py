@@ -15,13 +15,13 @@ class GetPDF:
         self.link = link
 
     def downLoadPDF(self, fileName, type):
-        print('retrieving cookies')
+        # print('retrieving cookies')
         newCookies = []
         try:
             newCookies = pickle.load(open('cookies.p', 'rb'))
         except IOError as ioe:
             if 'No such file or directory' in ioe:
-                print('no cookie file detected, logging in to create one')
+                # print('no cookie file detected, logging in to create one')
                 l = login.Login()
                 if not l.login():
                     raise ValueError("Invalid Login")
@@ -37,7 +37,7 @@ class GetPDF:
                 isExpired = True
 
         if isExpired:
-            print('Cookies expired, logging in')
+            # print('Cookies expired, logging in')
             l = login.Login()
             if not l.login():
                 raise ValueError("Invalid Login")
@@ -63,18 +63,18 @@ class GetPDF:
         br.addheaders = [('User-agent', 'Chrome')]
 
         if(type == "a"):
-            print("dowloading ACM PDF...")
+            # print("dowloading ACM PDF...")
             br.open(self.link)
             open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())
         elif(type == "i"):
-            print("dowloading IEEE PDF...")
-            print(br.open(self.link).read())
+            # print("dowloading IEEE PDF...")
+            br.open(self.link)
             open(fileName,'w').write(br.follow_link(nr=1).read())
         else:
-            print('incorrect argument provided for type of paper ie: a,i')
+            # print('incorrect argument provided for type of paper ie: a,i')
 
 if (len(sys.argv) < 4):
-    print("missing arguments")
+    # print("missing arguments")
 else:
     gp = GetPDF(sys.argv[1])
     gp.downLoadPDF(sys.argv[3],sys.argv[2])
