@@ -5,9 +5,7 @@ import mechanize
 import cookielib
 import pickle
 import sys
-import time
 import login
-start_time = time.time()
 
 class GetPDF:
 
@@ -70,11 +68,6 @@ class GetPDF:
             # print("dowloading IEEE PDF...")
             br.open(self.link)
             open(fileName,'w').write(br.follow_link(nr=1).read())
-        else:
-            # print('incorrect argument provided for type of paper ie: a,i')
 
-if (len(sys.argv) < 4):
-    # print("missing arguments")
-else:
-    gp = GetPDF(sys.argv[1])
-    gp.downLoadPDF(sys.argv[3],sys.argv[2])
+gp = GetPDF(sys.argv[1])
+gp.downLoadPDF(sys.argv[3],sys.argv[2])
