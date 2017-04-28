@@ -23,18 +23,16 @@ class GetWordsArticleListTest extends TestCase
         }
 
         $json = WordArticleListDriver::getWordArticleList("computer", $wordCloud);
-//        echo $json;
-//        print_r($json);
         $array = json_decode($json, true);
-        $titleBool = $array[0]["title"] == "Education in computer science and computer engineering starts with computer architecture";
-        $authorsBool = $array[0]["authors"][0] == "Yale N. Patt";
-        $frequencyBool = $array[0]["frequency"] == 3;
-        $conferenceBool = $array[0]["conference"] == "Proceedings of the 1996 workshop on Computer architecture education - WCAE-2 '96" ;
-        $downloadBool = $array[0]["download"] == "http://dx.doi.org/10.1145/1275152.1275160" ;
-        $bibtexBool = $array[0]["bibtex"] == "http://dl.acm.org/exportformats.cfm?id=1275160&expformat=bibtex";
-
-
-        $this->assertEquals($titleBool && $authorsBool && $frequencyBool && $conferenceBool && $downloadBool && $bibtexBool && sizeof($array) == 2, true);
+        $titleBool = $array["articles"][0]["title"] == "Invariant Pattern Recognition Using Radial Tchebichef Moments";
+        $authorsBool = $array["articles"][0]["authors"][0] == "Bin Xiao";
+        $frequencyBool = $array["articles"][0]["frequency"] == 2;
+        $conferenceBool = $array["articles"][0]["conference"] == "2010 Chinese Conference on Pattern Recognition (CCPR)" ;
+        $downloadBool = $array["articles"][0]["download"] == "http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5659179" ;
+        $bibtexBool = $array["articles"][0]["bibtex"] == "http://ieeexplore.ieee.org/xpl/downloadCitations?recordIds=5659179&citations-format=citation-only&download-format=download-bibtex";
+        // $boolArray = array($titleBool,$authorsBool,$frequencyBool,$conferenceBool,$downloadBool,$bibtexBool,sizeof($array) == 1);
+        // print_r($boolArray);
+        $this->assertEquals($titleBool && $authorsBool && $frequencyBool && $conferenceBool && $downloadBool && $bibtexBool && sizeof($array) == 1, true);
     }
 
 }
