@@ -6,6 +6,8 @@ import cookielib
 import pickle
 import sys
 import login
+import warnings
+warnings.filterwarnings("ignore")
 
 class GetPDF:
 
