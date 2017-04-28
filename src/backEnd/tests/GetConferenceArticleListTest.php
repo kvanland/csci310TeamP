@@ -53,7 +53,11 @@ class GetConferenceArticleListTest extends TestCase
     }
 
     public function testParseACM(){
-        ConferenceArticleListDriver::$articleList = array();
+        ConferenceArticleListDriver::$articleList =array();
+        ConferenceArticleListDriver::$articles = array();
+        ConferenceArticleListDriver::$numArticles = 5;
+        ConferenceArticleListDriver::$word = "computer";
+        ConferenceArticleListDriver::$conference = "2013 IEEE International Conference on Communications Workshops (ICC)";
         $article = new Article("http:\/\/dx.doi.org\/10.1145\/1275152.1275160", "", "", "", 0, 0);
         ConferenceArticleListDriver::parseACM($article);
 
@@ -62,7 +66,11 @@ class GetConferenceArticleListTest extends TestCase
     }
 
     public function testParseIEEE(){
-        ConferenceArticleListDriver::$articleList = array();
+        ConferenceArticleListDriver::$articleList =array();
+        ConferenceArticleListDriver::$articles = array();
+        ConferenceArticleListDriver::$numArticles = 5;
+        ConferenceArticleListDriver::$word = "computer";
+        ConferenceArticleListDriver::$conference = "2013 IEEE International Conference on Communications Workshops (ICC)";
         $article = new Article("", "", "", "", 1, 4107932);
         ConferenceArticleListDriver::parseIEEE($article);
 
@@ -71,6 +79,11 @@ class GetConferenceArticleListTest extends TestCase
     }
 
     public function testCountWordOccurences(){
+        ConferenceArticleListDriver::$articleList =array();
+        ConferenceArticleListDriver::$articles = array();
+        ConferenceArticleListDriver::$numArticles = 5;
+        ConferenceArticleListDriver::$word = "computer";
+        ConferenceArticleListDriver::$conference = "2013 IEEE International Conference on Communications Workshops (ICC)";
         $string = "When the count Occurence runs on the computer it should count the word computer about computer amount of times";
         $count = ConferenceArticleListDriver::countWordOccurence($string);
 
