@@ -65,11 +65,18 @@ class GetPDF:
         if(type == "a"):
             # print("dowloading ACM PDF...")
             br.open(self.link)
-            open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())
+            try:
+                open(fileName,'w').write(br.follow_link(text='PDF[IMG]PDF').read())
+            except Exception as e:
+                pass
         elif(type == "i"):
             # print("dowloading IEEE PDF...")
             br.open(self.link)
-            open(fileName,'w').write(br.follow_link(nr=1).read())
+            try:
+                open(fileName,'w').write(br.follow_link(nr=1).read())
+            except Exception as e:
+                pass
+
 
 gp = GetPDF(sys.argv[1])
 gp.downLoadPDF(sys.argv[3],sys.argv[2])
