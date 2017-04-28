@@ -7,6 +7,8 @@ var articleText; //String
 var articleList; //JSON object array
 var articleSubset; // JSON object array
 var conferenceList; // array of strings
+var content; //shit
+var rows;
 
 
 function setWordCloudData(data){ //void
@@ -622,11 +624,11 @@ function clearArticleList(){ //void
 function exportPlainText(){
 	if(PAGE[2]) {
 		var articleData = getArticleList();
-		var content = currentWord + "\n\n";
+		content = currentWord + "\n\n";
 	}
 	else {
 		var articleData = getConferencelist();
-		var content = currentConference + "\n\n";
+		content = currentConference + "\n\n";
 	}
 	for(var i = 0; i < articleData.length; i++) {
 		var curr = articleData[i];
@@ -666,7 +668,7 @@ function exportPdf(){
 		var articleData = getConferencelist();
 
 	var columns = ["title", "authors", "frequency", "conference", "download", "bibtex"];
-	var rows = [];
+	rows = [];
 	for(var i = 0; i < articleData.length; i++) {
 		var curr = articleData[i];
 		var authors = curr.authors.sort();
