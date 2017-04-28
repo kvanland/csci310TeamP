@@ -485,4 +485,12 @@ class FeatureContext extends MinkContext
     {
         throw new PendingException();
     }
+
+    /**
+     * @Then the WC image should download
+     */
+    public function theWcImageShouldDownload()
+    {
+        throw new PendingException();
+    }
 }

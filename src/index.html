@@ -78,6 +78,7 @@
 </div>
   
   <div id = "Search" >
+     <button id = "downloadButton" onclick = downloadAction() class = "dropbtn" style="visibility:hidden;"> Download WC </button>
     <input id = "searchBar" type = "text" ></input>
     <div class="dropdown">
       <button class="dropbtn" onmouseover=showSearchHistory() >Search History</button>
@@ -94,7 +95,11 @@
       <input type = "number" id = "articleInput" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" value = "5"/> 
     </div>
   </div>
-
+<div id="hiddenDiv"  >
+ <canvas id="hiddenCanvas" style="visibility:hidden;"></canvas>
+ <a id="hiddenPng" />
+ <a id="hiddenA" />
+</div>
 
 <body>
   <script src= "frontEnd/javascript.js"> </script> 
