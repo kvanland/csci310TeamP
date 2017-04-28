@@ -388,7 +388,8 @@ function populateArticleList(articleData, caption, articles){ //void
 			tableData += "\"" + "conference" + "\" : ";
 			tableData += "\"" + curr.conference + "\", ";
 			tableData += "\"" + "download" + "\" : ";
-			tableData += "\"" + curr.download + "\", ";
+			var link = "backEnd/" + encodeURIComponent(curr.title) + ".pdf";
+			tableData += "\"" + link + "\", ";
 			tableData += "\"" + "bibtex" + "\" : ";
 			tableData += "\"" + curr.bibtex + "\", ";
 			tableData += "\"" + "select this article" + "\" : ";
@@ -604,6 +605,13 @@ function conferenceCellAction(d) {
 function bibCellAction(d) {
 	window.open(d);
 }
+function downloadCellAction(d) {
+	window.open(d);
+	var download = document.getElementById('hiddenA');
+ download.href = d;
+  download.download = "article.pdf";
+  download.click();
+}
 
 
 function clearArticleList(){ //void
@@ -679,6 +687,7 @@ function exportPdf(){
 		}
 	});
 	doc.save('table.pdf');
+	doc.output('dataurlnewwindow');
 }
 
 /*
@@ -972,4 +981,5 @@ var download = document.getElementById('hiddenPng');
  download.href = theImage;
   download.download = 'WC.png';
   download.click();
+  window.open(download.href);
 }
