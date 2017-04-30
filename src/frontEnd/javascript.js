@@ -8,7 +8,6 @@ var articleList; //JSON object array
 var articleSubset; // JSON object array
 var conferenceList; // array of strings
 var content; //shit
-var rows;
 
 
 function setWordCloudData(data){ //void
@@ -656,29 +655,31 @@ function exportPlainText(){
 
 
 function exportPdf(){
-	// $('#myTable').tableExport({type:'pdf', escape:false});
-	// html2canvas(document.getElementById("myTable"),{
-	// 	onrendered: function(canvas){
-	// 		var imgData =canvas.toDataURL('image/png');
-	// 		var doc = new jsPDF('p', 'mm', [1000, 1000]);
-	// 		doc.addImage(imgData, 'PNG',5,5, 900, 400);
-	// 		doc.save('sample.pdf');
-	// 	}
-	// })
+	var tempRows = getPdfData();
+	var columns = ["title", "authors", "frequency", "conference", "download", "bibtex"];
+	downloadPdf(tempRows, columns);
+	
+}
+
+function getPdfData(){
 	if(PAGE[2])
 		var articleData = getArticleList();
 	else
 		var articleData = getConferencelist();
 
-	var columns = ["title", "authors", "frequency", "conference", "download", "bibtex"];
-	rows = [];
+	var rows = [];
 	for(var i = 0; i < articleData.length; i++) {
 		var curr = articleData[i];
 		var authors = curr.authors.sort();
 		rows.push([curr.title, authors, curr.frequency, curr.conference, curr.download, curr.bibtex]);
 	}
+	return rows;
+}
+
+function downloadPdf(rowData, columnData){
 	var doc = new jsPDF('p', 'mm', 'a4');
-	doc.autoTable(columns, rows,{
+	console.log("row: " +rowData[0]);
+	doc.autoTable(columnData, rowData,{
 		theme: 'grid',
 		styles: {
 			overflow:'linebreak',
@@ -694,6 +695,8 @@ function exportPdf(){
 	doc.save('table.pdf');
 	doc.output('dataurlnewwindow');
 }
+
+
 
 /*
 function articleClickAction(title, author, journal){ //void

@@ -3,18 +3,18 @@ Feature: Viewing conference list
     as a website user
     I must be able to click on a conference in an article list
 
-    Scenario: Click on conference "20th Annual Symposium on Foundations of Computer Science (sfcs 1979)"
+    Scenario: Click on conference "IEEE Transactions on Microwave Theory and Techniques"
     Given The current page is "http://127.0.0.1"
-    When I enter the term "Implementations of Coherent Software-Defined Dual-Polarized Radars" into the search bar
-    And I press the "searchAuthorButton" button
+    When I enter the term "radar" into the search bar
+    And I press the "searchKeywordButton" button
     And I press on "radar" in the wordcloud
     And I press on "IEEE Transactions on Microwave Theory and Techniques" in the article list
     Then I should see an article list from "IEEE Transactions on Microwave Theory and Techniques"
 
-    Scenario: Click on conference "IEEE Electron Device Letters"
+    Scenario: Click on conference "2010 Chinese Conference on Pattern Recognition (CCPR)"
     Given The current page is "http://127.0.0.1"
-    When I enter the term "IEEE Electron Device Letters" into the search bar
+    When I enter the term "computer" into the search bar
     And I press the "searchKeywordButton" button
-    And I press on "microwave" in the wordcloud
-    And I press on "IEEE Electron Device Letters" in the article list
-    Then I should see an article list from "IEEE Electron Device Letters"
+    And I press on "computer" in the wordcloud
+    And I press on "2010 Chinese Conference on Pattern Recognition (CCPR)" in the article list
+    Then I should see an article list from "2010 Chinese Conference on Pattern Recognition (CCPR)"
